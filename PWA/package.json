@@ -22,7 +22,6 @@
     "@polymer/iron-media-query": "^3.0.0-pre.15",
     "@polymer/iron-pages": "^3.0.0-pre.15",
     "@polymer/iron-selector": "^3.0.0-pre.15",
-    "@polymer/lit-element": "^0.6.5",
     "@polymer/paper-icon-button": "^3.0.0-pre.15",
     "@polymer/polymer": "^3.0.0",
     "@vaadin/vaadin-tabs": "^2.1.1",

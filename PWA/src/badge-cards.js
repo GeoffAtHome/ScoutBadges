@@ -60,7 +60,9 @@ class BadgeCards extends PolymerElement {
     }
 
     Changed(section, set) {
-        this.badges = this.data[section][set];
+        if (this.data !== undefined) {
+            this.badges = this.data[section][set];
+        }
     }
 
     setName(set) {

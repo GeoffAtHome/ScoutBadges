@@ -161,7 +161,7 @@ class MyApp extends PolymerElement {
     } else if (['Beavers', 'Cubs', 'Scouts', 'Explorers', "Badge"].indexOf(page) !== -1) {
       this.page = page;
     } else {
-      this.page = 'view404';
+      this.page = 'Beavers';
     }
 
     // Close a non-persistent drawer when the page & route are changed.
