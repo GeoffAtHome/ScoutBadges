@@ -83,18 +83,18 @@ class MyApp extends PolymerElement {
       <app-location route="{{route}}" url-space-regex="^[[rootPath]]">
       </app-location>
 
-      <app-route route="{{route}}" pattern="[[rootPath]]:page" data="{{routeData}}" tail="{{subroute}}">
-      </app-route>
+      <app-route route="{{route}}" pattern="[[rootPath]]:page" data="{{routeData}}" tail="{{subroute}}"></app-route>
+      <app-route route="{{subroute}}" pattern="/:set" data="{{subrouteData}}"></app-route>
 
       <app-drawer-layout fullbleed="" narrow="{{narrow}}">
         <!-- Drawer content -->
         <app-drawer id="drawer" slot="drawer" swipe-open="[[narrow]]">
           <app-toolbar>Menu</app-toolbar>
           <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
-            <a name="Beavers" href="[[rootPath]]Beavers">Beavers</a>
-            <a name="Cubs" href="[[rootPath]]Cubs">Cubs</a>
-            <a name="Scouts" href="[[rootPath]]Scouts">Scouts</a>
-            <a name="Explorers" href="[[rootPath]]Explorers">Explorers</a>
+            <a name="Beavers" href="[[rootPath]]Beavers/[[set]]">Beavers</a>
+            <a name="Cubs" href="[[rootPath]]Cubs/[[set]]">Cubs</a>
+            <a name="Scouts" href="[[rootPath]]Scouts/[[set]]">Scouts</a>
+            <a name="Explorers" href="[[rootPath]]Explorers/[[set]]">Explorers</a>
           </iron-selector>
         </app-drawer>
 
@@ -104,16 +104,14 @@ class MyApp extends PolymerElement {
           <app-header slot="header" condenses="" reveals="" effects="waterfall">
             <app-toolbar>
               <paper-icon-button icon="my-icons:menu" drawer-toggle=""></paper-icon-button>
-              <div main-title="">My App</div>
+              <div main-title="">[[title]]</div>
             </app-toolbar>
           </app-header>
 
           <iron-pages selected="[[page]]" attr-for-selected="name" role="main">
-            <section-badges name="Beavers" section="Beavers" data="[[data]]"></section-badges>
-            <section-badges name="Cubs" section="Cubs" data="[[data]]"></section-badges>
-            <section-badges name="Scouts" section="Scouts" data="[[data]]"></section-badges>
-            <section-badges name="Explorers" section="Explorers" data="[[data]]"></section-badges>
-            <display-badge name="Badge" card$="[[card.info]]"></display-badge>
+            <welcome-page name="Welcome"></welcome-page>
+            <section-badges name="section" section="[[section]]" set="[[set]]" data="[[data]]"></section-badges>
+            <display-badge name="Badge" set="[[set]]" card="[[card]]"></display-badge>
             <my-view404 name="view404"></my-view404>
           </iron-pages>
         </app-header-layout>
@@ -125,49 +123,87 @@ class MyApp extends PolymerElement {
     return {
       card: Object,
       data: Object,
+      set: {
+        type: String,
+        reflectToAttribute: true,
+        // observer: '_pageChanged'
+      },
+      section: String,
+      title: {
+        type: String,
+        value: "Scout Badge Requirements"
+      },
       page: {
         type: String,
         reflectToAttribute: true,
         observer: '_pageChanged'
       },
       routeData: Object,
+      subrouteData: Object,
       subroute: Object
     };
   }
 
   static get observers() {
     return [
-      '_routePageChanged(routeData.page)'
+      '_routePageChanged(routeData.page, subrouteData.set)'
     ];
   }
 
   ready() {
     super.ready();
     window.addEventListener("display-badge", event => this._displayBadge(event));
+    window.addEventListener("display-title", event => this._displayTitle(event));
+    window.addEventListener("change-set", event => this._changeSet(event));
   }
 
   _displayBadge(event) {
-    this.card = event.detail;
+    this.card = event.detail.info;
     this.page = "Badge";
+    console.log(this.card.title);
   }
 
-  _routePageChanged(page) {
+  _displayTitle(event) {
+    this.title = event.detail;
+    console.log(this.title);
+  }
+
+  _changeSet(event) {
+    const set = event.detail;
+    this.set = set;
+    window.history.pushState(set, this.section, '/' + this.section + '/' + set);
+  }
+
+  _routePageChanged(page, set) {
     // Show the corresponding page according to the route.
     //
     // If no page was found in the route data, page will be an empty string.
     // Show 'view1' in that case. And if the page doesn't exist, show 'view404'.
     if (!page) {
-      this.page = 'Beavers';
-    } else if (['Beavers', 'Cubs', 'Scouts', 'Explorers', "Badge"].indexOf(page) !== -1) {
+      this.page = 'Welcome';
+      this.set = '';
+    } else if (['Beavers', 'Cubs', 'Scouts', 'Explorers'].indexOf(page) !== -1) {
+      this.page = 'section'
+      this.section = page;
+      if (!set) {
+        this.set = "core";
+      } else if (['core', , 'activity', 'challenge', 'staged'].indexOf(set) !== -1) {
+        this.set = set;
+      } else {
+        this.set = "core";
+      }
+    } else if (this.page === 'Badge') {
       this.page = page;
     } else {
-      this.page = 'Beavers';
+      this.page = 'Welcome';
+      this.set = '';
     }
 
     // Close a non-persistent drawer when the page & route are changed.
     if (!this.$.drawer.persistent) {
       this.$.drawer.close();
     }
+    console.log("Section: " + this.page + " Set: " + this.set);
   }
 
   _pageChanged(page) {
@@ -175,8 +211,17 @@ class MyApp extends PolymerElement {
     //
     // Note: `polymer build` doesn't like string concatenation in the import
     // statement, so break it up.
-    import('./section-badges.js');
-    import('./display-badge.js');
+    switch (page) {
+      case 'Welcome':
+        import('./welcome-page.js');
+        break;
+      case 'Badge':
+        import('./display-badge.js');
+        break;
+      default:
+        import('./section-badges.js');
+        break;
+    }
   }
 }
 

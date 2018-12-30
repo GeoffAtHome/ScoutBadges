@@ -25,14 +25,13 @@ class BadgeCards extends PolymerElement {
           padding: 10px;
         }
         badge-card {
-            width = 500px;
+            width = 200px;
         }
       </style>
 
-    <h1>[[section]] [[setName(set)]]</h1>
     <dom-repeat items="{{badges}}">
         <template>
-        <badge-card card$="[[item]]"></badge-card>
+        <badge-card card$="[[item]]" section$="[[section]]"></badge-card>
         </template>
     </dom-repeat>
     `;
@@ -63,19 +62,22 @@ class BadgeCards extends PolymerElement {
         if (this.data !== undefined) {
             this.badges = this.data[section][set];
         }
+        this.dispatchEvent(new CustomEvent("display-title", {
+            bubbles: true,
+            composed: true,
+            detail: section + ": " + this.setName(set)
+        }));
     }
 
     setName(set) {
         switch (set) {
-            case "Corebadges":
+            case "core":
                 return "Core badges";
-            case "Awards":
-                return "Awards";
-            case "ChallengeAwards":
+            case "challenge":
                 return "Challenge awards";
-            case "ActivityBadges":
+            case "activity":
                 return "Activity badges";
-            case "StagedActivityBadges":
+            case "staged":
                 return "Staged activity badges";
                 break;
         }

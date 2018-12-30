@@ -41,17 +41,23 @@ class BadgeCard extends PolymerElement {
      */
     static get properties() {
         return {
-            card: Object
+            card: Object,
+            section: String
         };
     }
 
     Clicked(event) {
-        console.log("Clicked");
         this.dispatchEvent(new CustomEvent("display-badge", {
             bubbles: true,
             composed: true,
             detail: this.card
         }));
+        this.dispatchEvent(new CustomEvent("display-title", {
+            bubbles: true,
+            composed: true,
+            detail: this.section + ": " + this.card.title
+        }));
+
     }
 
 }

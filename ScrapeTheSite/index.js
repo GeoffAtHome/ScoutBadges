@@ -3,7 +3,7 @@ const request = require('request');
 const stripHtmlComments = require('strip-html-comments');
 const fs = require('fs');
 
-async function SingleBadge(data, section, badge, request) {
+async function SingleBadge(data, section, badgeSet, request) {
     const results = await xray(request.href, 'body', [{
         text: xray('div.seven.columns@html'),
     }]);
@@ -14,7 +14,7 @@ async function SingleBadge(data, section, badge, request) {
         text = text.replace(/<\/font>/g, '');
         text = text.replace(/<span.*?>/g, '<span>');
         const images = img = text.match(/<img .*?>/);
-        console.log(section + ": " + badge + ": " + request.text);
+        console.log(section + ": " + badgeSet + ": " + request.text);
         if (images !== null) {
             for (const image of images) {
                 const path = image.match(/src=".*?"/)[0].split('=')[1].replace(/"/g, "")
@@ -23,8 +23,10 @@ async function SingleBadge(data, section, badge, request) {
             }
         }
         const saveName = SaveImage(request.image);
-        data[section][badge].push({
-            title: request.text,
+        // Strip back the title to make the text shorter
+        const title = request.text.replace(/ Staged Activity Badge/, '').replace(/ Activity Badge/, '').replace(/ Challenge Award/, '').replace(/ Award/, '');
+        data[section][badgeSet].push({
+            title: title,
             image: saveName,
             info: text
         });
@@ -59,14 +61,29 @@ function GetImage(href, shortName) {
 async function BadgeSets(data, section, request) {
     // Remove spaces from section label
     section = section.replace(/ /g, '');
-    await BadgeSetPage(data, section, request);
+    // Normalise the badge set
+    let badgeSet = '';
+    switch (request.text) {
+        case 'Activity Badges':
+            badgeSet = "activity";
+            break;
+        case 'Awards':
+        case 'Challenge Awards':
+            badgeSet = "challenge";
+            break;
+        case 'Core badges':
+            badgeSet = 'core';
+            break
+        case 'Staged Activity Badges':
+            badgeSet = 'staged';
+            break
+    }
+
+    await BadgeSetPage(data, section, request, badgeSet);
     await CheckForMorePages(data, section, request);
 }
 
-async function BadgeSetPage(data, section, request) {
-    // Remove spaces from badge label
-    const badge = request.text.replace(/ /g, '');;
-
+async function BadgeSetPage(data, section, request, badgeSet) {
     const results = await xray(request.href, 'td', [{
         text: 'div',
         href: 'a@href',
@@ -74,7 +91,7 @@ async function BadgeSetPage(data, section, request) {
     }]);
 
     for (const result of results) {
-        await SingleBadge(data, section, badge, result);
+        await SingleBadge(data, section, badgeSet, result);
     }
 }
 
@@ -142,28 +159,28 @@ async function SectionBadges(data, request) {
 async function Root() {
     let data = {
         Beavers: {
-            ActivityBadges: [],
-            Corebadges: [],
-            ChallengeAwards: [],
-            StagedActivityBadges: []
+            activity: [],
+            core: [],
+            challenge: [],
+            staged: []
         },
         Cubs: {
-            ActivityBadges: [],
-            Corebadges: [],
-            ChallengeAwards: [],
-            StagedActivityBadges: []
+            activity: [],
+            core: [],
+            challenge: [],
+            staged: []
         },
         Scouts: {
-            ActivityBadges: [],
-            Corebadges: [],
-            ChallengeAwards: [],
-            StagedActivityBadges: []
+            activity: [],
+            core: [],
+            challenge: [],
+            staged: []
         },
         Explorers: {
-            ActivityBadges: [],
-            Corebadges: [],
-            Awards: [],
-            StagedActivityBadges: []
+            activity: [],
+            core: [],
+            challenge: [],
+            staged: []
         }
     }
 

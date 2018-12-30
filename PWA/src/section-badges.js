@@ -10,7 +10,7 @@ import './shared-styles.js';
 
 class SectionBadges extends PolymerElement {
     static get template() {
-            return html `
+        return html `
     <vaadin-tabs id="tabs" selected="{{selected}}">
         <vaadin-tab >Core badges</vaadin-tab>
         <vaadin-tab>Challenge awards</vaadin-tab>
@@ -20,10 +20,10 @@ class SectionBadges extends PolymerElement {
     <badge-cards data="[[data]]" section="[[section]]" set="[[set]]"></badge-cards>
     `;
 
-        }
-        /**
-         * Object describing property-related metadata used by Polymer features
-         */
+    }
+    /**
+     * Object describing property-related metadata used by Polymer features
+     */
     static get properties() {
         return {
             data: Object,
@@ -48,27 +48,26 @@ class SectionBadges extends PolymerElement {
     }
 
     SelectedChanged(selected) {
+        let set = "core";
         switch (selected) {
-            default: this.set = "Corebadges";
-            break;
-        case 0:
-                this.set = "Corebadges";
-            break;
-        case 1:
-                if (this.section === "Explorers") {
-                    this.set = "Awards";
-
-                } else {
-                    this.set = "ChallengeAwards";
-                }
-            break;
-        case 2:
-                this.set = "ActivityBadges";
-            break;
-        case 3:
-                this.set = "StagedActivityBadges";
-            break;
+            case 0:
+                set = "core";
+                break;
+            case 1:
+                set = "challenge";
+                break;
+            case 2:
+                set = "activity";
+                break;
+            case 3:
+                set = "staged";
+                break;
         }
+        this.dispatchEvent(new CustomEvent("change-set", {
+            bubbles: true,
+            composed: true,
+            detail: set
+        }));
     }
 }
 
