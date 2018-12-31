@@ -21,8 +21,6 @@ class BadgeCard extends PolymerElement {
       <style include="shared-styles">
         :host {
           display: inline-block;
-
-          padding: 5px;
         }
         iron-image {
             width: 150px;
@@ -31,10 +29,12 @@ class BadgeCard extends PolymerElement {
       </style>
 
       <a href="[[section]]/[[badgeset]]/[[card.id]]">
+      <div>
           <div class="card">
               <iron-image sizing="contain" fade src="[[card.image]]"></iron-image>
-                <p>[[card.title]]</p>
+                <div class="text">[[card.title]]</div>
           </div>
+          <div>
       </a>
     `;
     }

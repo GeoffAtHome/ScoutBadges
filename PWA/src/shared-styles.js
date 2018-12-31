@@ -33,12 +33,15 @@ $_documentContainer.innerHTML = `<dom-module id="shared-styles">
         border-radius: 5px;
         background-color: #fff;
         min-width: 200px;
-        width: 200px;
         max-width: 400px;
-        height: 210px;
+        height: 185px;
         word-wrap: break-word;
         text-align: center;
         box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+      }
+
+      .text {
+        padding 1250px 0;
       }
 
       a, u {
