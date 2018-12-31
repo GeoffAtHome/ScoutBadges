@@ -30,10 +30,12 @@ class BadgeCard extends PolymerElement {
         }
       </style>
 
-      <div class="card" on-click="Clicked">
-        <iron-image sizing="contain" fade src="[[card.image]]"></iron-image>
-        <p>[[card.title]]</p>
-      </div>
+      <a href="[[section]]/[[badgeset]]/[[card.id]]">
+          <div class="card">
+              <iron-image sizing="contain" fade src="[[card.image]]"></iron-image>
+                <p>[[card.title]]</p>
+          </div>
+      </a>
     `;
     }
     /**
@@ -42,24 +44,10 @@ class BadgeCard extends PolymerElement {
     static get properties() {
         return {
             card: Object,
+            badgeset: String,
             section: String
         };
     }
-
-    Clicked(event) {
-        this.dispatchEvent(new CustomEvent("display-badge", {
-            bubbles: true,
-            composed: true,
-            detail: this.card
-        }));
-        this.dispatchEvent(new CustomEvent("display-title", {
-            bubbles: true,
-            composed: true,
-            detail: this.section + ": " + this.card.title
-        }));
-
-    }
-
 }
 
 window.customElements.define('badge-card', BadgeCard);

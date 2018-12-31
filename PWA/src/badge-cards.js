@@ -29,9 +29,9 @@ class BadgeCards extends PolymerElement {
         }
       </style>
 
-    <dom-repeat items="{{badges}}">
+    <dom-repeat items="[[badges]]">
         <template>
-        <badge-card card$="[[item]]" section$="[[section]]"></badge-card>
+        <badge-card card="[[item]]" badgeset="[[badgeset]]" section="[[section]]"></badge-card>
         </template>
     </dom-repeat>
     `;
@@ -44,7 +44,7 @@ class BadgeCards extends PolymerElement {
             badges: Array,
             data: Object,
             section: String,
-            set: String
+            badgeset: String
         };
     }
 
@@ -54,23 +54,27 @@ class BadgeCards extends PolymerElement {
      */
     static get observers() {
         return [
-            'Changed(section, set)'
+            'Changed(section, badgeset)'
         ];
     }
 
-    Changed(section, set) {
-        if (this.data !== undefined) {
-            this.badges = this.data[section][set];
+    Changed(section, badgeset) {
+        if (this.data !== undefined && badgeset !== '') {
+            this.badges = this.data[section][badgeset];
+        }
+        let title = badgeset;
+        if (title === '') {
+            title = "Welcome";
         }
         this.dispatchEvent(new CustomEvent("display-title", {
             bubbles: true,
             composed: true,
-            detail: section + ": " + this.setName(set)
+            detail: "    " + title
         }));
     }
 
-    setName(set) {
-        switch (set) {
+    setName(badgeset) {
+        switch (badgeset) {
             case "core":
                 return "Core badges";
             case "challenge":

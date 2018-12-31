@@ -26,6 +26,7 @@ async function SingleBadge(data, section, badgeSet, request) {
         // Strip back the title to make the text shorter
         const title = request.text.replace(/ Staged Activity Badge/, '').replace(/ Activity Badge/, '').replace(/ Challenge Award/, '').replace(/ Award/, '');
         data[section][badgeSet].push({
+            id: title.replace(/(\(|\)| |')/g, '_').toLowerCase(),
             title: title,
             image: saveName,
             info: text
