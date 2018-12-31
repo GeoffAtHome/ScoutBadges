@@ -99,19 +99,19 @@ class MyApp extends PolymerElement {
           <app-toolbar>Menu</app-toolbar>
           <iron-selector selected="[[section]]" attr-for-selected="name" class="drawer-list" role="navigation">
             <a name="Welcome" href="[[rootPath]]Welcome/">
-              <iron-image class="menu" sizing="contain" fade src="images/welcome.png">Welcome</iron-image>
+              <iron-image class="menu" sizing="contain" fade src="images/Welcome.png">Welcome</iron-image>
             </a>
             <a name="Beavers" href="[[rootPath]]Beavers/[[badgeset]]/">
-              <iron-image class="menu" sizing="contain" fade src="images/beavers.png"></iron-image>
+              <iron-image class="menu" sizing="contain" fade src="images/Beavers.png"></iron-image>
             </a>
-            <a name="Cubs" href="[[rootPath]]Cubs/[[badgeset]]"/>
-              <iron-image class="menu" sizing="contain" fade src="images/cubs.png"></iron-image>
+            <a name="Cubs" href="[[rootPath]]Cubs/[[badgeset]]/">
+              <iron-image class="menu" sizing="contain" fade src="images/Cubs.png"></iron-image>
             </a>
             <a name="Scouts" href="[[rootPath]]Scouts/[[badgeset]]/">
-              <iron-image class="menu" sizing="contain" fade src="images/scouts.png"></iron-image>
+              <iron-image class="menu" sizing="contain" fade src="images/Scouts.png"></iron-image>
             </a>
             <a name="Explorers" href="[[rootPath]]Explorers/[[badgeset]]/">
-              <iron-image class="menu" sizing="contain" fade src="images/explorers.png"></iron-image>
+              <iron-image class="menu" sizing="contain" fade src="images/Explorers.png"></iron-image>
             </a>
           </iron-selector>
         </app-drawer>
@@ -122,8 +122,9 @@ class MyApp extends PolymerElement {
           <app-header slot="header" condenses="" reveals="" effects="waterfall">
             <app-toolbar>
               <paper-icon-button icon="my-icons:menu" drawer-toggle=""></paper-icon-button>
+              <div main-title>
               <iron-image class="menu" sizing="contain" fade src="images/[[section]].png"></iron-image>
-              <div main-title>[[title]]</div>
+              [[title]]</div>
               <paper-icon-button icon="my-icons:arrow-back" on-tap="_BackClicked"></paper-icon-button>
             </app-toolbar>
           </app-header>

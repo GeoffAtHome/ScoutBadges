@@ -9,15 +9,15 @@
  */
 
 import {
-    PolymerElement,
-    html
+  PolymerElement,
+  html
 } from '@polymer/polymer/polymer-element.js';
 import './shared-styles.js';
 
 
 class WelcomePage extends PolymerElement {
-    static get template() {
-        return html `
+  static get template() {
+    return html `
       <style include="shared-styles">
         :host {
           display: block;
@@ -25,10 +25,10 @@ class WelcomePage extends PolymerElement {
         }
       </style>
 
-    <h1>Scout Badge Requirements</h1>
+    <h1>Scout Badge Requirements v0.0.1</h1>
     <p>Welcome to Scout Badge Requirements. All the Scout badge requirements was scraped from scouts.org.uk. This app is free to use and should work offline once all the data has been cached.</p>
     `;
-    }
+  }
 }
 
 window.customElements.define('welcome-page', WelcomePage);
