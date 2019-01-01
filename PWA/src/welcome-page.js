@@ -25,8 +25,9 @@ class WelcomePage extends PolymerElement {
         }
       </style>
 
-    <h1>Scout Badge Requirements v0.0.1</h1>
-    <p>Welcome to Scout Badge Requirements. All the Scout badge requirements was scraped from scouts.org.uk. This app is free to use and should work offline once all the data has been cached.</p>
+    <h1>Scout Badge Requirements v0.0.3</h1>
+    <p>Welcome to Scout Badge Requirements. All the Scout badge requirements was scraped from scouts.org.uk. This app is free to use and should work's once all the data has been cached.</p>
+    <p>For more information contact Geoff at 30thabingdon org UK
     `;
   }
 }
