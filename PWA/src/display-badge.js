@@ -18,6 +18,9 @@ class DisplayBadge extends PolymerElement {
             width: 150px;
             height: 150px;
         }
+        img {
+            height: auto;
+        }
       </style>
 
       <div class="badge">

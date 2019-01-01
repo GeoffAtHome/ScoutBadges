@@ -13,6 +13,8 @@ async function SingleBadge(data, section, badgeSet, request) {
         text = text.replace(/<font .*?>/g, '');
         text = text.replace(/<\/font>/g, '');
         text = text.replace(/<span.*?>/g, '<span>');
+        text = text.replace(/&nbsp;&nbsp;/g, '&nbsp;');
+        text = text.replace(/&#xA0;&#xA0;/g, '&#xA0;');
         const images = img = text.match(/<img .*?>/);
         console.log(section + ": " + badgeSet + ": " + request.text);
         if (images !== null) {
