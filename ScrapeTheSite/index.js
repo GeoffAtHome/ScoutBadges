@@ -8,18 +8,15 @@ async function SingleBadge(data, section, badgeSet, request) {
         text: xray('div.seven.columns@html'),
     }]);
     if (results[0]) {
+        console.log(section + ": " + badgeSet + ": " + request.text);
         let text = stripHtmlComments(results[0].text);
-        if (request.text === "Digital Maker Staged Activity Badge") {
-            console.log("We are here")
-        }
-        text = text.replace(/ (class|style|title|alt|cellspacing|cellpadding|border|width|height)=".*?"/g, '');
+        text = text.replace(/ (class|style|title|alt|cellspacing|cellpadding|border|width|height|align)=".*?"/g, '');
         text = text.replace(/<font .*?>/g, '');
         text = text.replace(/<\/font>/g, '');
         text = text.replace(/<span.*?>/g, '<span>');
         text = text.replace(/(&nbsp;|&#xA0;|\n|\r)/g, '');
         text = text.replace(/  +/g, ' ');
-        const images = img = text.match(/<img .*?>/);
-        console.log(section + ": " + badgeSet + ": " + request.text);
+        const images = text.match(/<img .*?>/g);
         if (images !== null) {
             for (const image of images) {
                 const path = image.match(/src=".*?"/)[0].split('=')[1].replace(/"/g, "")
@@ -207,8 +204,11 @@ async function Root() {
             break;
         }
     };
+    // Any special fix-up needs to be done here.
+    let text = JSON.stringify(data);
+    text = text.replace(/<img src=\\"res\/Scout%20Ls%20SeniorPatrolLeader%20RGB.jpg\\"><img src=\\"res\/Scout%20Ls%20SeniorPatrolLeader%20RGB.jpg\\"><img src=\\"res\/Ls%20PatrolLeader%20RGB.jpg\\"><img src=\\"res\/Scout Ls AssistantPatrolLeader RGB.jpg\\"><br>Senior Patrol Leader Patrol Leader Assistant Patrol Leader<br>/, '<img src=\\"res\/Scout%20Ls%20SeniorPatrolLeader%20RGB.jpg\\"><br>Senior Patrol Leader Patrol<br><img src=\\"res\/Ls%20PatrolLeader%20RGB.jpg\\"><br>Patrol Leader<br><img src=\\"res\/Scout Ls AssistantPatrolLeader RGB.jpg\\"><br>Patrol Leader<br>');
 
-    fs.writeFile("./../PWA/res/data.json", JSON.stringify(data), function (err, data) {
+    fs.writeFile("./../PWA/res/data.json", text, function (err, data) {
         if (err) {
             return console.log(err);
         }
