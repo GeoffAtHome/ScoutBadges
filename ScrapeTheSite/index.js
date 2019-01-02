@@ -20,11 +20,11 @@ async function SingleBadge(data, section, badgeSet, request) {
         if (images !== null) {
             for (const image of images) {
                 const path = image.match(/src=".*?"/)[0].split('=')[1].replace(/"/g, "")
-                const shortName = SaveImage(path);
+                const shortName = SaveImage(data, path);
                 text = text.replace(path, shortName);
             }
         }
-        const saveName = SaveImage(request.image);
+        const saveName = SaveImage(data, request.image);
         // Strip back the title to make the text shorter
         const title = request.text.replace(/ Staged Activity Badge/, '').replace(/ Activity Badge/, '').replace(/ Challenge Award/, '').replace(/ Award/, '');
         data[section][badgeSet].push({
@@ -36,10 +36,14 @@ async function SingleBadge(data, section, badgeSet, request) {
     }
 }
 
-function SaveImage(href) {
+function SaveImage(data, href) {
     const parts = href.split('/');
     const shortName = parts[parts.length - 1];
-    GetImage(href, shortName);
+    // If the image is not already in the list add it!
+    if (data['Badges'].indexOf(shortName) === -1) {
+        data['Badges'].push(shortName);
+        GetImage(href, shortName);
+    }
     return "res/" + shortName;
 }
 
@@ -67,19 +71,19 @@ async function BadgeSets(data, section, request) {
     // Normalise the badge set
     let badgeSet = '';
     switch (request.text) {
-    case 'Activity Badges':
-        badgeSet = "activity";
-        break;
-    case 'Awards':
-    case 'Challenge Awards':
-        badgeSet = "challenge";
-        break;
-    case 'Core badges':
-        badgeSet = 'core';
-        break
-    case 'Staged Activity Badges':
-        badgeSet = 'staged';
-        break
+        case 'Activity Badges':
+            badgeSet = "activity";
+            break;
+        case 'Awards':
+        case 'Challenge Awards':
+            badgeSet = "challenge";
+            break;
+        case 'Core badges':
+            badgeSet = 'core';
+            break
+        case 'Staged Activity Badges':
+            badgeSet = 'staged';
+            break
     }
 
     await BadgeSetPage(data, section, request, badgeSet);
@@ -127,15 +131,15 @@ async function SectionBadgeSets(data, section, request) {
 
     for (const result of results) {
         switch (result.text) {
-        case 'Activity Badges':
-        case 'Awards':
-        case 'Challenge Awards':
-        case 'Core badges':
-        case 'Staged Activity Badges':
-            await BadgeSets(data, section, result);
-            break;
-        default:
-            break;
+            case 'Activity Badges':
+            case 'Awards':
+            case 'Challenge Awards':
+            case 'Core badges':
+            case 'Staged Activity Badges':
+                await BadgeSets(data, section, result);
+                break;
+            default:
+                break;
         }
     }
 }
@@ -150,11 +154,11 @@ async function SectionBadges(data, request) {
 
     for (const result of results) {
         switch (result.text) {
-        case 'Badges and awards':
-            await SectionBadgeSets(data, section, result);
-            break;
-        default:
-            break;
+            case 'Badges and awards':
+                await SectionBadgeSets(data, section, result);
+                break;
+            default:
+                break;
         }
     }
 }
@@ -184,7 +188,8 @@ async function Root() {
             core: [],
             challenge: [],
             staged: []
-        }
+        },
+        Badges: []
     }
 
     const results = await xray('https://members.scouts.org.uk/supportresources', 'li', [{
@@ -194,14 +199,14 @@ async function Root() {
 
     for (const result of results) {
         switch (result.text) {
-        case 'Scouts':
-        case 'Beavers':
-        case 'Cubs':
-        case 'Explorers':
-            await SectionBadges(data, result);
-            break;
-        default:
-            break;
+            case 'Scouts':
+            case 'Beavers':
+            case 'Cubs':
+            case 'Explorers':
+                await SectionBadges(data, result);
+                break;
+            default:
+                break;
         }
     };
     // Any special fix-up needs to be done here.

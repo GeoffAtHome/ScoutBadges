@@ -78,11 +78,18 @@ class MyApp extends PolymerElement {
         .drawer-list a.iron-selected {
           color: black;
           font-weight: bold;
+          background-color: lightgrey;
         }
 
         iron-image.menu {
           width: 106px;
           height: 30px;
+          margin-top: 15px;
+        }
+        iron-image.menuwelcome {
+          width: 40px;
+          height: 30px;
+          margin-top: 15px;
         }
       </style>
       <iron-ajax auto url="res/data.json" handle-as="json" last-response="{{data}}"></iron-ajax>
@@ -99,20 +106,21 @@ class MyApp extends PolymerElement {
           <app-toolbar>Menu</app-toolbar>
           <iron-selector selected="[[section]]" attr-for-selected="name" class="drawer-list" role="navigation">
             <a name="Welcome" href="[[rootPath]]Welcome/">
-              <iron-image class="menu" sizing="contain" fade src="images/Welcome.png">Welcome</iron-image>
+              <iron-image class="menuwelcome" position="left" sizing="contain" fade src="images/Welcome.png"></iron-image>Welcome
             </a>
             <a name="Beavers" href="[[rootPath]]Beavers/[[badgeset]]/">
-              <iron-image class="menu" sizing="contain" fade src="images/Beavers.png"></iron-image>
+              <iron-image class="menu" position="left" sizing="contain" fade src="images/Beavers.png"></iron-image>
             </a>
             <a name="Cubs" href="[[rootPath]]Cubs/[[badgeset]]/">
-              <iron-image class="menu" sizing="contain" fade src="images/Cubs.png"></iron-image>
+              <iron-image class="menu" position="left" sizing="contain" fade src="images/Cubs.png"></iron-image>
             </a>
             <a name="Scouts" href="[[rootPath]]Scouts/[[badgeset]]/">
-              <iron-image class="menu" sizing="contain" fade src="images/Scouts.png"></iron-image>
+              <iron-image class="menu" position="left" sizing="contain" fade src="images/Scouts.png"></iron-image>
             </a>
             <a name="Explorers" href="[[rootPath]]Explorers/[[badgeset]]/">
-              <iron-image class="menu" sizing="contain" fade src="images/Explorers.png"></iron-image>
+              <iron-image class="menu" position="left" sizing="contain" fade src="images/Explorers.png"></iron-image>
             </a>
+            <a name="AllBadges" href="[[rootPath]]AllBadges">All Badges</a>
           </iron-selector>
         </app-drawer>
 
@@ -133,6 +141,7 @@ class MyApp extends PolymerElement {
             <welcome-page name="Welcome"></welcome-page>
             <section-badges name="section" data="[[data]]" section="[[section]]" badgeset="[[badgeset]]"></section-badges>
             <display-badge name="Badge" card="[[card]]"></display-badge>
+            <all-badges name="AllBadges" data="[[data]]"></all-badges>
             <my-view404 name="view404"></my-view404>
           </iron-pages>
         </app-header-layout>
@@ -209,42 +218,56 @@ class MyApp extends PolymerElement {
         }
 
         switch (page) {
-        case 'Welcome':
-            this.page = page;
-            this.badge = '';
-            this.badgeset = '';
-            this.section = 'Welcome';
-            break;
-
-        case 'Beavers':
-        case 'Cubs':
-        case 'Scouts':
-        case 'Explorers':
-            if (badge === '') {
-                this.page = 'section';
-                this.section = page;
+            case 'Welcome':
+                this.page = page;
                 this.badge = '';
-            } else {
-                this.page = 'Badge';
-                this.section = page;
-                this.badge = badge;
-            }
-            if (['core', , 'activity', 'challenge', 'staged'].indexOf(badgeSet) !== -1) {
-                this.badgeset = badgeSet;
-            } else {
-                this.badgeset = "core";
-            }
-            break;
+                this.badgeset = 'Welcome';
+                this.section = 'Welcome';
+                break;
 
-        case 'Badge':
-            this.page = page;
-            if (['core', , 'activity', 'challenge', 'staged'].indexOf(badgeSet) !== -1) {
-                this.badgeset = badgeSet;
-            } else {
-                this.badgeset = "core";
-            }
-            this.badge = badge;
-            break;
+            case 'Beavers':
+            case 'Cubs':
+            case 'Scouts':
+            case 'Explorers':
+                if (badge === '') {
+                    this.page = 'section';
+                    this.section = page;
+                    this.badge = '';
+                } else {
+                    this.page = 'Badge';
+                    this.section = page;
+                    this.badge = badge;
+                }
+                if (['core', , 'activity', 'challenge', 'staged'].indexOf(badgeSet) !== -1) {
+                    this.badgeset = badgeSet;
+                } else {
+                    this.badgeset = "core";
+                }
+                break;
+
+            case 'Badge':
+                this.page = page;
+                if (['core', , 'activity', 'challenge', 'staged'].indexOf(badgeSet) !== -1) {
+                    this.badgeset = badgeSet;
+                } else {
+                    this.badgeset = "core";
+                }
+                this.badge = badge;
+                break;
+
+            case 'AllBadges':
+                this.page = page;
+                this.badge = '';
+                this.badgeset = 'All badges';
+                this.section = "Welcome";
+                break;
+
+            default:
+                this.page = "Welcome";
+                this.badge = '';
+                this.badgeset = 'core';
+                this.section = "AllBadges";
+                break;
         }
         // Close a non-persistent drawer when the page & route are changed.
         if (!this.$.drawer.persistent) {
@@ -269,15 +292,18 @@ class MyApp extends PolymerElement {
         // Note: `polymer build` doesn't like string concatenation in the import
         // statement, so break it up.
         switch (page) {
-        case 'Welcome':
-            import ('./welcome-page.js');
-            break;
-        case 'Badge':
-            import ('./display-badge.js');
-            break;
-        default:
-            import ('./section-badges.js');
-            break;
+            case 'Welcome':
+                import('./welcome-page.js');
+                break;
+            case 'Badge':
+                import('./display-badge.js');
+                break;
+            case 'AllBadges':
+                import('./all-badges.js');
+                break;
+            default:
+                import('./section-badges.js');
+                break;
         }
     }
 }

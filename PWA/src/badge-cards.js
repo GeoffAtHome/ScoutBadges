@@ -59,13 +59,10 @@ class BadgeCards extends PolymerElement {
     }
 
     Changed(section, badgeset) {
-        if (this.data !== undefined && badgeset !== '') {
+        if (this.data !== undefined && ['Beavers', 'Cubs', 'Scouts', 'Explorers'].indexOf(section) !== -1 && ['core', , 'activity', 'challenge', 'staged'].indexOf(badgeset) !== -1) {
             this.badges = this.data[section][badgeset];
         }
         let title = badgeset;
-        if (title === '') {
-            title = "Welcome";
-        }
         this.dispatchEvent(new CustomEvent("display-title", {
             bubbles: true,
             composed: true,
