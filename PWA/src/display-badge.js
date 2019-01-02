@@ -20,6 +20,7 @@ class DisplayBadge extends PolymerElement {
         }
         img {
             height: auto;
+            width: 200px;
         }
       </style>
 
@@ -34,6 +35,20 @@ class DisplayBadge extends PolymerElement {
         return {
             card: Object
         };
+    }
+
+    /**
+     * Array of strings describing multi-property observer methods and their
+     * dependant properties
+     */
+    static get observers() {
+        return [
+            'Changed(card)'
+        ];
+    }
+
+    Changed(card) {
+        this.scrollIntoView();
     }
 }
 

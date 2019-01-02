@@ -9,12 +9,15 @@ async function SingleBadge(data, section, badgeSet, request) {
     }]);
     if (results[0]) {
         let text = stripHtmlComments(results[0].text);
-        text = text.replace(/ (class|style|title|alt|cellspacing|cellpadding|border)=".*?"/g, '');
+        if (request.text === "Digital Maker Staged Activity Badge") {
+            console.log("We are here")
+        }
+        text = text.replace(/ (class|style|title|alt|cellspacing|cellpadding|border|width|height)=".*?"/g, '');
         text = text.replace(/<font .*?>/g, '');
         text = text.replace(/<\/font>/g, '');
         text = text.replace(/<span.*?>/g, '<span>');
-        text = text.replace(/&nbsp;&nbsp;/g, '&nbsp;');
-        text = text.replace(/&#xA0;&#xA0;/g, '&#xA0;');
+        text = text.replace(/(&nbsp;|&#xA0;|\n|\r)/g, '');
+        text = text.replace(/  +/g, ' ');
         const images = img = text.match(/<img .*?>/);
         console.log(section + ": " + badgeSet + ": " + request.text);
         if (images !== null) {
@@ -67,19 +70,19 @@ async function BadgeSets(data, section, request) {
     // Normalise the badge set
     let badgeSet = '';
     switch (request.text) {
-        case 'Activity Badges':
-            badgeSet = "activity";
-            break;
-        case 'Awards':
-        case 'Challenge Awards':
-            badgeSet = "challenge";
-            break;
-        case 'Core badges':
-            badgeSet = 'core';
-            break
-        case 'Staged Activity Badges':
-            badgeSet = 'staged';
-            break
+    case 'Activity Badges':
+        badgeSet = "activity";
+        break;
+    case 'Awards':
+    case 'Challenge Awards':
+        badgeSet = "challenge";
+        break;
+    case 'Core badges':
+        badgeSet = 'core';
+        break
+    case 'Staged Activity Badges':
+        badgeSet = 'staged';
+        break
     }
 
     await BadgeSetPage(data, section, request, badgeSet);
@@ -127,15 +130,15 @@ async function SectionBadgeSets(data, section, request) {
 
     for (const result of results) {
         switch (result.text) {
-            case 'Activity Badges':
-            case 'Awards':
-            case 'Challenge Awards':
-            case 'Core badges':
-            case 'Staged Activity Badges':
-                await BadgeSets(data, section, result);
-                break;
-            default:
-                break;
+        case 'Activity Badges':
+        case 'Awards':
+        case 'Challenge Awards':
+        case 'Core badges':
+        case 'Staged Activity Badges':
+            await BadgeSets(data, section, result);
+            break;
+        default:
+            break;
         }
     }
 }
@@ -150,11 +153,11 @@ async function SectionBadges(data, request) {
 
     for (const result of results) {
         switch (result.text) {
-            case 'Badges and awards':
-                await SectionBadgeSets(data, section, result);
-                break;
-            default:
-                break;
+        case 'Badges and awards':
+            await SectionBadgeSets(data, section, result);
+            break;
+        default:
+            break;
         }
     }
 }
@@ -194,14 +197,14 @@ async function Root() {
 
     for (const result of results) {
         switch (result.text) {
-            case 'Scouts':
-            case 'Beavers':
-            case 'Cubs':
-            case 'Explorers':
-                await SectionBadges(data, result);
-                break;
-            default:
-                break;
+        case 'Scouts':
+        case 'Beavers':
+        case 'Cubs':
+        case 'Explorers':
+            await SectionBadges(data, result);
+            break;
+        default:
+            break;
         }
     };
 

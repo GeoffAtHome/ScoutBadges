@@ -9,12 +9,12 @@
  */
 
 import {
-  PolymerElement,
-  html
+    PolymerElement,
+    html
 } from '@polymer/polymer/polymer-element.js';
 import {
-  setPassiveTouchGestures,
-  setRootPath
+    setPassiveTouchGestures,
+    setRootPath
 } from '@polymer/polymer/lib/utils/settings.js';
 import '@polymer/app-layout/app-drawer/app-drawer.js';
 import '@polymer/app-layout/app-drawer-layout/app-drawer-layout.js';
@@ -40,8 +40,8 @@ setPassiveTouchGestures(true);
 setRootPath(MyAppGlobals.rootPath);
 
 class MyApp extends PolymerElement {
-  static get template() {
-    return html `
+    static get template() {
+        return html `
     <style>
         :host {
           --app-primary-color: #4285f4;
@@ -138,149 +138,148 @@ class MyApp extends PolymerElement {
         </app-header-layout>
       </app-drawer-layout>
     `;
-  }
-
-  static get properties() {
-    return {
-      card: Object,
-      data: Object,
-      badge: {
-        type: String,
-        reflectToAttribute: true
-      },
-      badgeset: {
-        type: String,
-        reflectToAttribute: true,
-        // observer: '_pageChanged'
-      },
-      section: String,
-      title: {
-        type: String,
-        value: "Scout Badge Requirements"
-      },
-      page: {
-        type: String,
-        reflectToAttribute: true,
-        observer: '_pageChanged'
-      },
-      route: Object,
-      setroute: Object,
-      badgeroute: Object,
-      routeData: Object,
-      badgeSetData: Object,
-      badgeData: Object
-    };
-  }
-
-  static get observers() {
-    return [
-      '_routePageChanged(routeData.page, badgeSetData.badgeset, badgeData.badge)'
-    ];
-  }
-
-  ready() {
-    super.ready();
-    window.addEventListener("display-title", event => this._displayTitle(event));
-  }
-
-  _displayTitle(event) {
-    this.title = event.detail;
-  }
-
-  _BackClicked(event) {
-    window.history.back();
-  }
-
-  _routePageChanged(page, badgeSet, badge) {
-    // Show the corresponding page according to the route.
-    //
-    // If no page was found in the route data, page will be an empty string.
-    // Show 'view1' in that case. And if the page doesn't exist, show 'view404'.
-    if (!page) {
-      page = 'Welcome';
     }
 
-    if (!badgeSet) {
-      badgeSet = '';
+    static get properties() {
+        return {
+            card: Object,
+            data: Object,
+            badge: {
+                type: String,
+                reflectToAttribute: true
+            },
+            badgeset: {
+                type: String,
+                reflectToAttribute: true,
+                // observer: '_pageChanged'
+            },
+            section: String,
+            title: {
+                type: String,
+                value: "Scout Badge Requirements"
+            },
+            page: {
+                type: String,
+                reflectToAttribute: true,
+                observer: '_pageChanged'
+            },
+            route: Object,
+            setroute: Object,
+            badgeroute: Object,
+            routeData: Object,
+            badgeSetData: Object,
+            badgeData: Object
+        };
     }
 
-    if (!badge) {
-      badge = '';
+    static get observers() {
+        return [
+            '_routePageChanged(routeData.page, badgeSetData.badgeset, badgeData.badge)'
+        ];
     }
 
-    switch (page) {
-      case 'Welcome':
-        this.page = page;
-        this.badge = '';
-        this.badgeset = '';
-        this.section = 'Welcome';
-        break;
+    ready() {
+        super.ready();
+        window.addEventListener("display-title", event => this._displayTitle(event));
+    }
 
-      case 'Beavers':
-      case 'Cubs':
-      case 'Scouts':
-      case 'Explorers':
-        if (badge === '') {
-          this.page = 'section';
-          this.section = page;
-          this.badge = '';
-        } else {
-          this.page = 'Badge';
-          this.section = page;
-          this.badge = badge;
+    _displayTitle(event) {
+        this.title = event.detail;
+    }
+
+    _BackClicked(event) {
+        window.history.back();
+    }
+
+    _routePageChanged(page, badgeSet, badge) {
+        // Show the corresponding page according to the route.
+        //
+        // If no page was found in the route data, page will be an empty string.
+        // Show 'view1' in that case. And if the page doesn't exist, show 'view404'.
+        if (!page) {
+            page = 'Welcome';
         }
-        if (['core', , 'activity', 'challenge', 'staged'].indexOf(badgeSet) !== -1) {
-          this.badgeset = badgeSet;
-        } else {
-          this.badgeset = "core";
+
+        if (!badgeSet) {
+            badgeSet = '';
         }
-        break;
 
-      case 'Badge':
-        this.page = page;
-        if (['core', , 'activity', 'challenge', 'staged'].indexOf(badgeSet) !== -1) {
-          this.badgeset = badgeSet;
-        } else {
-          this.badgeset = "core";
+        if (!badge) {
+            badge = '';
         }
-        this.badge = badge;
-        break;
-    }
-    // Close a non-persistent drawer when the page & route are changed.
-    if (!this.$.drawer.persistent) {
-      this.$.drawer.close();
+
+        switch (page) {
+        case 'Welcome':
+            this.page = page;
+            this.badge = '';
+            this.badgeset = '';
+            this.section = 'Welcome';
+            break;
+
+        case 'Beavers':
+        case 'Cubs':
+        case 'Scouts':
+        case 'Explorers':
+            if (badge === '') {
+                this.page = 'section';
+                this.section = page;
+                this.badge = '';
+            } else {
+                this.page = 'Badge';
+                this.section = page;
+                this.badge = badge;
+            }
+            if (['core', , 'activity', 'challenge', 'staged'].indexOf(badgeSet) !== -1) {
+                this.badgeset = badgeSet;
+            } else {
+                this.badgeset = "core";
+            }
+            break;
+
+        case 'Badge':
+            this.page = page;
+            if (['core', , 'activity', 'challenge', 'staged'].indexOf(badgeSet) !== -1) {
+                this.badgeset = badgeSet;
+            } else {
+                this.badgeset = "core";
+            }
+            this.badge = badge;
+            break;
+        }
+        // Close a non-persistent drawer when the page & route are changed.
+        if (!this.$.drawer.persistent) {
+            this.$.drawer.close();
+        }
+
+        if (this.page === "Badge" && this.data !== undefined) {
+            const card = this.data[this.section][this.badgeset].filter((item) => item.id === badge)[0];
+            if (card === undefined) {
+                this.badgeData.badge = '';
+            } else {
+                this.card = card.info;
+            }
+        } else {
+            this.badgeData.badge = '';
+        }
     }
 
-    if (this.page === "Badge" && this.data !== undefined) {
-      const card = this.data[this.section][this.badgeset].filter((item) => item.id === badge)[0];
-      if (card === undefined) {
-        this.badgeData.badge = '';
-      } else {
-        this.card = card.info;
-      }
-    } else {
-      this.badgeData.badge = '';
+    _pageChanged(page) {
+        // Import the page component on demand.
+        //
+        // Note: `polymer build` doesn't like string concatenation in the import
+        // statement, so break it up.
+        switch (page) {
+        case 'Welcome':
+            import ('./welcome-page.js');
+            break;
+        case 'Badge':
+            import ('./display-badge.js');
+            break;
+        default:
+            import ('./section-badges.js');
+            break;
+        }
     }
-    console.log("Page: " + this.page + " Section: " + this.section + " badgeset: " + this.badgeset + " Badge: " + this.badge);
-  }
-
-  _pageChanged(page) {
-    // Import the page component on demand.
-    //
-    // Note: `polymer build` doesn't like string concatenation in the import
-    // statement, so break it up.
-    switch (page) {
-      case 'Welcome':
-        import('./welcome-page.js');
-        break;
-      case 'Badge':
-        import('./display-badge.js');
-        break;
-      default:
-        import('./section-badges.js');
-        break;
-    }
-  }
 }
 
 window.customElements.define('my-app', MyApp);
