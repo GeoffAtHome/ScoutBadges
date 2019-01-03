@@ -10,20 +10,29 @@ async function SingleBadge(data, section, badgeSet, request) {
     if (results[0]) {
         console.log(section + ": " + badgeSet + ": " + request.text);
         let text = stripHtmlComments(results[0].text);
+
+        // Find all the images
+        const images = text.match(/<img .*?>/g);
+        if (images !== null) {
+            for (const image of images) {
+                // If the width or the height of the image is zero remove it
+                if (RealImage(image) === false) {
+                    text = text.replace(image, '');
+                } else {
+                    // Save the image
+                    const path = image.match(/src=".*?"/)[0].split('=')[1].replace(/"/g, "")
+                    const shortName = SaveImage(data, path);
+                    text = text.replace(path, shortName);
+                }
+            }
+        }
+
         text = text.replace(/ (class|style|title|alt|cellspacing|cellpadding|border|width|height|align)=".*?"/g, '');
         text = text.replace(/<font .*?>/g, '');
         text = text.replace(/<\/font>/g, '');
         text = text.replace(/<span.*?>/g, '<span>');
         text = text.replace(/(&nbsp;|&#xA0;|\n|\r)/g, '');
         text = text.replace(/  +/g, ' ');
-        const images = text.match(/<img .*?>/g);
-        if (images !== null) {
-            for (const image of images) {
-                const path = image.match(/src=".*?"/)[0].split('=')[1].replace(/"/g, "")
-                const shortName = SaveImage(data, path);
-                text = text.replace(path, shortName);
-            }
-        }
         const saveName = SaveImage(data, request.image);
         // Strip back the title to make the text shorter
         const title = request.text.replace(/ Staged Activity Badge/, '').replace(/ Activity Badge/, '').replace(/ Challenge Award/, '').replace(/ Award/, '');
@@ -34,6 +43,25 @@ async function SingleBadge(data, section, badgeSet, request) {
             info: text
         });
     }
+}
+
+function RealImage(text) {
+    let result = true;
+
+    const parts = text.split(' ');
+    for (const part of parts) {
+        // remove quotes
+        const attribute = part.replace(/('|")/g, '');
+        const split = attribute.split('=');
+        if (split[0] === 'width' || split[0] === 'height') {
+            if (split[1] === '0') {
+                result = false;
+                break;
+            }
+        }
+    }
+
+    return result;
 }
 
 function SaveImage(data, href) {
@@ -71,19 +99,19 @@ async function BadgeSets(data, section, request) {
     // Normalise the badge set
     let badgeSet = '';
     switch (request.text) {
-        case 'Activity Badges':
-            badgeSet = "activity";
-            break;
-        case 'Awards':
-        case 'Challenge Awards':
-            badgeSet = "challenge";
-            break;
-        case 'Core badges':
-            badgeSet = 'core';
-            break
-        case 'Staged Activity Badges':
-            badgeSet = 'staged';
-            break
+    case 'Activity Badges':
+        badgeSet = "activity";
+        break;
+    case 'Awards':
+    case 'Challenge Awards':
+        badgeSet = "challenge";
+        break;
+    case 'Core badges':
+        badgeSet = 'core';
+        break
+    case 'Staged Activity Badges':
+        badgeSet = 'staged';
+        break
     }
 
     await BadgeSetPage(data, section, request, badgeSet);
@@ -131,15 +159,15 @@ async function SectionBadgeSets(data, section, request) {
 
     for (const result of results) {
         switch (result.text) {
-            case 'Activity Badges':
-            case 'Awards':
-            case 'Challenge Awards':
-            case 'Core badges':
-            case 'Staged Activity Badges':
-                await BadgeSets(data, section, result);
-                break;
-            default:
-                break;
+        case 'Activity Badges':
+        case 'Awards':
+        case 'Challenge Awards':
+        case 'Core badges':
+        case 'Staged Activity Badges':
+            await BadgeSets(data, section, result);
+            break;
+        default:
+            break;
         }
     }
 }
@@ -154,11 +182,11 @@ async function SectionBadges(data, request) {
 
     for (const result of results) {
         switch (result.text) {
-            case 'Badges and awards':
-                await SectionBadgeSets(data, section, result);
-                break;
-            default:
-                break;
+        case 'Badges and awards':
+            await SectionBadgeSets(data, section, result);
+            break;
+        default:
+            break;
         }
     }
 }
@@ -199,19 +227,19 @@ async function Root() {
 
     for (const result of results) {
         switch (result.text) {
-            case 'Scouts':
-            case 'Beavers':
-            case 'Cubs':
-            case 'Explorers':
-                await SectionBadges(data, result);
-                break;
-            default:
-                break;
+        case 'Beavers':
+        case 'Cubs':
+        case 'Scouts':
+        case 'Explorers':
+            await SectionBadges(data, result);
+            break;
+        default:
+            break;
         }
     };
     // Any special fix-up needs to be done here.
     let text = JSON.stringify(data);
-    text = text.replace(/<img src=\\"res\/Scout%20Ls%20SeniorPatrolLeader%20RGB.jpg\\"><img src=\\"res\/Scout%20Ls%20SeniorPatrolLeader%20RGB.jpg\\"><img src=\\"res\/Ls%20PatrolLeader%20RGB.jpg\\"><img src=\\"res\/Scout Ls AssistantPatrolLeader RGB.jpg\\"><br>Senior Patrol Leader Patrol Leader Assistant Patrol Leader<br>/, '<img src=\\"res\/Scout%20Ls%20SeniorPatrolLeader%20RGB.jpg\\"><br>Senior Patrol Leader Patrol<br><img src=\\"res\/Ls%20PatrolLeader%20RGB.jpg\\"><br>Patrol Leader<br><img src=\\"res\/Scout Ls AssistantPatrolLeader RGB.jpg\\"><br>Patrol Leader<br>');
+    text = text.replace(/<img src=\\"res\/Scout%20Ls%20SeniorPatrolLeader%20RGB.jpg\\"><img src=\\"res\/Ls%20PatrolLeader%20RGB.jpg\\"><img src=\\"res\/Scout Ls AssistantPatrolLeader RGB.jpg\\"><br>Senior Patrol Leader Patrol Leader Assistant Patrol Leader<br>/, '<img src=\\"res\/Scout%20Ls%20SeniorPatrolLeader%20RGB.jpg\\"><br>Senior Patrol Leader Patrol<br><img src=\\"res\/Ls%20PatrolLeader%20RGB.jpg\\"><br>Patrol Leader<br><img src=\\"res\/Scout Ls AssistantPatrolLeader RGB.jpg\\"><br>Patrol Leader<br>');
 
     fs.writeFile("./../PWA/res/data.json", text, function (err, data) {
         if (err) {
