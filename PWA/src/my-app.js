@@ -78,7 +78,7 @@ class MyApp extends PolymerElement {
         .drawer-list a.iron-selected {
           color: black;
           font-weight: bold;
-          background-color: lightgrey;
+          background-color: #eeeeee;
         }
 
         iron-image.menu {
@@ -218,56 +218,56 @@ class MyApp extends PolymerElement {
         }
 
         switch (page) {
-            case 'Welcome':
-                this.page = page;
+        case 'Welcome':
+            this.page = page;
+            this.badge = '';
+            this.badgeset = 'Welcome';
+            this.section = 'Welcome';
+            break;
+
+        case 'Beavers':
+        case 'Cubs':
+        case 'Scouts':
+        case 'Explorers':
+            if (badge === '') {
+                this.page = 'section';
+                this.section = page;
                 this.badge = '';
-                this.badgeset = 'Welcome';
-                this.section = 'Welcome';
-                break;
-
-            case 'Beavers':
-            case 'Cubs':
-            case 'Scouts':
-            case 'Explorers':
-                if (badge === '') {
-                    this.page = 'section';
-                    this.section = page;
-                    this.badge = '';
-                } else {
-                    this.page = 'Badge';
-                    this.section = page;
-                    this.badge = badge;
-                }
-                if (['core', , 'activity', 'challenge', 'staged'].indexOf(badgeSet) !== -1) {
-                    this.badgeset = badgeSet;
-                } else {
-                    this.badgeset = "core";
-                }
-                break;
-
-            case 'Badge':
-                this.page = page;
-                if (['core', , 'activity', 'challenge', 'staged'].indexOf(badgeSet) !== -1) {
-                    this.badgeset = badgeSet;
-                } else {
-                    this.badgeset = "core";
-                }
+            } else {
+                this.page = 'Badge';
+                this.section = page;
                 this.badge = badge;
-                break;
+            }
+            if (['core', , 'activity', 'challenge', 'staged'].indexOf(badgeSet) !== -1) {
+                this.badgeset = badgeSet;
+            } else {
+                this.badgeset = "core";
+            }
+            break;
 
-            case 'AllBadges':
-                this.page = page;
-                this.badge = '';
-                this.badgeset = 'All badges';
-                this.section = "Welcome";
-                break;
+        case 'Badge':
+            this.page = page;
+            if (['core', , 'activity', 'challenge', 'staged'].indexOf(badgeSet) !== -1) {
+                this.badgeset = badgeSet;
+            } else {
+                this.badgeset = "core";
+            }
+            this.badge = badge;
+            break;
 
-            default:
-                this.page = "Welcome";
-                this.badge = '';
-                this.badgeset = 'core';
-                this.section = "AllBadges";
-                break;
+        case 'AllBadges':
+            this.page = page;
+            this.badge = '';
+            this.badgeset = 'All badges';
+            this.section = "Welcome";
+            break;
+
+        default:
+            this.page = "Welcome";
+            this.badge = '';
+            this.badgeset = 'core';
+            this.section = "AllBadges";
+            break;
         }
         // Close a non-persistent drawer when the page & route are changed.
         if (!this.$.drawer.persistent) {
@@ -292,18 +292,18 @@ class MyApp extends PolymerElement {
         // Note: `polymer build` doesn't like string concatenation in the import
         // statement, so break it up.
         switch (page) {
-            case 'Welcome':
-                import('./welcome-page.js');
-                break;
-            case 'Badge':
-                import('./display-badge.js');
-                break;
-            case 'AllBadges':
-                import('./all-badges.js');
-                break;
-            default:
-                import('./section-badges.js');
-                break;
+        case 'Welcome':
+            import ('./welcome-page.js');
+            break;
+        case 'Badge':
+            import ('./display-badge.js');
+            break;
+        case 'AllBadges':
+            import ('./all-badges.js');
+            break;
+        default:
+            import ('./section-badges.js');
+            break;
         }
     }
 }

@@ -17,10 +17,10 @@ import './shared-styles.js';
 
 class BadgeCard extends PolymerElement {
     static get template() {
-        return html `
+            return html `
       <style include="shared-styles">
         :host {
-          display: inline-block;
+          display: block;
         }
         iron-image {
             width: 150px;
@@ -37,10 +37,10 @@ class BadgeCard extends PolymerElement {
           <div>
       </a>
     `;
-    }
-    /**
-     * Object describing property-related metadata used by Polymer features
-     */
+        }
+        /**
+         * Object describing property-related metadata used by Polymer features
+         */
     static get properties() {
         return {
             card: Object,

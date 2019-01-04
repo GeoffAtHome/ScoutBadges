@@ -12,33 +12,44 @@ import {
     PolymerElement,
     html
 } from '@polymer/polymer/polymer-element.js';
+import '@polymer/iron-flex-layout/iron-flex-layout-classes.js';
 import './shared-styles.js';
 import './badge-card.js';
 
 
 class BadgeCards extends PolymerElement {
     static get template() {
-        return html `
-      <style include="shared-styles">
+            return html `
+        <style is="custom-style" include=" shared-styles iron-flex iron-flex-alignment">
         :host {
           display: block;
           padding: 10px;
         }
-        badge-card {
-            width = 200px;
+        .grid {
+            @apply --layout-horizontal;
+            @apply --layout-around-justified;
+            @apply --layout-start;
+            @apply --layout-wrap;
+        }
+
+        .grid::after {
+            content: "";
+            flex: auto;
         }
       </style>
 
-    <dom-repeat items="[[badges]]">
-        <template>
-        <badge-card card="[[item]]" badgeset="[[badgeset]]" section="[[section]]"></badge-card>
-        </template>
-    </dom-repeat>
+    <div class='container grid'>
+        <dom-repeat items="[[badges]]">
+            <template>
+                <badge-card card="[[item]]" badgeset="[[badgeset]]" section="[[section]]"></badge-card>
+            </template>
+        </dom-repeat>
+    </div>
     `;
-    }
-    /**
-     * Object describing property-related metadata used by Polymer features
-     */
+        }
+        /**
+         * Object describing property-related metadata used by Polymer features
+         */
     static get properties() {
         return {
             badges: Array,
@@ -72,15 +83,15 @@ class BadgeCards extends PolymerElement {
 
     setName(badgeset) {
         switch (badgeset) {
-            case "core":
-                return "Core badges";
-            case "challenge":
-                return "Challenge awards";
-            case "activity":
-                return "Activity badges";
-            case "staged":
-                return "Staged activity badges";
-                break;
+        case "core":
+            return "Core badges";
+        case "challenge":
+            return "Challenge awards";
+        case "activity":
+            return "Activity badges";
+        case "staged":
+            return "Staged activity badges";
+            break;
         }
     }
 }

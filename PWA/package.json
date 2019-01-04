@@ -25,10 +25,13 @@
         "@polymer/paper-icon-button": "^3.0.1",
         "@polymer/polymer": "^3.1.0",
         "@vaadin/vaadin-tabs": "^2.1.1",
-        "@webcomponents/webcomponentsjs": "^2.2.1"
+        "@webcomponents/webcomponentsjs": "^2.2.1",
+        "g": "^2.0.1"
     },
     "devDependencies": {
-        "polymer-cli": "^1.7.1",
+        "eslint": "^5.11.1",
+        "eslint-plugin-react": "^7.12.2",
+        "polymer-cli": "^1.9.4",
         "wct-browser-legacy": "^1.0.0"
     },
     "engines": {
