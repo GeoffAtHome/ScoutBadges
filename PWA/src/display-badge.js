@@ -24,7 +24,7 @@ class DisplayBadge extends PolymerElement {
         }
       </style>
 
-      <div class="badge">
+      <div id="track" class="badge" on-track="handleTrack">
         <the-badge card="[[card]]"></the-badge>
       </div>
     `;
@@ -33,7 +33,9 @@ class DisplayBadge extends PolymerElement {
     // Declare properties
     static get properties() {
         return {
-            card: Object
+            card: Object,
+            startX: Number,
+            startY: Number
         };
     }
 
@@ -47,8 +49,27 @@ class DisplayBadge extends PolymerElement {
         ];
     }
 
+    ready() {
+        super.ready();
+        this.$.track.addEventListener("touchstart", this.handleStart, false);
+        this.$.track.addEventListener("touchend", this.handleEnd, false);
+    }
+
     Changed(card) {
         this.scrollIntoView();
+    }
+
+    handleStart(e) {
+        this.startX = e.changedTouches[0].pageX;
+        this.startY = e.changedTouches[0].pageY;
+    }
+
+    handleEnd(e) {
+        const deltaX = e.changedTouches[0].pageX - this.startX;
+        const deltaY = Math.abs(e.changedTouches[0].pageY - this.startY);
+        if (deltaX > 100 && deltaY < 100) {
+            window.history.back();
+        }
     }
 }
 
