@@ -27,25 +27,19 @@ class BadgeCards extends PolymerElement {
         }
         .grid {
             @apply --layout-horizontal;
-            @apply --layout-around-justified;
-            @apply --layout-start;
+            @apply --layout-center-justified;
             @apply --layout-wrap;
         }
 
-        .grid::after {
-            content: "";
-            flex: auto;
-        }
-      </style>
-
-    <div class='container grid'>
-        <dom-repeat items="[[badges]]">
-            <template>
-                <badge-card card="[[item]]" badgeset="[[badgeset]]" section="[[section]]"></badge-card>
-            </template>
-        </dom-repeat>
-    </div>
-    `;
+        </style>
+        <div class='container grid'>
+            <dom-repeat items="[[badges]]">
+                <template>
+                    <badge-card card="[[item]]" badgeset="[[badgeset]]" section="[[section]]"></badge-card>
+                </template>
+            </dom-repeat>
+        </div>
+        `;
         }
         /**
          * Object describing property-related metadata used by Polymer features
