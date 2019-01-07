@@ -9,6 +9,8 @@ async function SingleBadge(data, section, badgeSet, request) {
     }]);
     if (results[0]) {
         console.log(section + ": " + badgeSet + ": " + request.text);
+        const title = request.text.replace(/ Staged Activity Badge/, '').replace(/ Activity Badge/, '').replace(/ Challenge Award/, '').replace(/ Award/, '');
+        const link = section + "/" + badgeSet + "/" + title.replace(/(\(|\)| |')/g, '_').toLowerCase();
         let text = stripHtmlComments(results[0].text);
 
         // Find all the images
@@ -21,7 +23,7 @@ async function SingleBadge(data, section, badgeSet, request) {
                 } else {
                     // Save the image
                     const path = image.match(/src=".*?"/)[0].split('=')[1].replace(/"/g, "")
-                    const shortName = SaveImage(data, path);
+                    const shortName = SaveImage(data, path, link);
                     text = text.replace(path, shortName);
                 }
             }
@@ -33,9 +35,8 @@ async function SingleBadge(data, section, badgeSet, request) {
         text = text.replace(/<span.*?>/g, '<span>');
         text = RemoveDoubles(text);
         text = text.replace(/  +/g, ' ');
-        const saveName = SaveImage(data, request.image);
+        const saveName = SaveImage(data, request.image, link);
         // Strip back the title to make the text shorter
-        const title = request.text.replace(/ Staged Activity Badge/, '').replace(/ Activity Badge/, '').replace(/ Challenge Award/, '').replace(/ Award/, '');
         data[section][badgeSet].push({
             id: title.replace(/(\(|\)| |')/g, '_').toLowerCase(),
             title: title,
@@ -78,12 +79,15 @@ function RealImage(text) {
     return result;
 }
 
-function SaveImage(data, href) {
+function SaveImage(data, href, link) {
     const parts = href.split('/');
     const shortName = parts[parts.length - 1];
     // If the image is not already in the list add it!
     if (data['Badges'].indexOf(shortName) === -1) {
-        data['Badges'].push(shortName);
+        data['Badges'].push({
+            url: shortName,
+            link: link
+        });
         GetImage(href, shortName);
     }
     return "res/" + shortName;

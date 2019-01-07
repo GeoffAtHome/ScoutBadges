@@ -20,22 +20,34 @@ class AllBadges extends PolymerElement {
         return html `
     <style include="shared-styles">
         :host {
-          display: inline-block;
-          background-color: #fff;
+            display: block;
+            background-color: #fff;
         }
         iron-image {
+            padding: 5px;
             width: 100px;
             height: 100px;
+        }
+        .box {
+            display: flex;
+            flex-grow: 1;
+            justify-content: space-evenly;
+            flex-wrap: wrap;
+            flex-direction: row;
         }
     </style>
 
     <div>
         <h2>This page is for downloading all the badges for working offline</h2>
+        <div class="box">
         <dom-repeat items="[[getBadges(data)]]">
             <template>
-                <iron-image sizing="contain" fade src="res/[[item]]"></iron-image>
+            <a href="[[item.link]]">
+                <iron-image sizing="contain" fade src="res/[[item.url]]"></iron-image>
+            </a>
             </template>
         </dom-repeat>
+        </div>
     <div>
     `;
     }

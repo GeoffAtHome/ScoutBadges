@@ -11,8 +11,11 @@ class DisplayBadge extends PolymerElement {
       <style include="shared-styles">
         :host {
           display: inline-block;
-
-          padding: 5px;
+        margin: 10px;
+        padding: 10px;
+        color: #757575;
+        border-radius: 5px;
+        background-color: #fff;
         }
         img {
             height: auto;
@@ -20,7 +23,7 @@ class DisplayBadge extends PolymerElement {
         }
       </style>
 
-      <div id="track" class="badge" on-track="handleTrack">
+      <div id="track" on-track="handleTrack">
         <the-badge card="[[card]]"></the-badge>
       </div>
     `;
