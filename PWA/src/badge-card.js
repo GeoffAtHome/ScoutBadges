@@ -17,12 +17,11 @@ import './shared-styles.js';
 
 class BadgeCard extends PolymerElement {
     static get template() {
-            return html `
+        return html `
       <style include="shared-styles">
         :host {
             display: flex;
             flex-grow: 1;
-            justify-content: space-evenly;
             flex-direction: column;
             text-align: center;
             margin: 10px;
@@ -46,10 +45,10 @@ class BadgeCard extends PolymerElement {
             <div>[[card.title]]</div>
         </a>
     `;
-        }
-        /**
-         * Object describing property-related metadata used by Polymer features
-         */
+    }
+    /**
+     * Object describing property-related metadata used by Polymer features
+     */
     static get properties() {
         return {
             card: Object,

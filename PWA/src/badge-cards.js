@@ -18,15 +18,13 @@ import './badge-card.js';
 
 class BadgeCards extends PolymerElement {
     static get template() {
-            return html `
+        return html `
         <style is="custom-style">
         :host {
           padding: 10px;
           display: flex;
           flex-direction: row;
           flex-wrap: wrap;
-        }
-        .grid {
         }
 
         </style>
@@ -36,10 +34,10 @@ class BadgeCards extends PolymerElement {
             </template>
         </dom-repeat>
         `;
-        }
-        /**
-         * Object describing property-related metadata used by Polymer features
-         */
+    }
+    /**
+     * Object describing property-related metadata used by Polymer features
+     */
     static get properties() {
         return {
             badges: Array,
@@ -73,15 +71,15 @@ class BadgeCards extends PolymerElement {
 
     setName(badgeset) {
         switch (badgeset) {
-        case "core":
-            return "Core badges";
-        case "challenge":
-            return "Challenge awards";
-        case "activity":
-            return "Activity badges";
-        case "staged":
-            return "Staged activity badges";
-            break;
+            case "core":
+                return "Core badges";
+            case "challenge":
+                return "Challenge awards";
+            case "activity":
+                return "Activity badges";
+            case "staged":
+                return "Staged activity badges";
+                break;
         }
     }
 }
