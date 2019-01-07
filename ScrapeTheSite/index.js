@@ -82,12 +82,13 @@ function RealImage(text) {
 function SaveImage(data, href, link) {
     const parts = href.split('/');
     const shortName = parts[parts.length - 1];
+    const entry = {
+        url: shortName,
+        link: link
+    };
     // If the image is not already in the list add it!
-    if (data['Badges'].indexOf(shortName) === -1) {
-        data['Badges'].push({
-            url: shortName,
-            link: link
-        });
+    if (data['Badges'].filter(item => item.url === entry.url && item.link === entry.link).length === 0) {
+        data['Badges'].push(entry);
         GetImage(href, shortName);
     }
     return "res/" + shortName;
