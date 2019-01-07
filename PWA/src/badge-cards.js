@@ -12,7 +12,6 @@ import {
     PolymerElement,
     html
 } from '@polymer/polymer/polymer-element.js';
-import '@polymer/iron-flex-layout/iron-flex-layout-classes.js';
 import './shared-styles.js';
 import './badge-card.js';
 
@@ -20,25 +19,22 @@ import './badge-card.js';
 class BadgeCards extends PolymerElement {
     static get template() {
             return html `
-        <style is="custom-style" include=" shared-styles iron-flex iron-flex-alignment">
+        <style is="custom-style">
         :host {
-          display: block;
           padding: 10px;
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
         }
         .grid {
-            @apply --layout-horizontal;
-            @apply --layout-center-justified;
-            @apply --layout-wrap;
         }
 
         </style>
-        <div class='container grid'>
-            <dom-repeat items="[[badges]]">
-                <template>
-                    <badge-card card="[[item]]" badgeset="[[badgeset]]" section="[[section]]"></badge-card>
-                </template>
-            </dom-repeat>
-        </div>
+        <dom-repeat items="[[badges]]">
+            <template>
+                <badge-card card="[[item]]" badgeset="[[badgeset]]" section="[[section]]"></badge-card>
+            </template>
+        </dom-repeat>
         `;
         }
         /**

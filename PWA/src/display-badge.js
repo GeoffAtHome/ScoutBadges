@@ -14,10 +14,6 @@ class DisplayBadge extends PolymerElement {
 
           padding: 5px;
         }
-        iron-image {
-            width: 150px;
-            height: 150px;
-        }
         img {
             height: auto;
             width: 200px;

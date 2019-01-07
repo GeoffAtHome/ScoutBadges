@@ -20,22 +20,31 @@ class BadgeCard extends PolymerElement {
             return html `
       <style include="shared-styles">
         :host {
-          display: block;
+            display: flex;
+            flex-grow: 1;
+            justify-content: space-evenly;
+            flex-direction: column;
+            text-align: center;
+            margin: 10px;
+            padding: 10px;
+            min-width: 180px;
+            max-width: 425px;
+            color: #757575;
+            border-radius: 5px;
+            background-color: #fff;
+            word-wrap: break-word;
+            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
         }
         iron-image {
-            width: 150px;
-            height: 150px;
+            width: 100%;
+            height: 165px;
         }
       </style>
 
-      <a href="[[section]]/[[badgeset]]/[[card.id]]">
-      <div>
-          <div class="card">
-              <iron-image sizing="contain" fade src="[[card.image]]"></iron-image>
-                <div class="text">[[card.title]]</div>
-          </div>
-          <div>
-      </a>
+        <a href="[[section]]/[[badgeset]]/[[card.id]]">
+            <iron-image sizing="contain" fade src="[[card.image]]"></iron-image>
+            <div>[[card.title]]</div>
+        </a>
     `;
         }
         /**
