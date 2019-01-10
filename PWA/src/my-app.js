@@ -137,12 +137,14 @@ class MyApp extends PolymerElement {
             </app-toolbar>
           </app-header>
 
-          <iron-pages selected="[[page]]" attr-for-selected="name" role="main">
+          <div id="track" on-track="handleTrack">
+            <iron-pages selected="[[page]]" attr-for-selected="name" role="main">
             <welcome-page name="Welcome"></welcome-page>
             <section-badges name="section" data="[[data]]" section="[[section]]" badgeset="[[badgeset]]"></section-badges>
             <display-badge name="Badge" card="[[card]]"></display-badge>
             <all-badges name="AllBadges" data="[[data]]"></all-badges>
           </iron-pages>
+          </div>
         </app-header-layout>
       </app-drawer-layout>
     `;
@@ -189,6 +191,8 @@ class MyApp extends PolymerElement {
     ready() {
         super.ready();
         window.addEventListener("display-title", event => this._displayTitle(event));
+        this.$.track.addEventListener("touchstart", this.handleStart, false);
+        this.$.track.addEventListener("touchend", this.handleEnd, false);
     }
 
     _displayTitle(event) {
@@ -303,6 +307,21 @@ class MyApp extends PolymerElement {
         default:
             import ('./section-badges.js');
             break;
+        }
+    }
+
+    handleStart(e) {
+        this.startX = e.changedTouches[0].pageX;
+        this.startY = e.changedTouches[0].pageY;
+    }
+
+    handleEnd(e) {
+        const deltaX = e.changedTouches[0].pageX - this.startX;
+        const deltaY = Math.abs(e.changedTouches[0].pageY - this.startY);
+        if (deltaX > 100 && deltaY < 100) {
+            window.history.back();
+        } else if (deltaX < -100 && deltaY < 100) {
+            window.history.forward();
         }
     }
 }

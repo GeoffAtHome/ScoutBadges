@@ -20,10 +20,12 @@ class DisplayBadge extends PolymerElement {
         img {
             height: auto;
             width: 200px;
+            display: block;
         }
+
       </style>
 
-      <div id="track" on-track="handleTrack">
+      <div>
         <the-badge card="[[card]]"></the-badge>
       </div>
     `;
@@ -48,27 +50,8 @@ class DisplayBadge extends PolymerElement {
         ];
     }
 
-    ready() {
-        super.ready();
-        this.$.track.addEventListener("touchstart", this.handleStart, false);
-        this.$.track.addEventListener("touchend", this.handleEnd, false);
-    }
-
     Changed(card) {
         this.scrollIntoView();
-    }
-
-    handleStart(e) {
-        this.startX = e.changedTouches[0].pageX;
-        this.startY = e.changedTouches[0].pageY;
-    }
-
-    handleEnd(e) {
-        const deltaX = e.changedTouches[0].pageX - this.startX;
-        const deltaY = Math.abs(e.changedTouches[0].pageY - this.startY);
-        if (deltaX > 100 && deltaY < 100) {
-            window.history.back();
-        }
     }
 }
 
