@@ -9,14 +9,33 @@
  */
 
 module.exports = {
-  staticFileGlobs: [
-    'src/**/*',
-    'manifest.json'
-  ],
-  runtimeCaching: [
-    {
-      urlPattern: /\/@webcomponents\/webcomponentsjs\//,
-      handler: 'fastest'
-    }
-  ]
+    staticFileGlobs: [
+        'src/**/*',
+        'manifest.json'
+    ],
+    runtimeCaching: [{
+            urlPattern: /\/@webcomponents\/webcomponentsjs\//,
+            handler: 'fastest'
+        },
+        {
+            urlPattern: /\/res\/*.+.json/,
+            handler: 'fastest',
+            options: {
+                cache: {
+                    name: 'data',
+                    maxAgeSeconds: 86400
+                }
+            }
+        },
+        {
+            urlPattern: /\/(images|res)\/*.+(png|jpg)/,
+            handler: 'cacheFirst',
+            options: {
+                cache: {
+                    name: 'images',
+                    maxAgeSeconds: 31536000
+                }
+            }
+        }
+    ]
 };

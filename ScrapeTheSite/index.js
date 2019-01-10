@@ -103,7 +103,6 @@ function download(uri, filename, callback) {
 
 
 function GetImage(href, shortName) {
-    return;
     let path = "./../PWA/res/";
     if (!fs.existsSync(path)) {
         fs.mkdirSync(path);
@@ -119,19 +118,19 @@ async function BadgeSets(data, section, request) {
     // Normalise the badge set
     let badgeSet = '';
     switch (request.text) {
-        case 'Activity Badges':
-            badgeSet = "activity";
-            break;
-        case 'Awards':
-        case 'Challenge Awards':
-            badgeSet = "challenge";
-            break;
-        case 'Core badges':
-            badgeSet = 'core';
-            break
-        case 'Staged Activity Badges':
-            badgeSet = 'staged';
-            break
+    case 'Activity Badges':
+        badgeSet = "activity";
+        break;
+    case 'Awards':
+    case 'Challenge Awards':
+        badgeSet = "challenge";
+        break;
+    case 'Core badges':
+        badgeSet = 'core';
+        break
+    case 'Staged Activity Badges':
+        badgeSet = 'staged';
+        break
     }
 
     await BadgeSetPage(data, section, request, badgeSet);
@@ -179,15 +178,15 @@ async function SectionBadgeSets(data, section, request) {
 
     for (const result of results) {
         switch (result.text) {
-            case 'Activity Badges':
-            case 'Awards':
-            case 'Challenge Awards':
-            case 'Core badges':
-            case 'Staged Activity Badges':
-                await BadgeSets(data, section, result);
-                break;
-            default:
-                break;
+        case 'Activity Badges':
+        case 'Awards':
+        case 'Challenge Awards':
+        case 'Core badges':
+        case 'Staged Activity Badges':
+            await BadgeSets(data, section, result);
+            break;
+        default:
+            break;
         }
     }
 }
@@ -202,11 +201,11 @@ async function SectionBadges(data, request) {
 
     for (const result of results) {
         switch (result.text) {
-            case 'Badges and awards':
-                await SectionBadgeSets(data, section, result);
-                break;
-            default:
-                break;
+        case 'Badges and awards':
+            await SectionBadgeSets(data, section, result);
+            break;
+        default:
+            break;
         }
     }
 }
@@ -247,14 +246,14 @@ async function Root() {
 
     for (const result of results) {
         switch (result.text) {
-            case 'Beavers':
-            case 'Cubs':
-            case 'Scouts':
-            case 'Explorers':
-                await SectionBadges(data, result);
-                break;
-            default:
-                break;
+        case 'Beavers':
+        case 'Cubs':
+        case 'Scouts':
+        case 'Explorers':
+            await SectionBadges(data, result);
+            break;
+        default:
+            break;
         }
     };
     // Any special fix-up needs to be done here.

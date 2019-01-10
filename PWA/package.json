@@ -4,7 +4,7 @@
     "description": "Scout Badge Requirements",
     "author": "Geoff Soord",
     "license": "BSD-3-Clause",
-    "repository": "Polymer/polymer-starter-kit",
+    "repository": "GeoffAtHome/ScoutBadges",
     "scripts": {
         "start": "polymer serve --open",
         "build": "polymer build",
