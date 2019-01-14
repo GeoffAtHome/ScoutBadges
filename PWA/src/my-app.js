@@ -231,6 +231,7 @@ class MyApp extends PolymerElement {
         case 'Cubs':
         case 'Scouts':
         case 'Explorers':
+            this.validateBadgeSet(badgeSet);
             if (badge === '') {
                 this.page = 'section';
                 this.section = page;
@@ -240,20 +241,11 @@ class MyApp extends PolymerElement {
                 this.section = page;
                 this.badge = badge;
             }
-            if (['core', , 'activity', 'challenge', 'staged'].indexOf(badgeSet) !== -1) {
-                this.badgeset = badgeSet;
-            } else {
-                this.badgeset = "core";
-            }
             break;
 
         case 'Badge':
+            this.validateBadgeSet(badgeSet);
             this.page = page;
-            if (['core', , 'activity', 'challenge', 'staged'].indexOf(badgeSet) !== -1) {
-                this.badgeset = badgeSet;
-            } else {
-                this.badgeset = "core";
-            }
             this.badge = badge;
             break;
 
@@ -274,6 +266,14 @@ class MyApp extends PolymerElement {
         // Close a non-persistent drawer when the page & route are changed.
         if (!this.$.drawer.persistent) {
             this.$.drawer.close();
+        }
+    }
+
+    validateBadgeSet(badgeSet) {
+        if (['core', , 'activity', 'challenge', 'staged'].indexOf(badgeSet) !== -1) {
+            this.badgeset = badgeSet;
+        } else {
+            this.badgeset = "core";
         }
     }
 
