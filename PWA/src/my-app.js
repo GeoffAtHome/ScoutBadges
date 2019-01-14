@@ -141,7 +141,7 @@ class MyApp extends PolymerElement {
             <iron-pages selected="[[page]]" attr-for-selected="name" role="main">
             <welcome-page name="Welcome"></welcome-page>
             <section-badges name="section" data="[[data]]" section="[[section]]" badgeset="[[badgeset]]"></section-badges>
-            <display-badge name="Badge" card="[[card]]"></display-badge>
+            <display-badge name="Badge" data="[[data]]" section="[[section]]" badgeset="[[badgeset]]" badge="[[badge]]"></display-badge>
             <all-badges name="AllBadges" data="[[data]]"></all-badges>
           </iron-pages>
           </div>
@@ -152,7 +152,6 @@ class MyApp extends PolymerElement {
 
     static get properties() {
         return {
-            card: Object,
             data: Object,
             badge: {
                 type: String,
@@ -275,17 +274,6 @@ class MyApp extends PolymerElement {
         // Close a non-persistent drawer when the page & route are changed.
         if (!this.$.drawer.persistent) {
             this.$.drawer.close();
-        }
-
-        if (this.page === "Badge" && this.data !== undefined) {
-            const card = this.data[this.section][this.badgeset].filter((item) => item.id === badge)[0];
-            if (card === undefined) {
-                this.badgeData.badge = '';
-            } else {
-                this.card = card.info;
-            }
-        } else {
-            this.badgeData.badge = '';
         }
     }
 

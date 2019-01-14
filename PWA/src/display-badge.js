@@ -35,6 +35,10 @@ class DisplayBadge extends PolymerElement {
     static get properties() {
         return {
             card: Object,
+            data: Object,
+            section: String,
+            badgeset: String,
+            badge: String,
             startX: Number,
             startY: Number
         };
@@ -46,12 +50,18 @@ class DisplayBadge extends PolymerElement {
      */
     static get observers() {
         return [
-            'Changed(card)'
+            'Changed(data, section, badgeset, badge)'
         ];
     }
 
-    Changed(card) {
-        this.scrollIntoView();
+    Changed(data, section, badgeset, badge) {
+        if (data !== undefined && badge !== '') {
+            const card = data[section][badgeset].filter((item) => item.id === badge)[0];
+            if (card !== undefined) {
+                this.card = card.info;
+            }
+            this.scrollIntoView();
+        }
     }
 }
 

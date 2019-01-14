@@ -258,7 +258,7 @@ async function Root() {
     };
     // Any special fix-up needs to be done here.
     let text = JSON.stringify(data);
-    text = text.replace(/<img src=\\"res\/Scout%20Ls%20SeniorPatrolLeader%20RGB.jpg\\"><img src=\\"res\/Ls%20PatrolLeader%20RGB.jpg\\"><img src=\\"res\/Scout Ls AssistantPatrolLeader RGB.jpg\\"><br>Senior Patrol Leader&#xA0;Patrol Leader&#xA0;Assistant Patrol Leader<br>/g, '<img src=\\"res\/Scout%20Ls%20SeniorPatrolLeader%20RGB.jpg\\"><br>Senior Patrol Leader Patrol<br><br><img src=\\"res\/Ls%20PatrolLeader%20RGB.jpg\\"><br>Patrol Leader<br><br><img src=\\"res\/Scout Ls AssistantPatrolLeader RGB.jpg\\"><br>Patrol Leader<br><br>');
+    text = text.replace(/<img src=\\"res\/Scout%20Ls%20SeniorPatrolLeader%20RGB.jpg\\"><img src=\\"res\/Ls%20PatrolLeader%20RGB.jpg\\"><img src=\\"res\/Scout Ls AssistantPatrolLeader RGB.jpg\\"><br>Senior Patrol Leader&#xA0;Patrol Leader&#xA0;Assistant Patrol Leader<br>/g, '<img src=\\"res\/Scout%20Ls%20SeniorPatrolLeader%20RGB.jpg\\"><br>Senior Patrol Leader Patrol<br><br><img src=\\"res\/Ls%20PatrolLeader%20RGB.jpg\\"><br>Patrol Leader<br><br><img src=\\"res\/Scout Ls AssistantPatrolLeader RGB.jpg\\"><br>Assistant Patrol Leader<br><br>');
     text = text.replace(/<p><b>Sixer Leadership Stripes&#xA0;Seconder <\/b><b><span><b>Leadership<\/b> <\/span> Stripes<br><br><img src=\\"res\/sixer%20leadership%20stripes.png\\"> &#xA0;<img src=\\"res\/seconder%20leadership%20stripes.png\\"> &#xA0;<br><\/b><\/p>/g, '<img src=\\"res\/sixer%20leadership%20stripes.png\\"><br>Sixer Leadership Stripes<br><br><img src=\\"res\/seconder%20leadership%20stripes.png\\"><br>Seconder Leadership Stripes<br><br>');
     fs.writeFile("./../PWA/res/data.json", text, function (err, data) {
         if (err) {
