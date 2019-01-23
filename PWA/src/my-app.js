@@ -208,7 +208,14 @@ class MyApp extends PolymerElement {
         // If no page was found in the route data, page will be an empty string.
         // Show 'view1' in that case. And if the page doesn't exist, show 'view404'.
         if (!page) {
-            page = 'Welcome';
+            page = localStorage.getItem("page");
+            if (!page) {
+                page = 'Welcome';
+            } else {
+                badgeSet = localStorage.getItem("set");
+                badge = localStorage.getItem("badge");
+                this.section = localStorage.getItem("section");
+            }
         }
 
         if (!badgeSet) {
@@ -267,6 +274,11 @@ class MyApp extends PolymerElement {
         if (!this.$.drawer.persistent) {
             this.$.drawer.close();
         }
+        // Save the page details for a restart
+        localStorage.setItem("page", this.page);
+        localStorage.setItem("set", this.badgeset);
+        localStorage.setItem("badge", this.badge);
+        localStorage.setItem("section", this.section);
     }
 
     validateBadgeSet(badgeSet) {
