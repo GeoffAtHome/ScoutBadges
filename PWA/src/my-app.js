@@ -133,6 +133,7 @@ class MyApp extends PolymerElement {
               <div main-title>
               <iron-image class="menu" sizing="contain" fade src="images/[[section]].png"></iron-image>
               [[title]]</div>
+              <paper-icon-button icon="my-icons:share" on-tap="_share"></paper-icon-button>
               <paper-icon-button icon="my-icons:arrow-back" on-tap="_BackClicked"></paper-icon-button>
             </app-toolbar>
           </app-header>
@@ -196,10 +197,57 @@ class MyApp extends PolymerElement {
 
     _displayTitle(event) {
         this.title = event.detail;
+        localStorage.setItem("title", this.title);
     }
 
     _BackClicked(event) {
         window.history.back();
+    }
+
+    _share(event) {
+        // Work out where we our to compose the correct content to share
+        let title = "";
+        let text = "";
+        let link = location.href;
+
+        switch (this.page) {
+        case 'Welcome':
+        default:
+            title = "Welcome to Scout Badge Requirements";
+            text = "You can use the following link to find the requirements for your Scout Badges"
+            break;
+
+        case 'section':
+        case 'Beavers':
+        case 'Cubs':
+        case 'Scouts':
+        case 'Explorers':
+            title = this.section + " " + this.badgeset + " badge requirements";
+            text = "You can use the following link to find the requirements for your " + title;
+            break;
+
+        case 'Badge':
+            const badge = this.data[this.section][this.badgeset].filter((item) => item.id === this.badge)[0];
+            title = this.section + " " + this.badgeset + " " + badge.title;
+            text = "You can use the following link to find the requirements for your Scout Badges"
+            break;
+
+        case 'AllBadges':
+            title = "Welcome to Scout Badge Requirements";
+            text = "All the Scouts badges can be found from the following link"
+            break;
+        }
+
+        if ('share' in navigator) {
+            navigator.share({
+                title: title,
+                text: text,
+                url: link,
+            })
+        } else {
+            title = title.replace(/ /g, "%20") + "&body=" + text.replace(/ /g, "%20") + ": \n\r\n\r" + link;
+            location.href = 'mailto:?subject=' + title;
+        }
     }
 
     _routePageChanged(page, badgeSet, badge) {
@@ -215,6 +263,7 @@ class MyApp extends PolymerElement {
                 badgeSet = localStorage.getItem("set");
                 badge = localStorage.getItem("badge");
                 this.section = localStorage.getItem("section");
+                this.title = localStorage.getItem("title");
             }
         }
 
@@ -279,6 +328,7 @@ class MyApp extends PolymerElement {
         localStorage.setItem("set", this.badgeset);
         localStorage.setItem("badge", this.badge);
         localStorage.setItem("section", this.section);
+        localStorage.setItem("title", this.title);
     }
 
     validateBadgeSet(badgeSet) {
