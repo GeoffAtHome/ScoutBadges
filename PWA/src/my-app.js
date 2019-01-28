@@ -93,7 +93,7 @@ class MyApp extends PolymerElement {
         }
       </style>
       <iron-ajax auto url="res/data.json" handle-as="json" last-response="{{data}}"></iron-ajax>
-      <app-location route="{{route}}" url-space-regex="^[[rootPath]]">
+      <app-location route="{{route}}" url-space-regex="^[[rootPath]]" use-hash-as-path>
       </app-location>
 
       <app-route route="{{route}}" pattern="[[rootPath]]:page" data="{{routeData}}" tail="{{setroute}}"></app-route>
@@ -105,22 +105,22 @@ class MyApp extends PolymerElement {
         <app-drawer id="drawer" slot="drawer" swipe-open="[[narrow]]">
           <app-toolbar>Menu</app-toolbar>
           <iron-selector selected="[[section]]" attr-for-selected="name" class="drawer-list" role="navigation">
-            <a name="Welcome" href="[[rootPath]]Welcome/">
-              <iron-image class="menuwelcome" position="left" sizing="contain" fade src="images/Welcome.png"></iron-image>Welcome
+            <a name="Welcome" href="[[rootPath]]#/Welcome/">
+              <iron-image class="menuwelcome" position="left" sizing="contain" fade src="images/welcome.png"></iron-image>Welcome
             </a>
-            <a name="Beavers" href="[[rootPath]]Beavers/[[badgeset]]/">
-              <iron-image class="menu" position="left" sizing="contain" fade src="images/Beavers.png"></iron-image>
+            <a name="Beavers" href="[[rootPath]]#/Beavers/[[badgeset]]/">
+              <iron-image class="menu" position="left" sizing="contain" fade src="images/beavers.png"></iron-image>
             </a>
-            <a name="Cubs" href="[[rootPath]]Cubs/[[badgeset]]/">
-              <iron-image class="menu" position="left" sizing="contain" fade src="images/Cubs.png"></iron-image>
+            <a name="Cubs" href="[[rootPath]]#/Cubs/[[badgeset]]/">
+              <iron-image class="menu" position="left" sizing="contain" fade src="images/cubs.png"></iron-image>
             </a>
-            <a name="Scouts" href="[[rootPath]]Scouts/[[badgeset]]/">
-              <iron-image class="menu" position="left" sizing="contain" fade src="images/Scouts.png"></iron-image>
+            <a name="Scouts" href="[[rootPath]]#/Scouts/[[badgeset]]/">
+              <iron-image class="menu" position="left" sizing="contain" fade src="images/scouts.png"></iron-image>
             </a>
-            <a name="Explorers" href="[[rootPath]]Explorers/[[badgeset]]/">
-              <iron-image class="menu" position="left" sizing="contain" fade src="images/Explorers.png"></iron-image>
+            <a name="Explorers" href="[[rootPath]]#/Explorers/[[badgeset]]/">
+              <iron-image class="menu" position="left" sizing="contain" fade src="images/explorers.png"></iron-image>
             </a>
-            <a name="AllBadges" href="[[rootPath]]AllBadges">All Badges</a>
+            <a name="AllBadges" href="[[rootPath]]#/AllBadges">All Badges</a>
           </iron-selector>
         </app-drawer>
 
@@ -131,7 +131,7 @@ class MyApp extends PolymerElement {
             <app-toolbar>
               <paper-icon-button icon="my-icons:menu" drawer-toggle=""></paper-icon-button>
               <div main-title>
-              <iron-image class="menu" sizing="contain" fade src="images/[[section]].png"></iron-image>
+              <iron-image class="menu" sizing="contain" fade src="images/[[sectionImg]].png"></iron-image>
               [[title]]</div>
               <paper-icon-button icon="my-icons:share" on-tap="_share"></paper-icon-button>
               <paper-icon-button icon="my-icons:arrow-back" on-tap="_BackClicked"></paper-icon-button>
@@ -164,6 +164,7 @@ class MyApp extends PolymerElement {
                 // observer: '_pageChanged'
             },
             section: String,
+            sectionImg: String,
             title: {
                 type: String,
                 value: "Scout Badge Requirements"
@@ -263,6 +264,7 @@ class MyApp extends PolymerElement {
                 badgeSet = localStorage.getItem("set");
                 badge = localStorage.getItem("badge");
                 this.section = localStorage.getItem("section");
+                this.sectionImg = this.section.toLowerCase();
                 this.title = localStorage.getItem("title");
             }
         }
@@ -281,6 +283,7 @@ class MyApp extends PolymerElement {
             this.badge = '';
             this.badgeset = 'Welcome';
             this.section = 'Welcome';
+            this.sectionImg = this.section.toLowerCase();
             break;
 
         case 'Beavers':
@@ -291,10 +294,12 @@ class MyApp extends PolymerElement {
             if (badge === '') {
                 this.page = 'section';
                 this.section = page;
+                this.sectionImg = this.section.toLowerCase();
                 this.badge = '';
             } else {
                 this.page = 'Badge';
                 this.section = page;
+                this.sectionImg = this.section.toLowerCase();
                 this.badge = badge;
             }
             break;
@@ -310,6 +315,7 @@ class MyApp extends PolymerElement {
             this.badge = '';
             this.badgeset = 'All badges';
             this.section = "Welcome";
+            this.sectionImg = this.section.toLowerCase();
             break;
 
         default:
@@ -317,6 +323,7 @@ class MyApp extends PolymerElement {
             this.badge = '';
             this.badgeset = 'core';
             this.section = "AllBadges";
+            this.sectionImg = this.section.toLowerCase();
             break;
         }
         // Close a non-persistent drawer when the page & route are changed.

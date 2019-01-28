@@ -18,10 +18,10 @@ class SectionBadges extends PolymerElement {
     </style>
     <div class="tabs">
         <vaadin-tabs id="tabs" selected="[[selected]]">
-            <vaadin-tab><a href="/[[section]]/core/">Core badges</a></vaadin-tab>
-            <vaadin-tab><a href="/[[section]]/challenge/">Challenge awards</a></vaadin-tab>
-            <vaadin-tab><a href="/[[section]]/activity/">Activity badges</a></vaadin-tab>
-            <vaadin-tab><a href="/[[section]]/staged/">Staged badges</a></vaadin-tab>
+            <vaadin-tab><a href="#/[[section]]/core/">Core badges</a></vaadin-tab>
+            <vaadin-tab><a href="#/[[section]]/challenge/">Challenge awards</a></vaadin-tab>
+            <vaadin-tab><a href="#/[[section]]/activity/">Activity badges</a></vaadin-tab>
+            <vaadin-tab><a href="#/[[section]]/staged/">Staged badges</a></vaadin-tab>
         </vaadin-tabs>
     </div>
     <badge-cards data="[[data]]" section="[[section]]" badgeset="[[badgeset]]"></badge-cards>

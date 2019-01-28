@@ -30,7 +30,7 @@ class BadgeCard extends PolymerElement {
         }
       </style>
 
-        <a href="[[section]]/[[badgeset]]/[[card.id]]">
+        <a href="#/[[section]]/[[badgeset]]/[[card.id]]">
             <iron-image sizing="contain" fade src="[[card.image]]"></iron-image>
             <div>[[card.title]]</div>
         </a>

@@ -32,7 +32,7 @@ class AllBadges extends PolymerElement {
         <div class="box">
         <dom-repeat items="[[getBadges(data)]]">
             <template>
-            <a href="[[item.link]]">
+            <a href="#/[[item.link]]">
                 <iron-image sizing="contain" fade src="res/[[item.url]]"></iron-image>
             </a>
             </template>
