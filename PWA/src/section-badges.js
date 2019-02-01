@@ -4,7 +4,8 @@ import {
 import {
     html
 } from '@polymer/polymer/lib/utils/html-tag.js';
-import '@vaadin/vaadin-tabs/vaadin-tabs.js';
+import '@polymer/paper-tabs/paper-tabs.js';
+import '@polymer/paper-tabs/paper-tab.js';
 import './badge-cards.js';
 import './shared-styles.js';
 
@@ -15,14 +16,21 @@ class SectionBadges extends PolymerElement {
         .tabs {
             background-color: #fff;
         }
+        .link {
+            display: flex;
+            text-decoration: none;
+            color: var(--app-secondary-color);
+            align-items: center;
+            justify-content: center;            
+        }
     </style>
     <div class="tabs">
-        <vaadin-tabs id="tabs" selected="[[selected]]">
-            <vaadin-tab><a href="#/[[section]]/core/">Core badges</a></vaadin-tab>
-            <vaadin-tab><a href="#/[[section]]/challenge/">Challenge awards</a></vaadin-tab>
-            <vaadin-tab><a href="#/[[section]]/activity/">Activity badges</a></vaadin-tab>
-            <vaadin-tab><a href="#/[[section]]/staged/">Staged badges</a></vaadin-tab>
-        </vaadin-tabs>
+        <paper-tabs id="tabs" selected="[[selected]]" scrollable>
+            <paper-tab><a class='link' href="#/[[section]]/core/">Core badges</a></paper-tab>
+            <paper-tab><a class='link' href="#/[[section]]/challenge/">Challenge awards</a></paper-tab>
+            <paper-tab><a class='link' href="#/[[section]]/activity/">Activity badges</a></paper-tab>
+            <paper-tab><a class='link' href="#/[[section]]/staged/">Staged badges</a></paper-tab>
+        </paper-tabs>
     </div>
     <badge-cards data="[[data]]" section="[[section]]" badgeset="[[badgeset]]"></badge-cards>
     `;
