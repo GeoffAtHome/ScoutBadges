@@ -7,7 +7,7 @@ import './shared-styles.js';
 
 class AllBadges extends PolymerElement {
     static get template() {
-            return html `
+        return html `
     <style include="shared-styles">
         :host {
             display: block;
@@ -28,7 +28,7 @@ class AllBadges extends PolymerElement {
     </style>
 
     <div>
-        <h2>This page is for downloading all the badges for working offline</h2>
+        <h2>This page downloads all the badges to allow working offline</h2>
         <div class="box">
         <dom-repeat items="[[getBadges(data)]]">
             <template>
@@ -40,10 +40,10 @@ class AllBadges extends PolymerElement {
         </div>
     <div>
     `;
-        }
-        /**
-         * Object describing property-related metadata used by Polymer features
-         */
+    }
+    /**
+     * Object describing property-related metadata used by Polymer features
+     */
     static get properties() {
         return {
             data: Object

@@ -118,19 +118,19 @@ async function BadgeSets(data, section, request) {
     // Normalise the badge set
     let badgeSet = '';
     switch (request.text) {
-    case 'Activity Badges':
-        badgeSet = "activity";
-        break;
-    case 'Awards':
-    case 'Challenge Awards':
-        badgeSet = "challenge";
-        break;
-    case 'Core badges':
-        badgeSet = 'core';
-        break
-    case 'Staged Activity Badges':
-        badgeSet = 'staged';
-        break
+        case 'Activity Badges':
+            badgeSet = "activity";
+            break;
+        case 'Awards':
+        case 'Challenge Awards':
+            badgeSet = "challenge";
+            break;
+        case 'Core badges':
+            badgeSet = 'core';
+            break
+        case 'Staged Activity Badges':
+            badgeSet = 'staged';
+            break
     }
 
     await BadgeSetPage(data, section, request, badgeSet);
@@ -178,15 +178,15 @@ async function SectionBadgeSets(data, section, request) {
 
     for (const result of results) {
         switch (result.text) {
-        case 'Activity Badges':
-        case 'Awards':
-        case 'Challenge Awards':
-        case 'Core badges':
-        case 'Staged Activity Badges':
-            await BadgeSets(data, section, result);
-            break;
-        default:
-            break;
+            case 'Activity Badges':
+            case 'Awards':
+            case 'Challenge Awards':
+            case 'Core badges':
+            case 'Staged Activity Badges':
+                await BadgeSets(data, section, result);
+                break;
+            default:
+                break;
         }
     }
 }
@@ -201,36 +201,82 @@ async function SectionBadges(data, request) {
 
     for (const result of results) {
         switch (result.text) {
-        case 'Badges and awards':
-            await SectionBadgeSets(data, section, result);
-            break;
-        default:
-            break;
+            case 'Badges and awards':
+                await SectionBadgeSets(data, section, result);
+                break;
+            default:
+                break;
         }
+    }
+}
+
+async function SectionPromises(data, request) {
+    const section = request.text;
+    const results = await xray(request.href, 'body', [{
+        text: xray('div.seven.columns@html'),
+    }]);
+
+    if (results[0]) {
+        let thisSection = request.text;
+        switch (section) {
+            case 'Beavers':
+                thisSection = 'Beaver Scout';
+                break;
+
+            case 'Cubs':
+                thisSection = 'Cub Scout';
+                break;
+
+            case 'Scouts':
+            case 'Explorers':
+                thisSection = 'Scout'
+                break;
+        }
+        const text = results[0].text;
+        const rxPromise = new RegExp("<h3>(<b>|)The " + thisSection + " Promise.*?<h3>", "g")
+        const rxLaw = new RegExp("<h3>(<b>|)The " + thisSection + " Law.*?<h3>", "g")
+        const rxMotto = new RegExp("<h3>(<b>|)The " + thisSection + " Motto.*?<h3>", "g")
+
+        const promise = RemoveDoubles(rxPromise.exec(text)[0]);
+        const law = RemoveDoubles(rxLaw.exec(text)[0]);
+        const motto = RemoveDoubles(rxMotto.exec(text)[0]);
+
+        data[section]['lawAndPromise'].push({
+            id: 'lawAndPromise',
+            title: thisSection + " Promise, Law and Motto",
+            promise: promise,
+            law: law,
+            motto: motto
+        });
+
     }
 }
 
 async function Root() {
     let data = {
         Beavers: {
+            lawAndPromise: [],
             activity: [],
             core: [],
             challenge: [],
             staged: []
         },
         Cubs: {
+            lawAndPromise: [],
             activity: [],
             core: [],
             challenge: [],
             staged: []
         },
         Scouts: {
+            lawAndPromise: [],
             activity: [],
             core: [],
             challenge: [],
             staged: []
         },
         Explorers: {
+            lawAndPromise: [],
             activity: [],
             core: [],
             challenge: [],
@@ -246,14 +292,15 @@ async function Root() {
 
     for (const result of results) {
         switch (result.text) {
-        case 'Beavers':
-        case 'Cubs':
-        case 'Scouts':
-        case 'Explorers':
-            await SectionBadges(data, result);
-            break;
-        default:
-            break;
+            case 'Beavers':
+            case 'Cubs':
+            case 'Scouts':
+            case 'Explorers':
+                await SectionPromises(data, result);
+                await SectionBadges(data, result);
+                break;
+            default:
+                break;
         }
     };
     // Any special fix-up needs to be done here.

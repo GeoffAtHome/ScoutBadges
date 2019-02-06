@@ -1,13 +1,13 @@
 import {
-    PolymerElement,
-    html
+  PolymerElement,
+  html
 } from '@polymer/polymer/polymer-element.js';
 import './shared-styles.js';
 
 
 class WelcomePage extends PolymerElement {
-    static get template() {
-        return html `
+  static get template() {
+    return html `
       <style include="shared-styles">
         :host {
           display: block;
@@ -21,6 +21,7 @@ class WelcomePage extends PolymerElement {
     <br>
     <h1>Releases</h1>
     <ul>
+      <li>0.0.14 - promise, law and motto added</li>
       <li>0.0.13 - use paper-tabs instead of vaadin-tabs</li>
       <li>0.0.12 - use-hash-route in URL to address searching and sharing</li>
       <li>0.0.11 - add share link for Android and mailto for other platforms</li>
@@ -29,7 +30,7 @@ class WelcomePage extends PolymerElement {
       <li>0.0.8 - added touch support for back/forward</li>
     </ul>
     `;
-    }
+  }
 }
 
 window.customElements.define('welcome-page', WelcomePage);

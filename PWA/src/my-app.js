@@ -140,11 +140,11 @@ class MyApp extends PolymerElement {
 
           <div id="track" on-track="handleTrack">
             <iron-pages selected="[[page]]" attr-for-selected="name" role="main">
-            <welcome-page name="Welcome"></welcome-page>
-            <section-badges name="section" data="[[data]]" section="[[section]]" badgeset="[[badgeset]]"></section-badges>
-            <display-badge name="Badge" data="[[data]]" section="[[section]]" badgeset="[[badgeset]]" badge="[[badge]]"></display-badge>
-            <all-badges name="AllBadges" data="[[data]]"></all-badges>
-          </iron-pages>
+                <welcome-page name="Welcome"></welcome-page>
+                <section-badges name="section" data="[[data]]" section="[[section]]" badgeset="[[badgeset]]"></section-badges>
+                <display-badge name="Badge" data="[[data]]" section="[[section]]" badgeset="[[badgeset]]" badge="[[badge]]"></display-badge>
+                <all-badges name="AllBadges" data="[[data]]"></all-badges>
+            </iron-pages>
           </div>
         </app-header-layout>
       </app-drawer-layout>
@@ -191,14 +191,8 @@ class MyApp extends PolymerElement {
 
     ready() {
         super.ready();
-        window.addEventListener("display-title", event => this._displayTitle(event));
         this.$.track.addEventListener("touchstart", this.handleStart, false);
         this.$.track.addEventListener("touchend", this.handleEnd, false);
-    }
-
-    _displayTitle(event) {
-        this.title = event.detail;
-        localStorage.setItem("title", this.title);
     }
 
     _BackClicked(event) {
@@ -212,31 +206,36 @@ class MyApp extends PolymerElement {
         let link = location.href;
 
         switch (this.page) {
-        case 'Welcome':
-        default:
-            title = "Welcome to Scout Badge Requirements";
-            text = "You can use the following link to find the requirements for your Scout Badges"
-            break;
+            case 'Welcome':
+            default:
+                title = "Welcome to Scout Badge Requirements";
+                text = "You can use the following link to find the requirements for your Scout Badges"
+                break;
 
-        case 'section':
-        case 'Beavers':
-        case 'Cubs':
-        case 'Scouts':
-        case 'Explorers':
-            title = this.section + " " + this.badgeset + " badge requirements";
-            text = "You can use the following link to find the requirements for your " + title;
-            break;
+            case 'section':
+            case 'Beavers':
+            case 'Cubs':
+            case 'Scouts':
+            case 'Explorers':
+                if (this.badgeset == 'lawAndPromise') {
+                    title = this.section + " " + this.title;
+                    text = "You can use the following link for the " + title;
+                } else {
+                    title = this.section + " " + this.title + " badge requirements";
+                    text = "You can use the following link to find the requirements for your " + title;
+                }
+                break;
 
-        case 'Badge':
-            const badge = this.data[this.section][this.badgeset].filter((item) => item.id === this.badge)[0];
-            title = this.section + " " + this.badgeset + " " + badge.title;
-            text = "You can use the following link to find the requirements for your Scout Badges"
-            break;
+            case 'Badge':
+                const badge = this.data[this.section][this.badgeset].filter((item) => item.id === this.badge)[0];
+                title = this.section + " " + this.badgeset + " " + badge.title;
+                text = "You can use the following link to find the requirements for your Scout Badges"
+                break;
 
-        case 'AllBadges':
-            title = "Welcome to Scout Badge Requirements";
-            text = "All the Scouts badges can be found from the following link"
-            break;
+            case 'AllBadges':
+                title = "Welcome to Scout Badge Requirements";
+                text = "All the Scouts badges can be found from the following link"
+                break;
         }
 
         if ('share' in navigator) {
@@ -278,53 +277,77 @@ class MyApp extends PolymerElement {
         }
 
         switch (page) {
-        case 'Welcome':
-            this.page = page;
-            this.badge = '';
-            this.badgeset = 'Welcome';
-            this.section = 'Welcome';
-            this.sectionImg = this.section.toLowerCase();
-            break;
-
-        case 'Beavers':
-        case 'Cubs':
-        case 'Scouts':
-        case 'Explorers':
-            this.validateBadgeSet(badgeSet);
-            if (badge === '') {
-                this.page = 'section';
-                this.section = page;
-                this.sectionImg = this.section.toLowerCase();
+            case 'Welcome':
+                this.page = page;
                 this.badge = '';
-            } else {
-                this.page = 'Badge';
-                this.section = page;
+                this.badgeset = 'Welcome';
+                this.section = 'Welcome';
                 this.sectionImg = this.section.toLowerCase();
+                this.title = 'Scout Badge Requirements';
+                break;
+
+            case 'Beavers':
+            case 'Cubs':
+            case 'Scouts':
+            case 'Explorers':
+                this.badgeset = this.validateBadgeSet(badgeSet);
+                if (badge === '') {
+                    this.page = 'section';
+                    this.section = page;
+                    this.sectionImg = this.section.toLowerCase();
+                    this.badge = '';
+                    switch (this.badgeset) {
+                        case 'lawAndPromise':
+                            this.title = 'Promise, Law and Motto';
+                            break;
+
+                        case 'core':
+                            this.title = 'Core';
+                            break;
+
+                        case 'activity':
+                            this.title = 'Activity';
+                            break;
+
+                        case 'challenge':
+                            this.title = 'Challenge';
+                            break;
+
+                        case 'staged':
+                            this.title = 'Staged';
+                            break;
+
+                    }
+                } else {
+                    this.page = 'Badge';
+                    this.section = page;
+                    this.sectionImg = this.section.toLowerCase();
+                    this.badge = badge;
+                }
+                break;
+
+            case 'Badge':
+                this.badgeset = this.validateBadgeSet(badgeSet);
+                this.page = page;
                 this.badge = badge;
-            }
-            break;
+                break;
 
-        case 'Badge':
-            this.validateBadgeSet(badgeSet);
-            this.page = page;
-            this.badge = badge;
-            break;
+            case 'AllBadges':
+                this.page = page;
+                this.badge = '';
+                this.section = "Welcome";
+                this.sectionImg = this.section.toLowerCase();
+                this.title = 'All badges';
 
-        case 'AllBadges':
-            this.page = page;
-            this.badge = '';
-            this.badgeset = 'All badges';
-            this.section = "Welcome";
-            this.sectionImg = this.section.toLowerCase();
-            break;
+                break;
 
-        default:
-            this.page = "Welcome";
-            this.badge = '';
-            this.badgeset = 'core';
-            this.section = "AllBadges";
-            this.sectionImg = this.section.toLowerCase();
-            break;
+            default:
+                this.page = "Welcome";
+                this.badge = '';
+                this.badgeset = 'core';
+                this.section = "AllBadges";
+                this.sectionImg = this.section.toLowerCase();
+                break;
         }
         // Close a non-persistent drawer when the page & route are changed.
         if (!this.$.drawer.persistent) {
@@ -339,11 +362,11 @@ class MyApp extends PolymerElement {
     }
 
     validateBadgeSet(badgeSet) {
-        if (['core', , 'activity', 'challenge', 'staged'].indexOf(badgeSet) !== -1) {
-            this.badgeset = badgeSet;
-        } else {
-            this.badgeset = "core";
+        if (['lawAndPromise', 'core', , 'activity', 'challenge', 'staged'].indexOf(badgeSet) !== -1) {
+            return badgeSet;
         }
+
+        return 'core';
     }
 
     _pageChanged(page) {
@@ -352,18 +375,18 @@ class MyApp extends PolymerElement {
         // Note: `polymer build` doesn't like string concatenation in the import
         // statement, so break it up.
         switch (page) {
-        case 'Welcome':
-            import ('./welcome-page.js');
-            break;
-        case 'Badge':
-            import ('./display-badge.js');
-            break;
-        case 'AllBadges':
-            import ('./all-badges.js');
-            break;
-        default:
-            import ('./section-badges.js');
-            break;
+            case 'Welcome':
+                import('./welcome-page.js');
+                break;
+            case 'Badge':
+                import('./display-badge.js');
+                break;
+            case 'AllBadges':
+                import('./all-badges.js');
+                break;
+            default:
+                import('./section-badges.js');
+                break;
         }
     }
 

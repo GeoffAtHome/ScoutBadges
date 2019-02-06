@@ -55,7 +55,7 @@ class DisplayBadge extends PolymerElement {
     }
 
     Changed(data, section, badgeset, badge) {
-        if (data !== undefined && badge !== '') {
+        if (data !== undefined && ['Beavers', 'Cubs', 'Scouts', 'Explorers'].indexOf(section) !== -1 && ['lawAndPromise', 'core', 'activity', 'challenge', 'staged'].indexOf(badgeset) !== -1 && badge !== '') {
             const card = data[section][badgeset].filter((item) => item.id === badge)[0];
             if (card !== undefined) {
                 this.card = card.info;
