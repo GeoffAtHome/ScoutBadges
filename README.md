@@ -5,11 +5,12 @@ After getting disgruntled by the Android app "ScoutBadges" not working on my And
 
 You need to be online to gain access to the application but after that it will run offline as all the content should be cached (only the pages you visit will be cached - in a future release this restriction maybe removed).
 
-When scouts.org.uk update the badge requirements the scraping code can be re-run to refresh the content. The new content then become accessible and will update the cache. Obviously to update the cache you need to be online.
+When [scouts.org.uk](https://scouts.org.uk) update the badge requirements the scraping code can be re-run to refresh the content. The new content then become accessible and will update the cache. Obviously to update the cache you need to be online.
 
 ## Try it now
 The built application can be tried here: [Scout Badge Requirements](http://scoutbagderequirements.firebaseapp.com/)
 
+## Project parts
 The project is in two parts:
 * **ScrapeTheSite** - creates the resources needed for the PWA
 * **PWA** - the app that will run on your phone/tablet.....
@@ -20,6 +21,7 @@ Download from Github. Run:
 * `npm install`
 * `npm start`
 * `cd ../PWA`
+* `npm install`
 * `polymer serve --open`
 
 (this assumes you have npm and polymer-cli installed)
