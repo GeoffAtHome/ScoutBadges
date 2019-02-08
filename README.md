@@ -1,4 +1,4 @@
-# ScoutBages
+# Scout Badge Requirements
 
 ## Overview
 After getting disgruntled by the Android app "ScoutBadges" not working on my Android phone and lack of response from the author of the app I decide to write my own version of the app that works as a Progressive Web App (PWA). This should mean that it works offline and across anything that support a browser.
