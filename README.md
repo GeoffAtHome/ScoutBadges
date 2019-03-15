@@ -8,7 +8,7 @@ You need to be online to gain access to the application but after that it will r
 When [scouts.org.uk](https://scouts.org.uk) update the badge requirements the scraping code can be re-run to refresh the content. The new content then become accessible and will update the cache. Obviously to update the cache you need to be online.
 
 ## Try it now
-The built app can be tried here: [Scout Badge Requirements](http://scoutbagderequirements.firebaseapp.com/)
+The built app can be tried here: [Scout Badge Requirements](https://scout-badge-requirements.firebaseapp.com)
 
 ## Project parts
 The project is in two parts:
