@@ -24,7 +24,7 @@ async function SingleBadge(data, section, badgeSet, request) {
                     // Save the image
                     const path = image.match(/src=".*?"/)[0].split('=')[1].replace(/"/g, "")
                     const shortName = SaveImage(data, path, link);
-                    text = text.replace(path, shortName);
+                    text = text.replace(path, 'res/' + shortName[0] + '.' + shortName[1]);
                 }
             }
         }
@@ -40,7 +40,8 @@ async function SingleBadge(data, section, badgeSet, request) {
         data[section][badgeSet].push({
             id: title.replace(/(\(|\)| |')/g, '_').toLowerCase(),
             title: title,
-            image: saveName,
+            image: saveName[0],
+            imageType: saveName[1],
             info: text
         });
     }
@@ -91,7 +92,8 @@ function SaveImage(data, href, link) {
         data['Badges'].push(entry);
         GetImage(href, shortName);
     }
-    return "res/" + shortName;
+
+    return shortName.split('.');
 }
 
 function download(uri, filename, callback) {
@@ -118,19 +120,19 @@ async function BadgeSets(data, section, request) {
     // Normalise the badge set
     let badgeSet = '';
     switch (request.text) {
-        case 'Activity Badges':
-            badgeSet = "activity";
-            break;
-        case 'Awards':
-        case 'Challenge Awards':
-            badgeSet = "challenge";
-            break;
-        case 'Core badges':
-            badgeSet = 'core';
-            break
-        case 'Staged Activity Badges':
-            badgeSet = 'staged';
-            break
+    case 'Activity Badges':
+        badgeSet = "activity";
+        break;
+    case 'Awards':
+    case 'Challenge Awards':
+        badgeSet = "challenge";
+        break;
+    case 'Core badges':
+        badgeSet = 'core';
+        break
+    case 'Staged Activity Badges':
+        badgeSet = 'staged';
+        break
     }
 
     await BadgeSetPage(data, section, request, badgeSet);
@@ -178,15 +180,15 @@ async function SectionBadgeSets(data, section, request) {
 
     for (const result of results) {
         switch (result.text) {
-            case 'Activity Badges':
-            case 'Awards':
-            case 'Challenge Awards':
-            case 'Core badges':
-            case 'Staged Activity Badges':
-                await BadgeSets(data, section, result);
-                break;
-            default:
-                break;
+        case 'Activity Badges':
+        case 'Awards':
+        case 'Challenge Awards':
+        case 'Core badges':
+        case 'Staged Activity Badges':
+            await BadgeSets(data, section, result);
+            break;
+        default:
+            break;
         }
     }
 }
@@ -201,11 +203,11 @@ async function SectionBadges(data, request) {
 
     for (const result of results) {
         switch (result.text) {
-            case 'Badges and awards':
-                await SectionBadgeSets(data, section, result);
-                break;
-            default:
-                break;
+        case 'Badges and awards':
+            await SectionBadgeSets(data, section, result);
+            break;
+        default:
+            break;
         }
     }
 }
@@ -219,18 +221,18 @@ async function SectionPromises(data, request) {
     if (results[0]) {
         let thisSection = request.text;
         switch (section) {
-            case 'Beavers':
-                thisSection = 'Beaver Scout';
-                break;
+        case 'Beavers':
+            thisSection = 'Beaver Scout';
+            break;
 
-            case 'Cubs':
-                thisSection = 'Cub Scout';
-                break;
+        case 'Cubs':
+            thisSection = 'Cub Scout';
+            break;
 
-            case 'Scouts':
-            case 'Explorers':
-                thisSection = 'Scout'
-                break;
+        case 'Scouts':
+        case 'Explorers':
+            thisSection = 'Scout'
+            break;
         }
         const text = results[0].text;
         const rxPromise = new RegExp("<h3>(<b>|)The " + thisSection + " Promise.*?<h3>", "g")
@@ -292,15 +294,15 @@ async function Root() {
 
     for (const result of results) {
         switch (result.text) {
-            case 'Beavers':
-            case 'Cubs':
-            case 'Scouts':
-            case 'Explorers':
-                await SectionPromises(data, result);
-                await SectionBadges(data, result);
-                break;
-            default:
-                break;
+        case 'Beavers':
+        case 'Cubs':
+        case 'Scouts':
+        case 'Explorers':
+            await SectionPromises(data, result);
+            await SectionBadges(data, result);
+            break;
+        default:
+            break;
         }
     };
     // Any special fix-up needs to be done here.

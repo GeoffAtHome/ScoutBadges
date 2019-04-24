@@ -1,4 +1,7 @@
 cd PWA
-npm install
+call npm install
 cd ..\ScrapeTheSite
-npm install
+call npm install
+call npm start
+call node webp
+
