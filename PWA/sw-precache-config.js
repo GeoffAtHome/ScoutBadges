@@ -19,11 +19,11 @@ module.exports = {
         },
         {
             urlPattern: /\/res\/*.+.json/,
-            handler: 'fastest',
+            handler: 'cacheFirst',
             options: {
                 cache: {
                     name: 'data',
-                    maxAgeSeconds: 86400
+                    maxAgeSeconds: 604800
                 }
             }
         },

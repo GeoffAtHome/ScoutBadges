@@ -2,6 +2,7 @@ import {
     PolymerElement,
     html
 } from '@polymer/polymer/polymer-element.js';
+import 'plastic-image/plastic-image';
 import './shared-styles.js';
 
 class TheBadge extends PolymerElement {

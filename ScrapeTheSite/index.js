@@ -2,6 +2,9 @@ const xray = require('x-ray-scraper');
 const request = require('request');
 const stripHtmlComments = require('strip-html-comments');
 const fs = require('fs');
+const imagemin = require('imagemin');
+const imageminWebp = require('imagemin-webp');
+const outputFolder = "./../PWA/res/" // Output folder
 
 async function SingleBadge(data, section, badgeSet, request) {
     const results = await xray(request.href, 'body', [{
@@ -17,19 +20,23 @@ async function SingleBadge(data, section, badgeSet, request) {
         const images = text.match(/<img .*?>/g);
         if (images !== null) {
             for (const image of images) {
+                // Save the image
+                const imageResult = await getImageResults(image);
                 // If the width or the height of the image is zero remove it
-                if (RealImage(image) === false) {
+                if (imageResult.width === '0' || imageResult.height === '0') {
                     text = text.replace(image, '');
                 } else {
-                    // Save the image
-                    const path = image.match(/src=".*?"/)[0].split('=')[1].replace(/"/g, "")
-                    const shortName = SaveImage(data, path, link);
-                    text = text.replace(path, 'res/' + shortName[0] + '.' + shortName[1]);
+                    const shortName = SaveImage(data, imageResult.src, link);
+                    const srcset = '"res/' + shortName[0] + '.webp, res/' + shortName[0] + '.' + shortName[1] + '"';
+                    const style = '"height: ' + imageResult.height + 'px; width: ' + imageResult.width + 'px;"'
+                    const newImage = '<plastic-image lazy-load fade sizing="contain" srcset=' + srcset + ' xstylex' + style + ' ></plastic-image>';
+                    text = text.replace(image, newImage);
                 }
             }
         }
 
-        text = text.replace(/ (class|style|title|alt|cellspacing|cellpadding|border|width|height|align)=".*?"/g, '');
+        text = text.replace(/ (class|style|title|alt|cellspacing|cellpadding|border|width|height|align|hspace|vspace)=".*?"/g, '');
+        text = text.replace(/xstylex/g, 'style=');
         text = text.replace(/<font .*?>/g, '');
         text = text.replace(/<\/font>/g, '');
         text = text.replace(/<span.*?>/g, '<span>');
@@ -47,6 +54,16 @@ async function SingleBadge(data, section, badgeSet, request) {
     }
 }
 
+async function getImageResults(image) {
+    const results = await xray(image, 'img', [{
+        src: '@src',
+        height: '@height',
+        width: '@width'
+    }]);
+
+    return results[0]
+}
+
 function RemoveDoubles(text) {
     let newText = text.replace(/(&#xA0; |\n|\r)/g, '');
 
@@ -61,39 +78,25 @@ function RemoveDoubles(text) {
     return text;
 }
 
-function RealImage(text) {
-    let result = true;
-
-    const parts = text.split(' ');
-    for (const part of parts) {
-        // remove quotes
-        const attribute = part.replace(/('|")/g, '');
-        const split = attribute.split('=');
-        if (split[0] === 'width' || split[0] === 'height') {
-            if (split[1] === '0') {
-                result = false;
-                break;
-            }
-        }
-    }
-
-    return result;
-}
-
 function SaveImage(data, href, link) {
     const parts = href.split('/');
-    const shortName = parts[parts.length - 1];
+    const shortName = parts[parts.length - 1].replace(/(%20| )/g, "__");
     const entry = {
         url: shortName,
         link: link
     };
     // If the image is not already in the list add it!
+    const badge = shortName.split('.');
+
     if (data['Badges'].filter(item => item.url === entry.url && item.link === entry.link).length === 0) {
-        data['Badges'].push(entry);
+        data['Badges'].push({
+            name: badge[0],
+            type: badge[1]
+        });
         GetImage(href, shortName);
     }
 
-    return shortName.split('.');
+    return badge;
 }
 
 function download(uri, filename, callback) {
@@ -105,7 +108,7 @@ function download(uri, filename, callback) {
 
 
 function GetImage(href, shortName) {
-    let path = "./../PWA/res/";
+    let path = outputFolder;
     if (!fs.existsSync(path)) {
         fs.mkdirSync(path);
     }
@@ -307,13 +310,32 @@ async function Root() {
     };
     // Any special fix-up needs to be done here.
     let text = JSON.stringify(data);
-    text = text.replace(/<img src=\\"res\/Scout%20Ls%20SeniorPatrolLeader%20RGB.jpg\\"><img src=\\"res\/Ls%20PatrolLeader%20RGB.jpg\\"><img src=\\"res\/Scout Ls AssistantPatrolLeader RGB.jpg\\"><br>Senior Patrol Leader&#xA0;Patrol Leader&#xA0;Assistant Patrol Leader<br>/g, '<img src=\\"res\/Scout%20Ls%20SeniorPatrolLeader%20RGB.jpg\\"><br>Senior Patrol Leader Patrol<br><br><img src=\\"res\/Ls%20PatrolLeader%20RGB.jpg\\"><br>Patrol Leader<br><br><img src=\\"res\/Scout Ls AssistantPatrolLeader RGB.jpg\\"><br>Assistant Patrol Leader<br><br>');
-    text = text.replace(/<p><b>Sixer Leadership Stripes&#xA0;Seconder <\/b><b><span><b>Leadership<\/b> <\/span> Stripes<br><br><img src=\\"res\/sixer%20leadership%20stripes.png\\"> &#xA0;<img src=\\"res\/seconder%20leadership%20stripes.png\\"> &#xA0;<br><\/b><\/p>/g, '<img src=\\"res\/sixer%20leadership%20stripes.png\\"><br>Sixer Leadership Stripes<br><br><img src=\\"res\/seconder%20leadership%20stripes.png\\"><br>Seconder Leadership Stripes<br><br>');
-    fs.writeFile("./../PWA/res/data.json", text, function (err, data) {
+    text = text.replace(/<plastic-image lazy-load fade sizing=\\"contain\\" srcset=\\"res\/Scout__Ls__SeniorPatrolLeader__RGB.webp, res\/Scout__Ls__SeniorPatrolLeader__RGB.jpg\\" style=\\"height: 61px; width: 155px;\\" ><\/plastic-image><plastic-image lazy-load fade sizing=\\"contain\\" srcset=\\"res\/Ls__PatrolLeader__RGB.webp, res\/Ls__PatrolLeader__RGB.jpg\\" style=\\"height: 60px; width: 152px;\\" ><\/plastic-image><plastic-image lazy-load fade sizing=\\"contain\\" srcset=\\"res\/Scout__Ls__AssistantPatrolLeader__RGB.webp, res\/Scout__Ls__AssistantPatrolLeader__RGB.jpg\\" style=\\"height: 59px; width: 160px;\\" ><\/plastic-image><br>Senior Patrol Leader&#xA0;Patrol Leader&#xA0;Assistant Patrol Leader<br>/g, '<plastic-image lazy-load fade sizing=\\"contain\\" srcset=\\"res\/Scout__Ls__SeniorPatrolLeader__RGB.webp, res\/Scout__Ls__SeniorPatrolLeader__RGB.jpg\\" style=\\"height: 61px; width: 155px;\\" ><\/plastic-image><br>Senior Patrol Leader Stripes<br><br><plastic-image lazy-load fade sizing=\\"contain\\" srcset=\\"res\/Ls__PatrolLeader__RGB.webp, res\/Ls__PatrolLeader__RGB.jpg\\" style=\\"height: 60px; width: 152px;\\" ><\/plastic-image><br>Patrol Leader Stripes<br><br><plastic-image lazy-load fade sizing=\\"contain\\" srcset=\\"res\/Scout__Ls__AssistantPatrolLeader__RGB.webp, res\/Scout__Ls__AssistantPatrolLeader__RGB.jpg\\" style=\\"height: 59px; width: 160px;\\" ><\/plastic-image><br>Assistant Patrol Leader Stripes<br><br>');
+    text = text.replace(/<b>Sixer Leadership Stripes&#xA0;Seconder <\/b><b><span><b>Leadership<\/b> <\/span> Stripes<br><br><plastic-image lazy-load fade sizing=\\"contain\\" srcset=\\"res\/sixer__leadership__stripes.webp, res\/sixer__leadership__stripes.png\\" style=\\"height: 60px; width: 148px;\\" ><\/plastic-image> &#xA0;<plastic-image lazy-load fade sizing=\\"contain\\" srcset=\\"res\/seconder__leadership__stripes.webp, res\/seconder__leadership__stripes.png\\" style=\\"height: 60px; width: 148px;\\" ><\/plastic-image> &#xA0;<br><\/b><\/p>/g, '<plastic-image lazy-load fade sizing=\\"contain\\" srcset=\\"res\/sixer__leadership__stripes.webp, res\/sixer__leadership__stripes.png\\" style=\\"height: 60px; width: 148px;\\" ><\/plastic-image><br>Sixer Leadership Stripes<br><br><plastic-image lazy-load fade sizing=\\"contain\\" srcset=\\"res\/seconder__leadership__stripes.webp, res\/seconder__leadership__stripes.png\\" style=\\"height: 60px; width: 148px;\\" ><\/plastic-image><br>Seconder Leadership Stripes<br><br>');
+    fs.writeFile(outputFolder + "/data.json", text, function (err, data) {
         if (err) {
             return console.log(err);
         }
         console.log("The file was saved!");
+        imagemin([outputFolder + '*.jpg'], outputFolder, {
+            use: [
+                imageminWebp({
+                    quality: 65
+                })
+            ]
+        }).then(() => {
+            console.log('Jpeg images optimized');
+        });
+
+        imagemin([outputFolder + '*.png'], outputFolder, {
+            use: [
+                imageminWebp({
+                    lossless: true // Losslessly encode images
+                })
+            ]
+        }).then(() => {
+            console.log('Png images optimized');
+        });
     });
 
 }

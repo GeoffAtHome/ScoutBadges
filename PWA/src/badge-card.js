@@ -2,7 +2,7 @@ import {
     PolymerElement,
     html
 } from '@polymer/polymer/polymer-element.js';
-import '@polymer/iron-image/iron-image.js'
+import 'plastic-image/plastic-image'
 import './shared-styles.js';
 
 class BadgeCard extends PolymerElement {
@@ -24,14 +24,14 @@ class BadgeCard extends PolymerElement {
             word-wrap: break-word;
             box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
         }
-        iron-image {
+        plastic-image {
             width: 100%;
             height: 165px;
         }
       </style>
 
         <a href="#/[[section]]/[[badgeset]]/[[card.id]]">
-            <iron-image sizing="contain" fade src="[[card.image]]"></iron-image>
+            <plastic-image lazy-load fade sizing="contain" srcset="res/[[card.image]].webp, res/[[card.image]].[[card.imageType]]"></plastic-image>            
             <div>[[card.title]]</div>
         </a>
     `;
