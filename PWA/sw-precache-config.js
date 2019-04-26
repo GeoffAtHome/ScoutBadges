@@ -28,7 +28,7 @@ module.exports = {
             }
         },
         {
-            urlPattern: /\/(images|res)\/*.+(png|jpg)/,
+            urlPattern: /\/(images|res)\/*.+(png|jpg|webp)/,
             handler: 'cacheFirst',
             options: {
                 cache: {

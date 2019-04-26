@@ -2,6 +2,7 @@ import {
     PolymerElement,
     html
 } from '@polymer/polymer/polymer-element.js';
+import {} from '@polymer/polymer/lib/elements/dom-repeat.js';
 import 'plastic-image/plastic-image'
 import './shared-styles.js';
 
@@ -38,7 +39,7 @@ class AllBadges extends PolymerElement {
             </template>
         </dom-repeat>
         </div>
-    <div>
+    </div>
     `;
         }
         /**

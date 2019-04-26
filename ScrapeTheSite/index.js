@@ -80,21 +80,23 @@ function RemoveDoubles(text) {
 
 function SaveImage(data, href, link) {
     const parts = href.split('/');
-    const shortName = parts[parts.length - 1].replace(/(%20| )/g, "__");
-    const entry = {
-        url: shortName,
-        link: link
-    };
-    // If the image is not already in the list add it!
+    const shortName = parts[parts.length - 1].replace(/(%20| )/g, "__").toLowerCase();
     const badge = shortName.split('.');
+    const entry = {
+        link: link,
+        name: badge[0],
+        type: badge[1]
+    };
 
-    if (data['Badges'].filter(item => item.url === entry.url && item.link === entry.link).length === 0) {
+    // If the image is not already in the list add it!
+    if (data['Badges'].filter(item => item.link === entry.link).length === 0) {
         data['Badges'].push({
+            link: entry.link,
             name: badge[0],
             type: badge[1]
         });
-        GetImage(href, shortName);
     }
+    GetImage(href, shortName);
 
     return badge;
 }

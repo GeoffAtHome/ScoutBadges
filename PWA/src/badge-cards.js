@@ -2,13 +2,14 @@ import {
     PolymerElement,
     html
 } from '@polymer/polymer/polymer-element.js';
+import {} from '@polymer/polymer/lib/elements/dom-repeat.js';
 import './shared-styles.js';
 import './badge-card.js';
 
 
 class BadgeCards extends PolymerElement {
     static get template() {
-        return html `
+            return html `
         <style is="custom-style">
         :host {
           padding: 10px;
@@ -24,10 +25,10 @@ class BadgeCards extends PolymerElement {
             </template>
         </dom-repeat>
         `;
-    }
-    /**
-     * Object describing property-related metadata used by Polymer features
-     */
+        }
+        /**
+         * Object describing property-related metadata used by Polymer features
+         */
     static get properties() {
         return {
             badges: Array,

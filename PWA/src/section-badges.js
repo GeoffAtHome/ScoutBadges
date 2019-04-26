@@ -12,7 +12,7 @@ import './shared-styles.js';
 
 class SectionBadges extends PolymerElement {
     static get template() {
-        return html `
+            return html `
       <style include="shared-styles">
         .tabs {
             background-color: #fff;
@@ -26,12 +26,12 @@ class SectionBadges extends PolymerElement {
         }
     </style>
     <div class="tabs">
-        <paper-tabs id="tabs" selected="[[selected]]" scrollable>
-            <paper-tab><a class='link' href="#/[[section]]/lawAndPromise/">Promise, Law and Motto</a></paper-tab>
-            <paper-tab><a class='link' href="#/[[section]]/core/">Core badges</a></paper-tab>
-            <paper-tab><a class='link' href="#/[[section]]/challenge/">Challenge awards</a></paper-tab>
-            <paper-tab><a class='link' href="#/[[section]]/activity/">Activity badges</a></paper-tab>
-            <paper-tab><a class='link' href="#/[[section]]/staged/">Staged badges</a></paper-tab>
+        <paper-tabs id="tabs" attr-for-selected="name" selected="[[badgeset]]" scrollable>
+            <paper-tab name="lawAndPromise"><a class='link' href="#/[[section]]/lawAndPromise/">Promise, Law and Motto</a></paper-tab>
+            <paper-tab name="core"><a class='link' href="#/[[section]]/core/">Core badges</a></paper-tab>
+            <paper-tab name="challenge"><a class='link' href="#/[[section]]/challenge/">Challenge awards</a></paper-tab>
+            <paper-tab name="activity"><a class='link' href="#/[[section]]/activity/">Activity badges</a></paper-tab>
+            <paper-tab name="staged"><a class='link' href="#/[[section]]/staged/">Staged badges</a></paper-tab>
         </paper-tabs>
     </div>
     <iron-pages selected="[[cardset]]" attr-for-selected="name" role="main">
@@ -40,17 +40,16 @@ class SectionBadges extends PolymerElement {
     </iron-pages>
     `;
 
-    }
-    /**
-     * Object describing property-related metadata used by Polymer features
-     */
+        }
+        /**
+         * Object describing property-related metadata used by Polymer features
+         */
     static get properties() {
         return {
             data: Object,
             section: String,
             badgeset: String,
-            cardset: String,
-            selected: Number
+            cardset: String
         };
     }
     static get observers() {
