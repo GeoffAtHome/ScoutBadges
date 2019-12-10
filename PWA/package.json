@@ -7,32 +7,32 @@
     "repository": "GeoffAtHome/ScoutBadges",
     "scripts": {
         "start": "polymer serve --open",
-        "build": "polymer build",
+        "build": "polymer build && workbox injectManifest workbox-config.js",
         "lint": "polymer lint",
-        "test": "polymer test",
+        "test": "polymer serve --root build/es6-bundled --open",
         "test:integration": "polymer build # test that psk builds without error with the CLI"
     },
     "dependencies": {
-        "@polymer/app-layout": "^3.0.2",
+        "@polymer/app-layout": "^3.1.0",
         "@polymer/app-route": "^3.0.2",
         "@polymer/iron-ajax": "^3.0.1",
         "@polymer/iron-flex-layout": "^3.0.1",
         "@polymer/iron-iconset-svg": "^3.0.1",
-        "@polymer/iron-image": "^3.0.1",
+        "@polymer/iron-image": "^3.0.2",
         "@polymer/iron-media-query": "^3.0.1",
         "@polymer/iron-pages": "^3.0.1",
         "@polymer/iron-selector": "^3.0.1",
-        "@polymer/paper-icon-button": "^3.0.1",
-        "@polymer/paper-tabs": "^3.0.1",
-        "@polymer/polymer": "^3.1.0",
-        "@webcomponents/webcomponentsjs": "^2.2.1",
+        "@polymer/paper-icon-button": "^3.0.2",
+        "@polymer/paper-tabs": "^3.1.0",
+        "@polymer/polymer": "^3.3.0",
+        "@webcomponents/webcomponentsjs": "^2.3.0",
         "g": "^2.0.1",
         "plastic-image": "^3.0.2"
     },
     "devDependencies": {
-        "eslint": "^5.11.1",
-        "eslint-plugin-react": "^7.12.2",
-        "polymer-cli": "^1.9.8",
+        "eslint": "^5.16.0",
+        "eslint-plugin-react": "^7.16.0",
+        "polymer-cli": "^1.9.11",
         "wct-browser-legacy": "^1.0.0"
     },
     "engines": {

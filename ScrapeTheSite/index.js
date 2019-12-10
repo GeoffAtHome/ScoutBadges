@@ -89,7 +89,7 @@ function SaveImage(data, href, link) {
     };
 
     // If the image is not already in the list add it!
-    if (data['Badges'].filter(item => item.link === entry.link).length === 0) {
+    if (data['Badges'].filter(item => item.link === entry.link && item.link === entry.link && item.type === entry.type).length === 0) {
         data['Badges'].push({
             link: entry.link,
             name: badge[0],
@@ -125,19 +125,19 @@ async function BadgeSets(data, section, request) {
     // Normalise the badge set
     let badgeSet = '';
     switch (request.text) {
-    case 'Activity Badges':
-        badgeSet = "activity";
-        break;
-    case 'Awards':
-    case 'Challenge Awards':
-        badgeSet = "challenge";
-        break;
-    case 'Core badges':
-        badgeSet = 'core';
-        break
-    case 'Staged Activity Badges':
-        badgeSet = 'staged';
-        break
+        case 'Activity Badges':
+            badgeSet = "activity";
+            break;
+        case 'Awards':
+        case 'Challenge Awards':
+            badgeSet = "challenge";
+            break;
+        case 'Core badges':
+            badgeSet = 'core';
+            break
+        case 'Staged Activity Badges':
+            badgeSet = 'staged';
+            break
     }
 
     await BadgeSetPage(data, section, request, badgeSet);
@@ -185,15 +185,15 @@ async function SectionBadgeSets(data, section, request) {
 
     for (const result of results) {
         switch (result.text) {
-        case 'Activity Badges':
-        case 'Awards':
-        case 'Challenge Awards':
-        case 'Core badges':
-        case 'Staged Activity Badges':
-            await BadgeSets(data, section, result);
-            break;
-        default:
-            break;
+            case 'Activity Badges':
+            case 'Awards':
+            case 'Challenge Awards':
+            case 'Core badges':
+            case 'Staged Activity Badges':
+                await BadgeSets(data, section, result);
+                break;
+            default:
+                break;
         }
     }
 }
@@ -208,11 +208,11 @@ async function SectionBadges(data, request) {
 
     for (const result of results) {
         switch (result.text) {
-        case 'Badges and awards':
-            await SectionBadgeSets(data, section, result);
-            break;
-        default:
-            break;
+            case 'Badges and awards':
+                await SectionBadgeSets(data, section, result);
+                break;
+            default:
+                break;
         }
     }
 }
@@ -226,18 +226,18 @@ async function SectionPromises(data, request) {
     if (results[0]) {
         let thisSection = request.text;
         switch (section) {
-        case 'Beavers':
-            thisSection = 'Beaver Scout';
-            break;
+            case 'Beavers':
+                thisSection = 'Beaver Scout';
+                break;
 
-        case 'Cubs':
-            thisSection = 'Cub Scout';
-            break;
+            case 'Cubs':
+                thisSection = 'Cub Scout';
+                break;
 
-        case 'Scouts':
-        case 'Explorers':
-            thisSection = 'Scout'
-            break;
+            case 'Scouts':
+            case 'Explorers':
+                thisSection = 'Scout'
+                break;
         }
         const text = results[0].text;
         const rxPromise = new RegExp("<h3>(<b>|)The " + thisSection + " Promise.*?<h3>", "g")
@@ -299,21 +299,29 @@ async function Root() {
 
     for (const result of results) {
         switch (result.text) {
-        case 'Beavers':
-        case 'Cubs':
-        case 'Scouts':
-        case 'Explorers':
-            await SectionPromises(data, result);
-            await SectionBadges(data, result);
-            break;
-        default:
-            break;
+            case 'Beavers':
+            case 'Cubs':
+            case 'Scouts':
+            case 'Explorers':
+                await SectionPromises(data, result);
+                await SectionBadges(data, result);
+                break;
+            default:
+                break;
         }
     };
     // Any special fix-up needs to be done here.
     let text = JSON.stringify(data);
-    text = text.replace(/<plastic-image lazy-load fade sizing=\\"contain\\" srcset=\\"res\/Scout__Ls__SeniorPatrolLeader__RGB.webp, res\/Scout__Ls__SeniorPatrolLeader__RGB.jpg\\" style=\\"height: 61px; width: 155px;\\" ><\/plastic-image><plastic-image lazy-load fade sizing=\\"contain\\" srcset=\\"res\/Ls__PatrolLeader__RGB.webp, res\/Ls__PatrolLeader__RGB.jpg\\" style=\\"height: 60px; width: 152px;\\" ><\/plastic-image><plastic-image lazy-load fade sizing=\\"contain\\" srcset=\\"res\/Scout__Ls__AssistantPatrolLeader__RGB.webp, res\/Scout__Ls__AssistantPatrolLeader__RGB.jpg\\" style=\\"height: 59px; width: 160px;\\" ><\/plastic-image><br>Senior Patrol Leader&#xA0;Patrol Leader&#xA0;Assistant Patrol Leader<br>/g, '<plastic-image lazy-load fade sizing=\\"contain\\" srcset=\\"res\/Scout__Ls__SeniorPatrolLeader__RGB.webp, res\/Scout__Ls__SeniorPatrolLeader__RGB.jpg\\" style=\\"height: 61px; width: 155px;\\" ><\/plastic-image><br>Senior Patrol Leader Stripes<br><br><plastic-image lazy-load fade sizing=\\"contain\\" srcset=\\"res\/Ls__PatrolLeader__RGB.webp, res\/Ls__PatrolLeader__RGB.jpg\\" style=\\"height: 60px; width: 152px;\\" ><\/plastic-image><br>Patrol Leader Stripes<br><br><plastic-image lazy-load fade sizing=\\"contain\\" srcset=\\"res\/Scout__Ls__AssistantPatrolLeader__RGB.webp, res\/Scout__Ls__AssistantPatrolLeader__RGB.jpg\\" style=\\"height: 59px; width: 160px;\\" ><\/plastic-image><br>Assistant Patrol Leader Stripes<br><br>');
-    text = text.replace(/<b>Sixer Leadership Stripes&#xA0;Seconder <\/b><b><span><b>Leadership<\/b> <\/span> Stripes<br><br><plastic-image lazy-load fade sizing=\\"contain\\" srcset=\\"res\/sixer__leadership__stripes.webp, res\/sixer__leadership__stripes.png\\" style=\\"height: 60px; width: 148px;\\" ><\/plastic-image> &#xA0;<plastic-image lazy-load fade sizing=\\"contain\\" srcset=\\"res\/seconder__leadership__stripes.webp, res\/seconder__leadership__stripes.png\\" style=\\"height: 60px; width: 148px;\\" ><\/plastic-image> &#xA0;<br><\/b><\/p>/g, '<plastic-image lazy-load fade sizing=\\"contain\\" srcset=\\"res\/sixer__leadership__stripes.webp, res\/sixer__leadership__stripes.png\\" style=\\"height: 60px; width: 148px;\\" ><\/plastic-image><br>Sixer Leadership Stripes<br><br><plastic-image lazy-load fade sizing=\\"contain\\" srcset=\\"res\/seconder__leadership__stripes.webp, res\/seconder__leadership__stripes.png\\" style=\\"height: 60px; width: 148px;\\" ><\/plastic-image><br>Seconder Leadership Stripes<br><br>');
+    let test = text.match(/ <br><plastic-image lazy-load fade sizing=\\\"contain\\\" srcset=\\\"res\/scout__ls__seniorpatrolleader__rgb.webp, res\/scout__ls__seniorpatrolleader__rgb.jpg\\\" style=\\\"height: 61px; width: 155px;\\\" ><\/plastic-image><plastic-image lazy-load fade sizing=\\\"contain\\\" srcset=\\\"res\/ls__patrolleader__rgb.webp, res\/ls__patrolleader__rgb.jpg\\\" style=\\\"height: 60px; width: 152px;\\\" ><\/plastic-image><plastic-image lazy-load fade sizing=\\\"contain\\\" srcset=\\\"res\/scout__ls__assistantpatrolleader__rgb.webp, res\/scout__ls__assistantpatrolleader__rgb.jpg\\\" style=\\\"height: 59px; width: 160px;\\\" ><\/plastic-image><br>Senior Patrol Leader&#xA0;Patrol Leader&#xA0;Assistant Patrol Leader<br>/g);
+    if (test == null || test.length != 1) {
+        console.log("Error in Scout Leadership Stripes")
+    }
+    text = text.replace(/ <br><plastic-image lazy-load fade sizing=\\\"contain\\\" srcset=\\\"res\/scout__ls__seniorpatrolleader__rgb.webp, res\/scout__ls__seniorpatrolleader__rgb.jpg\\\" style=\\\"height: 61px; width: 155px;\\\" ><\/plastic-image><plastic-image lazy-load fade sizing=\\\"contain\\\" srcset=\\\"res\/ls__patrolleader__rgb.webp, res\/ls__patrolleader__rgb.jpg\\\" style=\\\"height: 60px; width: 152px;\\\" ><\/plastic-image><plastic-image lazy-load fade sizing=\\\"contain\\\" srcset=\\\"res\/scout__ls__assistantpatrolleader__rgb.webp, res\/scout__ls__assistantpatrolleader__rgb.jpg\\\" style=\\\"height: 59px; width: 160px;\\\" ><\/plastic-image><br>Senior Patrol Leader&#xA0;Patrol Leader&#xA0;Assistant Patrol Leader<br>/g, '<plastic-image lazy-load fade sizing=\\\"contain\\\" srcset=\\\"res\/scout__ls__seniorpatrolleader__rgb.webp, res\/scout__ls__seniorpatrolleader__rgb.jpg\\\" style=\\\"height: 61px; width: 155px;\\\" ><\/plastic-image><br>Senior Patrol Leader Stripes<br><br><plastic-image lazy-load fade sizing=\\\"contain\\\" srcset=\\\"res\/ls__patrolleader__rgb.webp, res\/ls__patrolleader__rgb.jpg\\\" style=\\\"height: 60px; width: 152px;\\\" ><\/plastic-image><br>Patrol Leader Stripes<br><br><plastic-image lazy-load fade sizing=\\\"contain\\\" srcset=\\\"res\/scout__ls__assistantpatrolleader__rgb.webp, res\/scout__ls__assistantpatrolleader__rgb.jpg\\\" style=\\\"height: 59px; width: 160px;\\\" ><\/plastic-image><br>Assistant Patrol Leader Stripes<br><br>');
+    test = text.match(/<b>Sixer Leadership Stripes&#xA0;Seconder <\/b><b><span><b>Leadership<\/b> <\/span> Stripes<br><br><plastic-image lazy-load fade sizing=\\\"contain\\\" srcset=\\\"res\/sixer__leadership__stripes.webp, res\/sixer__leadership__stripes.png\\\" style=\\\"height: 60px; width: 148px;\\\" ><\/plastic-image> &#xA0;<plastic-image lazy-load fade sizing=\\\"contain\\\" srcset=\\\"res\/seconder__leadership__stripes.webp, res\/seconder__leadership__stripes.png\\\" style=\\\"height: 60px; width: 148px;\\\" ><\/plastic-image> &#xA0;<br><\/b><\/p>/g);
+    if (test == null || test.length != 1) {
+        console.log("Error in Cub Leadership Stripes")
+    }
+    text = text.replace(/<b>Sixer Leadership Stripes&#xA0;Seconder <\/b><b><span><b>Leadership<\/b> <\/span> Stripes<br><br><plastic-image lazy-load fade sizing=\\\"contain\\\" srcset=\\\"res\/sixer__leadership__stripes.webp, res\/sixer__leadership__stripes.png\\\" style=\\\"height: 60px; width: 148px;\\\" ><\/plastic-image> &#xA0;<plastic-image lazy-load fade sizing=\\\"contain\\\" srcset=\\\"res\/seconder__leadership__stripes.webp, res\/seconder__leadership__stripes.png\\\" style=\\\"height: 60px; width: 148px;\\\" ><\/plastic-image> &#xA0;<br><\/b><\/p>/g, '<plastic-image lazy-load fade sizing=\\\"contain\\\" srcset=\\\"res\/sixer__leadership__stripes.webp, res\/sixer__leadership__stripes.png\\\" style=\\\"height: 60px; width: 148px;\\\" ><\/plastic-image><br>Sixer Leadership Stripes<br><br><plastic-image lazy-load fade sizing=\\\"contain\\\" srcset=\\\"res\/seconder__leadership__stripes.webp, res\/seconder__leadership__stripes.png\\\" style=\\\"height: 60px; width: 148px;\\\" ><\/plastic-image><br>Seconder Leadership Stripes<br><br>');
     fs.writeFile(outputFolder + "/data.json", text, function (err, data) {
         if (err) {
             return console.log(err);

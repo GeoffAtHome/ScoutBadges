@@ -47,13 +47,17 @@
 
         // Load and register pre-caching Service Worker
         if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function() {
-                navigator.serviceWorker.register('service-worker.js', {
-                    scope: MyAppGlobals.rootPath
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                .then(registration => {
+                    console.log(`Service Worker registered! Scope: ${registration.scope}`);
+                })
+                .catch(err => {
+                    console.log(`Service Worker registration failed: ${err}`);
                 });
-            });
+            });
         }
-    </script>
+        </script>
 
     <!-- Load webcomponents-loader.js to check and load any polyfills your browser needs -->
     <script src="node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
