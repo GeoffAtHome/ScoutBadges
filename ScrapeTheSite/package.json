@@ -12,8 +12,8 @@
     "license": "ISC",
     "dependencies": {
         "imagemin": "^6.1.0",
-        "imagemin-webp": "^5.0.0",
-        "node-fetch": "^2.3.0",
+        "imagemin-webp": "^5.1.0",
+        "node-fetch": "^2.6.0",
         "request": "^2.88.0",
         "strip-html-comments": "^1.0.0",
         "x-ray-scraper": "^3.0.5"

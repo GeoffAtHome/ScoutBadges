@@ -22,22 +22,13 @@ if (workbox) {
     workbox.precaching.precacheAndRoute([]);
 
     workbox.routing.registerRoute(
-        /\/(images|res)\/*.+(png|jpg|webp)/,
-        workbox.strategies.cacheFirst({
-            cacheName: 'images',
-            plugins: [
-                new workbox.expiration.Plugin({
-                    maxAgeSeconds: 31536000
-                })
-            ]
-        })
+        new RegExp(/\/(images|res)\/*.+(png|jpg|webp)/),
+        new workbox.strategies.CacheFirst()
     );
 
     workbox.routing.registerRoute(
-        /\/res\/*.+.json/,
-        workbox.strategies.StaleWhileRevalidate({
-            cacheName: 'data'
-        })
+        new RegExp(/\/res\/*.json/),
+        new workbox.strategies.StaleWhileRevalidate()
     );
 } else {
     console.log(`Boo! Workbox didn't load 😬`);

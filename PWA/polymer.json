@@ -8,6 +8,7 @@
         "src/section-badges.js"
     ],
     "sources": [
+        "sw.js",
         "images/**/*",
         "res/**/*"
     ],
