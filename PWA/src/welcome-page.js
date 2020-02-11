@@ -21,6 +21,7 @@ class WelcomePage extends PolymerElement {
     <br>
     <h1>Releases</h1>
     <ul>
+      <li>0.0.18 - correct offline cache with workbox.</li>
       <li>0.0.17 - updated caching to workbox.</li>
       <li>0.0.16 - updated caching to workbox.</li>
       <li>0.0.15 - images compressed to webp for faster loading</li>
