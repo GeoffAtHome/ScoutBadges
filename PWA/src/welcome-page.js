@@ -14,13 +14,14 @@ class WelcomePage extends PolymerElement {
           padding: 10px;
         }
       </style>
-    <h1>Scout Badge Requirements v0.0.17</h1>
+    <h1>Scout Badge Requirements v0.0.19</h1>
     <p>Welcome to Scout Badge Requirements. All the Scout badge requirements was scraped from scouts.org.uk. This app is free to use and work's offline. Images for the badges need to be cached for them to become visible. This can be done from the "All Badges" menu option.</p>
     <p>To refresh the app to the latest badge requirements refresh the cache by (ctrl)(F5) or on a touch screen dragging the screen down.</p>
     <p>For more information contact geoff at 30thabingdon org UK</p>
     <br>
     <h1>Releases</h1>
     <ul>
+      <li>0.0.19 - Update badges - September 2020.</li>
       <li>0.0.18 - correct offline cache with workbox.</li>
       <li>0.0.17 - updated caching to workbox.</li>
       <li>0.0.16 - updated caching to workbox.</li>

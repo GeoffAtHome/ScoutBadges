@@ -1,6 +1,8 @@
-ScrapeTheSite/node_modules
-PWA/node_modules
-PWA/build
-PWA/res
-PWA/resx
+out-tsc
+server
+test
+node_modules
+res
+resx
+.github
 .firebase
