@@ -41,13 +41,14 @@ export interface BadgeData {
 
 export type BadgeDataType = "" | "Beavers" | "Cubs" | "Scouts" | "Explorers" | "Badges"
 
-export const defaultBadgeArray: Array<Badge> = [{
+export const defaultBadge = {
     id: "",
     title: "",
     image: "",
     imageType: "",
     info: ""
-}]
+}
+export const defaultBadgeArray: Array<Badge> = [defaultBadge]
 
 export const defaultLawAndPromise: Array<LawAndPromise> = [{
     id: "",

@@ -8,7 +8,7 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
 
-import { LitElement, html, css, property, PropertyValues, customElement } from 'lit-element';
+import { LitElement, html, css, property, PropertyValues, customElement, query } from 'lit-element';
 import { setPassiveTouchGestures } from '@polymer/polymer/lib/utils/settings';
 import { connect } from 'pwa-helpers/connect-mixin';
 import { installMediaQueryWatcher } from 'pwa-helpers/media-query';
@@ -37,12 +37,15 @@ import '@polymer/app-layout/app-drawer/app-drawer';
 import '@polymer/app-layout/app-header/app-header';
 import '@polymer/app-layout/app-scroll-effects/effects/waterfall';
 import '@polymer/app-layout/app-toolbar/app-toolbar';
-import { menuIcon } from './my-icons';
+import { menuIcon, arrowBackIcon, shareIcon } from './my-icons';
 import './snack-bar';
-import { BadgeData, BadgeDataType, defaultBadgeData, SectionDataType } from '../actions/badgedata';
+import { Badge, BadgeData, BadgeDataType, defaultBadge, defaultBadgeData, SectionData, SectionDataType } from '../actions/badgedata';
 
 @customElement('my-app')
 export class MyApp extends connect(store)(LitElement) {
+  @query('#track')
+  private track: any;
+
   @property({ type: String })
   appTitle = '';
 
@@ -69,6 +72,9 @@ export class MyApp extends connect(store)(LitElement) {
 
   @property({ type: Object })
   private badgeData: BadgeData = defaultBadgeData
+
+  private startX: number = 0;
+  private startY: number = 0;
 
   static get styles() {
     return [
@@ -136,7 +142,7 @@ export class MyApp extends connect(store)(LitElement) {
           border-bottom: 4px solid var(--app-header-selected-color);
         }
 
-        .menu-btn {
+        .menu-btn, .btn {
           background: none;
           border: none;
           fill: var(--app-header-text-color);
@@ -185,11 +191,32 @@ export class MyApp extends connect(store)(LitElement) {
         }
 
         footer {
+          footer {
           padding: 24px;
           background: var(--app-drawer-background-color);
           color: var(--app-drawer-text-color);
           text-align: center;
+          grid-column: 1 / 4;
         }
+
+
+        .img-menu {
+          display: block;
+          max-width: 106px;
+          max-height: 30px;
+          width: auto;
+          height: auto;
+          margin-top: 15px;
+        }
+
+        .img-welcome {
+          display: block;
+          max-width: 40px;
+          max-height: 30px;
+          width: auto;
+          height: auto;
+          margin-top: 15px;
+        }       
 
         /* Wide layout: when the viewport width is bigger than 460px, layout
         changes to a wide layout */
@@ -223,9 +250,12 @@ export class MyApp extends connect(store)(LitElement) {
       <app-header condenses reveals effects="waterfall">
         <app-toolbar class="toolbar-top">
           <button class="menu-btn" title="Menu" @click="${this._menuButtonClicked}">${menuIcon}</button>
-          <div main-title>${this.appTitle}</div>
+          <div main-title>
+            ${this.appTitle}
+          </div>
+          <button class='btn' title="Share" @click="${this._ShareButtonClicked}">${shareIcon}</button>
+          <button class='btn' title="Back" @click="${this._BackButtonClicked}">${arrowBackIcon}</button>
         </app-toolbar>
-
         <!-- This gets hidden on a small screen-->
         <nav class="toolbar-list">
           <a ?selected="${this._page === 'welcome'}" href="/welcome">Welcome</a>
@@ -242,22 +272,23 @@ export class MyApp extends connect(store)(LitElement) {
           .opened="${this._drawerOpened}"
           @opened-changed="${this._drawerOpenedChanged}">
         <nav class="drawer-list">
-        <a ?selected="${this._section === 'Beavers'}" href="/Beavers/${this._badgeSet}">Beavers</a>
-          <a ?selected="${this._section === 'Cubs'}" href="/Cubs/${this._badgeSet}">Cubs</a>
-          <a ?selected="${this._section === 'Scouts'}" href="/Scouts/${this._badgeSet}">Scouts</a>
-          <a ?selected="${this._section === 'Explorers'}" href="/Explorers/${this._badgeSet}">Explorers</a>
+          <a ?selected="${this._page === 'welcome'}" href="/welcome"><img class='img-welcome' src='../../images/welcome.png'>Welcome</a>
+          <a ?selected="${this._section === 'Beavers'}" href="/Beavers/${this._badgeSet}"><img class='img-menu' src='../../images/beavers.png'></a>
+          <a ?selected="${this._section === 'Cubs'}" href="/Cubs/${this._badgeSet}"><img class='img-menu' src='../../images/cubs.png'></a>
+          <a ?selected="${this._section === 'Scouts'}" href="/Scouts/${this._badgeSet}"><img class='img-menu' src='../../images/scouts.png'></a>
+          <a ?selected="${this._section === 'Explorers'}" href="/Explorers/${this._badgeSet}"><img class='img-menu' src='../../images/explorers.png'></a>
           <a ?selected="${this._page === 'allbadges'}" href="/allbadges">All Badges</a>
         </nav>
       </app-drawer>
 
-      <!-- Main content -->
-      <main role="main" class="main-content">
-        <welcome-page class="page" ?active="${this._page === 'welcome'}"></welcome-page>
-        <section-badges class="page" ?active="${this._page === 'section'}" .badgeData="${this.badgeData}" .section="${this._section}" .badgeSet="${this._badgeSet}"></section-badges>
-        <display-badge class="page" ?active="${this._page === 'badge'}" .badgeData="${this.badgeData}" .section="${this._section}" .badgeSet="${this._badgeSet}" .badge="${this._badge}"></display-badge>
-        <all-badges class="page" ?active="${this._page === 'allbadges'}" .allBadges="${this.badgeData.Badges}"></all-badges>
-        <my-view404 class="page" ?active="${this._page === 'view404'}"></my-view404>
-      </main>
+        <!-- Main content -->
+        <main id="track" role="main" class="main-content">
+          <welcome-page class="page" ?active="${this._page === 'welcome'}"></welcome-page>
+          <section-badges class="page" ?active="${this._page === 'section'}" .badgeData="${this.badgeData}" .section="${this._section}" .badgeSet="${this._badgeSet}"></section-badges>
+          <display-badge class="page" ?active="${this._page === 'badge'}" .badge="${this.getTheBadge(this.badgeData, this._section, this._badgeSet, this._badge)}"></display-badge>
+          <all-badges class="page" ?active="${this._page === 'allbadges'}" .allBadges="${this.badgeData.Badges}"></all-badges>
+          <my-view404 class="page" ?active="${this._page === 'view404'}"></my-view404>
+        </main>
 
       <footer>
         <p>Made with &hearts; by the Polymer team.</p>
@@ -283,6 +314,9 @@ export class MyApp extends connect(store)(LitElement) {
     installOfflineWatcher((offline) => store.dispatch(updateOffline(offline)));
     installMediaQueryWatcher(`(min-width: 460px)`,
       () => store.dispatch(updateDrawerState(false)));
+
+    this.track.addEventListener("touchstart", this.handleStart, false);
+    this.track.addEventListener("touchend", this.handleEnd, false);
 
     this.getData()
   }
@@ -323,4 +357,91 @@ export class MyApp extends connect(store)(LitElement) {
     this._badge = state.app!.badge;
 
   }
+
+  handleStart(e: TouchEvent) {
+    this.startX = e.changedTouches[0].pageX;
+    this.startY = e.changedTouches[0].pageY;
+
+    return true;
+  }
+
+  handleEnd(e: TouchEvent) {
+    const deltaX = e.changedTouches[0].pageX - this.startX;
+    const deltaY = Math.abs(e.changedTouches[0].pageY - this.startY);
+    if (deltaX > 100 && deltaY < 100) {
+      window.history.back();
+    } else if (deltaX < -100 && deltaY < 100) {
+      window.history.forward();
+    }
+  }
+
+  _ShareButtonClicked(_event: Event) {
+    // Work out where we our to compose the correct content to share
+    let title = "";
+    let text = "";
+    let link = location.href;
+
+    switch (this._page) {
+      case 'Welcome':
+      default:
+        title = "Welcome to Scout Badge Requirements";
+        text = "You can use the following link to find the requirements for your Scout Badges"
+        break;
+
+      case 'section':
+      case 'Beavers':
+      case 'Cubs':
+      case 'Scouts':
+      case 'Explorers':
+        if (this._badgeSet == 'lawAndPromise') {
+          title = this._section + " " + this.title;
+          text = "You can use the following link for the " + title;
+        } else {
+          title = this._section + " " + this.title + " badge requirements";
+          text = "You can use the following link to find the requirements for your " + title;
+        }
+        break;
+
+      case 'Badge':
+        const badge = this.getTheBadge(this.badgeData, this._section, this._badgeSet, this._badge);
+        title = this._section + " " + this._badgeSet + " " + badge.title;
+        text = "You can use the following link to find the requirements for your Scout Badges"
+        break;
+
+      case 'AllBadges':
+        title = "Welcome to Scout Badge Requirements";
+        text = "All the Scouts badges can be found from the following link"
+        break;
+    }
+
+    if ('share' in navigator) {
+      navigator.share({
+        title: title,
+        text: text,
+        url: link,
+      })
+    } else {
+      title = title.replace(/ /g, "%20") + "&body=" + text.replace(/ /g, "%20") + ": \n\r\n\r" + link;
+      location.href = 'mailto:?subject=' + title;
+    }
+  }
+
+  _BackButtonClicked(_event: Event) {
+    window.history.back();
+  }
+
+  private getTheBadge(badgeData: BadgeData, section: BadgeDataType, badgeSet: SectionDataType, badgeId: string): Badge {
+    if (section !== '' && section !== 'Badges') {
+      const data: SectionData = badgeData[section]
+      if (badgeSet !== '' && badgeSet !== 'lawAndPromise') {
+        const badges: Array<Badge> = data[badgeSet]
+        const badge = badges.find(item => item.id === badgeId)
+        if (badge != undefined) {
+          return badge
+        }
+      }
+    }
+    return defaultBadge
+  }
+
 }
