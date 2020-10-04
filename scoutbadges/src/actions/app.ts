@@ -40,7 +40,7 @@ export const navigate: ActionCreator<ThunkResult> = (path: string) => (dispatch)
   const parts = path.split('/')
   let page = 'welcome'
   let section = ''
-  let badgeSet = ''
+  let badgeSet = 'core'
   let badge = ''
   let index = 0
 
@@ -183,7 +183,7 @@ const updateSection: ActionCreator<AppActionUpdateSection> = (section: BadgeData
   };
 };
 
-const updateBadgeSet: ActionCreator<AppActionUpdateBadgeSet> = (badgeSet: SectionDataType) => {
+export const updateBadgeSet: ActionCreator<AppActionUpdateBadgeSet> = (badgeSet: SectionDataType) => {
   return {
     type: UPDATE_BADGESET,
     badgeSet

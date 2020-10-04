@@ -17,13 +17,16 @@
     "tsc:watch": "tsc --watch"
   },
   "dependencies": {
-    "@polymer/app-layout": "^3.0.0",
+    "@material/mwc-button": "^0.18.0",
+    "@material/mwc-drawer": "^0.18.0",
+    "@material/mwc-tab": "^0.18.0",
+    "@material/mwc-tab-bar": "^0.18.0",
+    "@material/mwc-top-app-bar": "^0.18.0",
     "@polymer/polymer": "^3.4.1",
     "@pwabuilder/pwainstall": "^1.6.6",
     "@pwabuilder/pwaupdate": "^0.2.0",
     "@types/events": "^3.0.0",
     "@webcomponents/webcomponentsjs": "^2.4.4",
-    "dile-tabs": "^2.1.0",
     "events": "^3.2.0",
     "lit-element": "^2.4.0",
     "plastic-image": "^3.0.2",

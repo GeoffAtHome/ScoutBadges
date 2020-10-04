@@ -8,7 +8,7 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
 
-import { html, customElement, property } from 'lit-element';
+import { html, customElement, property, PropertyValues } from 'lit-element';
 import { Badge, defaultBadge } from '../actions/badgedata';
 import { PageViewElement } from './page-view-element';
 
@@ -35,5 +35,9 @@ export class DisplayBadge extends PageViewElement {
         <the-badge card="${this.badge.info}"></the-badge>
       </div>
     `;
+  }
+
+  updated(_changedProps: PropertyValues) {
+    this.scrollIntoView();
   }
 }
