@@ -1,0 +1,425 @@
+ï»¿
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html xmlns="http://www.w3.org/1999/xhtml" lang="en"> <!--<![endif]-->
+
+<head>
+    <title>The Scout Association</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE"/>
+    <meta http-equiv="Content-type" content="text/html;charset=ISO-8859-1"/>
+    <meta http-equiv="Content-Language" content="en-gb"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="Rating" content="General"/>
+    <meta name="revisit-after" content="1 Day"/>
+    <meta name="doc-class" content="Living Document"/>
+    <meta name="ROBOTS" content="ALL"/>
+    <meta name="Copyright"
+          content="Copyright (c) 2020 The Scout Association.  All Rights Reserved"/>
+    <meta http-equiv="imagetoolbar" content="no"/>
+    <meta name="MSSmartTagsPreventParsing" content="true"/>
+    <meta name="description"
+          content="The Scout Association in the UK. Information about beavers, cubs, scouts, explorer and network scouts.  Information for parents."/>
+    <meta name="keywords"
+          content="scouts, scout, association, uk, scouting, beavers, cubs, explorer, network, volunteers, charity, scoutbase, adventure, fun"/>
+    <meta name="verify-v1" content="Hhb18MHCmiSShsQbGi/xdBHV1mGZ+NFYBQlNzoYVAjU="/>
+    <link rel="alternate" type="application/rss+xml" title="NewsFeed" href="/news/rss"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=7"/>
+    <!-- Set the viewport width to device width for mobile -->
+    <meta name="viewport" content="width=device-width"/>
+
+
+    <link rel="stylesheet" type="text/css" href="/stylesheets/tsa-master.css" title="default">
+    <!-- Included JS Files -->
+
+    <!--[if lt IE 9]>
+    <link rel="stylesheet" href="/stylesheets/tsa-ie.css">
+    <![endif]-->
+
+    <!--[if lte IE 6]>
+    <link rel="stylesheet" href="/stylesheets/tsa-ie6.css">
+    <![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="/css2/modalbox.css"/>
+    <link rel="stylesheet" type="text/css" href="/css2/mms.css"/>
+
+    <script src="/javascripts/jquery.min.js">
+
+    </script>
+
+    <!-- modernizr (rotating banner) -->
+    <script src="/javascripts/modernizr.foundation.js"></script>
+    <!-- Foundation (display prototyping) -->
+    <script src="/javascripts/foundation.js"></script>
+    <!-- foundation (app js's) -->
+    <script src="/javascripts/app.js"></script>
+    <!-- accessibility functions -->
+    <script src="/javascripts/accessibility.js"></script>
+    <!-- modal box functions -->
+    <script src="/js/modal_box.js"></script>
+    <script type="text/javascript" src="/js/prototype.js"></script>
+    <script type="text/javascript" src="/js/modalbox.js"></script>
+    <script type="text/javascript" src="/js/effects.js"></script>
+    <script type="text/javascript" src="/js/mms.js"></script>
+    <script type="text/javascript" src="/js/json.js"></script>
+    <script type="text/javascript" src="/js/scouts.js"></script>
+    <script type="text/javascript" src="js/ajax.js"></script>
+
+    <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-T9FCW7J');</script>
+<!-- End Google Tag Manager —>
+
+
+    <!--	<script type="text/javascript" src="/js/unittest.js"></script>
+     <script type="text/javascript" src="/javascripts/modalbox.js"></script>-->
+
+   
+        <script type="text/javascript">
+        getResolution(".scouts.org.uk");
+    </script>
+    </head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T9FCW7J"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+
+
+<!-- container -->
+<div class="container">
+<!-- header > logo, search, login button, member button: |8|4| -->
+    <div class="row">
+        <div class="eight columns">
+            <div class="header-row">
+                <div class="scoutslogo">
+                    <a href="/"><img src="/img/misc/the-scouts-association-uk-logo.png" width="115" height="71"
+                                     alt="The Scout Association"></a>
+                </div>
+                <div class="citation">
+                    We provide fun, challenge and adventure to <br/>over 400,000 girls and boys across the UK
+                </div>
+            </div>
+        </div>
+        <div class="four columns">
+            <!-- accessibility buttons -->
+            <div class="header-buttons acc">
+                <a href="#" class="acbuttontiny-reset" title="Accessibility: return colour scheme to default"
+                   onclick="loadjscssfile('-master','css')">a</a> <a href="#" class="acbuttontiny-cyan"
+                                                                     title="Accessibility: switch colour to black on blue"
+                                                                     onclick="loadjscssfile('-cyan','css')">a</a> <a
+                    href="#" class="acbuttontiny-yellow" title="Accessibility: switch colour to yellow on Blue"
+                    onclick="loadjscssfile('-yellow','css')">a</a>&nbsp;&nbsp;<a href="#" class="acbuttontiny-decrease"
+                                                                                 onclick="loadjscssfile('-fontdecrease','css')"
+                                                                                 title="Accessibility: return font size to default">A</a>
+                <a href="#" class="acbuttontiny-increase" onclick="loadjscssfile('-fontincrease','css')"
+                   title="Accessibility: increase font size">A</a>
+            </div>
+            <!-- sign-in button/div/script -->
+            <div class="header-buttons" style="width:560px; position:relative;left:-245px;" id="topnav">				
+				<!--<a href="https://upload.scouts.org.uk/YouthUpload/Account/Login" class="nice radius green button">Add New Adult</a>-->
+				<a href="https://thescouts.disclosures.co.uk/secure/login.php" class="nice radius green button">Disclosures</a>			
+				<a href="https://compass.scouts.org.uk/login/User/Login" class="nice radius green button">Compass</a>						
+				<a href="https://members.scouts.org.uk/pol/login.do" class="nice radius green button">POL</a>
+				<a href="https://scoutsbrand.org.uk/" class="nice radius green button">Print Centre</a>
+				
+				
+				
+                <script type="text/javascript">
+                    $j(document).ready(function () {
+
+                        $j(".signin").click(function () {
+                            $j("fieldset#signin_menu").toggle();
+                            $j(".signin").toggleClass("menu-open");
+                        });
+
+                        $j("fieldset#signin_menu").mouseup(function () {
+                            return false
+                        });
+                        $j(document).mouseup(function (e) {
+                            if ($j(e.target).parent("a.signin").length == 0) {
+                                $j(".signin").removeClass("menu-open");
+                                $j("fieldset#signin_menu").hide();
+                            }
+                        });
+
+                    });
+                </script>
+            </div>
+            <div class="header-search">
+                <form action="https://scouts.org.uk/search/" method="get">
+
+                    <div class="search-input-form"><xinput type="hidden" name="logic" id="logic" value="any"/><input
+                            name="term" id="searchField" class="searchbox" type="text"></div>
+                    <div class="search-submit-form"><input name="search" type="submit" class="searchbutton"
+                                                           value="Search" id="searchButton"/></div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    
+    <!-- header > menu: |9|3| -->
+    <div class="row home" id="topnavmenu">
+        <div>
+
+            <ul class="nav-bar">
+				<li><a href="https://scouts.org.uk/home/"  class="main divider"> Home </a></li> 		
+				<li><a href="https://scouts.org.uk/what-we-do/"  class="main divider"> What we do </a></li> 		
+				<li><a href="https://scouts.org.uk/get-involved/"  class="main divider"> Get involved </a></li> 		
+				<li><a href="https://scouts.org.uk/news/"  class="main divider"> News </a></li> 		
+				<li><a href="https://scouts.org.uk/events/"  class="main divider"> Events </a></li> 		
+				<li><a href="https://members.scouts.org.uk/communityweek"  class="main divider"> Campaigns </a></li> 		
+				<li><a href="https://www.scoutadventures.org.uk"  class="main divider"> Our Centres </a></li> 		
+				<li><a href="https://shop.scouts.org.uk/"  class="main divider"> Shop </a></li> 		
+				<li><a href="http://www.scoutinsurance.co.uk/"  class="main divider"> Insurance </a></li> 		
+				<li><a href="/supportresources"  class="main divider"> Members </a></li> 	
+															
+			</ul>
+        </div>
+		<!--
+        <div class="three columns">
+            <div class="rightmenu"><a href="/volunteer" class="volunteer">Volunteer</a><a href="/join"
+                                                                                          class="join">Join</a><a
+                    href="/donate" class="donate">Donate</a></div>
+					-->
+        </div>
+    </div>
+<!-- alert use this div to alert problems or high importance warnings (div self destroy when close |12| -->	
+		
+	 
+  
+<!-- image slider, donate/volunteer/join colour boxes |8|4| -->            
+  <div class="row homeprt" >
+    <div class="eight columns">
+
+
+<script src="js/jquery.min_1_5_1.js">
+var $jqs = jQuery.noConflict();</script>
+	<script src="/js/slides.min.jquery.js"></script>
+	<script>
+		$jqs(function(){
+			// Set starting slide to 1
+			var startSlide = 1;
+			// Get slide number if it exists
+			
+			// Initialize Slides
+			$jqs('#slides').slides({
+				preload: true,
+				preloadImage: '/img/loading.gif',
+				generatePagggination: true,
+				play: 0, //time between slides (msec)
+				pause: 5000, // time to start again
+				hoverPause: true,
+				// Get the starting slide
+				start: startSlide,
+				animationComplete: function(current){
+					// Set the slide number as a hash
+					
+				}
+			});
+		});
+	</script>
+  
+     		<div id="slides">
+				<div class="slides_container">
+					<div class="slide"><a href="http://scouts.org.uk/what-we-do/"><img title=""alt=""src="/images/what_we_do.jpg" width="647" height="313" border="0" /></a></div>
+					<div class="slide"><a href="/join"><img src="/img/banners/expect_more_external-banner.jpg" width="647" height="313" border="0" /></a>
+</div>
+					<div class="slide"><a href="//shop.scouts.org.uk/c-80-heritage.aspx">
+<img src="/images/content/banners/20121010---heritage-true-brands.jpg" width="647" height="313" border="0"/></a></div>
+					<div class="slide"><a href="http://www.scouts.org.uk/discover "target="_new"><img title=""alt=""src="/images/content/Best Kept Secrets members.jpg " width="647" height="313" border="0" /></a></div>
+				</div>
+			</div>     
+            
+           
+	</div>
+    <div class="four columns">
+	  <a href="/volunteer" class="nolink">
+        <div class="volunteer-box">
+        	<div class="box-title">Volunteer</div>
+	        <div class="box-content">Be prepared to inspire a generation of young people.</div>
+            <div class="box-sign">Volunteer now &raquo;</div>
+        </div>
+      </a>
+      <a href="/volunteer" class="nolink">
+        <div class="join-box">
+        	<div class="box-title">Join</div>
+	        <div class="box-content">Ready to begin your adventure? There are five sections you can join.</div>
+            <div class="box-sign">Join now &raquo;</div>
+        </div>
+      </a>
+      <a href="/donate" class="nolink">
+        <div class="donate-box" >
+        	<div class="box-title">Donate</div>
+	        <div class="box-content">Make a difference to the lives of young people across the country.</div>
+            <div class="box-sign">Donate now &raquo;</div>
+        </div>
+      </a>
+    </div>
+  </div>
+<!-- |8|4| -->                
+  <div class="row">
+    <div class="eight columns">
+            <div class="bordered">
+                <div>
+                    <div class="bordered-top"><div class="bordered-left-top"><a href="/news/">News</a></div><div class="bordered-right-top"><a href="/news/rss" target="_new">Feed <img src="img/misc/rss.png" width="14" height="14" align="absmiddle"></a></div></div>
+                    <div class="bordered-content">
+                    	<div class="news-box">
+                        	<div class="news-img"><a href="/newsandviews/module/31/959/coronavirus-keeping-you-updated/cat/428"><img src="/images/news_and_views/scoutlogo.jpg" alt="Coronavirus - keeping you updated" /></a></div>
+                            <div class="news-title"><a href="/newsandviews/module/31/959/coronavirus-keeping-you-updated/cat/428">Coronavirus - keeping you updated</a></a></div>
+                            <div class="news-description">We have created a webpage: scouts.org.uk/coronavirus where all the latest updates will be for Scout members. </div>
+                        </div>
+                    	<div class="news-box">
+                        	<div class="news-img"><a href="/newsandviews/module/31/958/obituary-lord-robert-crause-badenpowell-3rd-baron-of-gilwell/cat/428"><img src="/images/news_and_views/" alt="Obituary | Lord Robert Crause Baden-Powell, 3rd Baron of Gilwell" /></a></div>
+                            <div class="news-title"><a href="/newsandviews/module/31/958/obituary-lord-robert-crause-badenpowell-3rd-baron-of-gilwell/cat/428">Obituary | Lord Robert Crause Baden-Powell, 3rd Baron of Gilwell</a></div>
+                            <div class="news-description">Lord Robert Crause Baden-Powell &ndash; the grandson of Scouts founder Robert Baden-Powell &ndash; passed away on the 28 December aged 83, having struggled with illness over a long period.</div>                            
+                        </div>
+                        <div class="news-box">
+	                        <div class="news-img"><a href="/newsandviews/module/31/953/rhian-moore-appointed-chief-commissioner-of-wales/cat/428"><img src="/images/news_and_views/Rhian-Moore.jpg" alt="Rhian Moore appointed Chief Commissioner of Wales " /></a></div>
+                            <div class="news-title"><a href="/newsandviews/module/31/953/rhian-moore-appointed-chief-commissioner-of-wales/cat/428">Rhian Moore appointed Chief Commissioner of Wales </a></div>
+                            <div class="news-description">We are delighted to announce that Rhian Moore will shortly be joining Team UK as the newly appointed Chief Commissioner of Wales.</div>                            
+                        </div>
+                    </div>
+                    <div class="bordered-footer"><div class="bordered-left-footer"></div><div class="bordered-right-footer"><a href="/supportresources/3983/sign-up-now-for-adventure-news">Sign up to our newsletter &raquo;</a></div></div>
+                </div>
+            </div>
+    </div>
+    <div class="four columns">
+
+	
+            <div class="bordered-social">
+                <div>
+                    <div class="bordered-top-social"><div class="bordered-left-top-social"><a href="https://twitter.com/#!/UKScouting" target="_blank"><img src="img/home/icon-twitter.png" width="16" height="16"  align="absmiddle"> Twitter</a></div><div class="bordered-right-top-social"><a href="https://twitter.com/#!/UKScouting" target="_blank">Follow us on Twitter &raquo;</a></div></div>
+                    <div class="bordered-content-social">
+					
+                    <iframe src="/twitter/twitter.php" frameborder="0" width="100%" height="62" scrolling="no"></iframe>
+			
+				</div>
+                </div>
+            </div>
+			
+
+            <div class="bordered-social">
+                <div>
+                    <div class="bordered-top-social"><div class="bordered-left-top-social"><a href="http://youtube.com/UKScoutAssociation" target="_blank"><img src="img/home/icon-youtube.png" width="16" height="16"  align="absmiddle"> Youtube</a></div><div class="bordered-right-top-social"><a href="http://youtube.com/UKScoutAssociation" target="_blank">Subscribe to our channel &raquo;</a></div></div>
+                    <div class="bordered-content-social">
+                    
+                    <iframe src="/youtube/youtube.php" frameborder="0" width="100%" height="45" scrolling="no"></iframe>
+                    
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="bordered">
+                <div>
+                    <div class="bordered-top-social"><div class="bordered-left-top-social"><a href="http://www.facebook.com/scoutassociation" target="_blank"><img src="img/home/icon-facebook.png" width="16" height="16"  align="absmiddle"> Facebook</a></div><div class="bordered-right-top-social"><a href="http://www.facebook.com/scoutassociation" target="_blank">Visit our page &raquo;</a></div></div>
+                    <div class="bordered-content-social facebook"><iframe src="https://www.facebook.com/plugins/like.php?href=http://www.scouts.org.uk&amp;send=false&amp;layout=standard&amp;width=305&amp;show_faces=false&amp;action=recommend&amp;colorscheme=light&amp;font=verdana&amp;height=44&amp;appId=236829623018359" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100%; height:44px;" allowTransparency="true"></iframe></div>
+
+                </div>
+            </div>
+
+
+    </div>
+  </div>
+<!-- |4|4|4| -->                
+  <div class="row">
+    <div class="four columns">
+            <div class="bordered-img">
+                <div>
+                    <div class="bordered-top-img"><div class="bordered-left-top"><a href="http://www.scoutactivitycentres.org.uk/" target="_new">Activity Centres</a></div></div>
+                    <div class="bordered-content-img"><a href="http://www.scoutactivitycentres.org.uk/" target="_new"><img src="img/SAC-V1.2.jpg"></a></div>
+                </div>
+            </div>
+    </div>
+    <div class="four columns bx">
+            <div class="bordered-img">
+                <div>
+                    <div class="bordered-top-img"><div class="bordered-left-top"><a href="http://www.scoutinsurance.co.uk/" target="_new">Insurance</a></div></div>
+                    <div class="bordered-content-img"><a href="http://www.scoutinsurance.co.uk/" target="_new"><img src="img/unity_V1.3.jpg"></a></div>
+                </div>
+            </div>
+    </div>
+    <div class="four columns bx">
+            <div class="bordered-img">
+                <div>
+                    <div class="bordered-top-img"><div class="bordered-left-top"><a href="http://shop.scouts.org.uk/" target="_new">Shop</a></div></div>
+                    <div class="bordered-content-img"><a href="http://shop.scouts.org.uk/" target="_new"><img src="img/SSL-V1.2.jpg"></a></div>
+                </div>
+            </div>
+    </div>
+  </div>
+<!-- |3|3|3|3| -->                
+  <div class="row">
+    <div class="twelve columns">
+        <div class="bordered-img">
+            <div class="bordered-top-social"><div class="bordered-left-top-social"><a href="/partners">Our partners</a></div></div>
+            <div class="bordered-content-social">
+            
+                        
+              
+            </div>
+        </div>
+    </div>
+  </div>		                
+<!-- |3|5|2|2| -->                
+ <div class="row footertab">
+    <div class="three columns footerceop" >
+		<a href="http://ceop.police.uk/" target="_blank"><img src="/img/misc/CEOP.png" width="141" height="50" alt="CEOP"></a>
+	</div>
+    <div class="five columns footerbanner" >
+		<a href="http://www.worldscoutshops.com/" target="_blank"><img src="/img/misc/World-Scouts.png" width="300" height="50"></a>
+    </div>
+    <div class="two columns footerfirstrow" >
+        <div class="footerlinksrow"><a href="http://scouts.org.uk/about-us/">About us</a></div>
+        <div class="footerlinksrow"><a href="http://scouts.org.uk/contact-us/">Contact us</a></div>
+        <div class="footerlinksrow"><a href="http://scouts.org.uk/about-us/jobs/">Jobs</a></div>
+        <div class="footerlinksrow"><a href="http://scouts.org.uk/accessibility/">Accessibility</a></div>
+    </div>
+    <div class="two columns footersecondrow" >
+        <div class="footerlinksrow"><a href="http://scouts.org.uk/terms-and-conditions/">Terms & conditions</a></div>
+        <div class="footerlinksrow"><a href="http://scouts.org.uk/privacy-policy/">Privacy policy</a></div>
+        <div class="footerlinksrow"><a href="http://scouts.org.uk/media-centre/">Media centre</a></div>
+        <div class="footerlinksrow"><a href="http://www.scout.org/" target="_blank">World Scouts</a></div>
+        <!--<div class="footerlinksrow"><a href="http://www.worldscoutshops.com/" target="_blank">World Scout Shop</a></div>-->
+    </div>
+  </div> 
+<!-- |6| -->                
+  <div class="row">
+    <div class="eight columns centered footernotes">
+      &#169; Copyright The Scout Association 2020. All Rights Reserved.<br>
+      Charity Numbers 306101 (England and Wales) and SC038437 (Scotland).<br>
+      Registered address: The Scout Association, Gilwell Park, Chingford, London, England E4 7QW
+    </div>
+  </div>        
+</div>
+<!-- container -->
+
+        <!-- OneTrust Cookies Consent Notice (Production CDN, scouts.org.uk, en-GB) start -->
+        <script src="https://cdn.cookielaw.org/consent/01910d07-9c36-4164-9d36-1d09cf49b2af.js" type="text/javascript" charset="UTF-8"></script>
+        <script type="text/javascript">
+                function OptanonWrapper() { }
+        </script>
+
+
+  </body>
+</html><script>
+    $j("a[href$='pdf']").each(function(index) {
+      pdfLabel = $j(this).attr('href');
+      pdfOnClick = "_gaq.push(['_trackEvent', 'PDF', 'Download', '" + pdfLabel + "']);";
+      $j(this).attr("onClick", pdfOnClick);
+    });
+	    $j("a[href$='doc']").each(function(index) {
+      docLabel = $j(this).attr('href');
+      docOnClick = "_gaq.push(['_trackEvent', 'DOC', 'Download', '" + docLabel + "']);";
+      $j(this).attr("onClick", docOnClick);
+    });
+</script>

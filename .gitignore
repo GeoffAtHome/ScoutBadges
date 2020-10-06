@@ -3,7 +3,5 @@ dist
 server
 test
 node_modules
-res
-resx
 .github
 .firebase
