@@ -248,13 +248,12 @@ async function SectionPromises(data, request) {
         const law = RemoveDoubles(rxLaw.exec(text)[0]);
         const motto = RemoveDoubles(rxMotto.exec(text)[0]);
 
-        data[section]['lawAndPromise'].push({
-            id: 'lawAndPromise',
+        data[section].lawAndPromise = {
             title: thisSection + " Promise, Law and Motto",
             promise: promise,
             law: law,
             motto: motto
-        });
+        };
 
     }
 }
@@ -262,28 +261,28 @@ async function SectionPromises(data, request) {
 async function Root() {
     let data = {
         Beavers: {
-            lawAndPromise: [],
+            lawAndPromise: {},
             activity: [],
             core: [],
             challenge: [],
             staged: []
         },
         Cubs: {
-            lawAndPromise: [],
+            lawAndPromise: {},
             activity: [],
             core: [],
             challenge: [],
             staged: []
         },
         Scouts: {
-            lawAndPromise: [],
+            lawAndPromise: {},
             activity: [],
             core: [],
             challenge: [],
             staged: []
         },
         Explorers: {
-            lawAndPromise: [],
+            lawAndPromise: {},
             activity: [],
             core: [],
             challenge: [],
@@ -322,7 +321,10 @@ async function Root() {
         console.log("Error in Cub Leadership Stripes")
     }
     text = text.replace(/<b>Sixer Leadership Stripes&#xA0;Seconder <\/b><b><span><b>Leadership<\/b> <\/span> Stripes<br><br><plastic-image lazy-load fade sizing=\\\"contain\\\" srcset=\\\"res\/sixer__leadership__stripes.webp, res\/sixer__leadership__stripes.png\\\" style=\\\"height: 60px; width: 148px;\\\" ><\/plastic-image> &#xA0;<plastic-image lazy-load fade sizing=\\\"contain\\\" srcset=\\\"res\/seconder__leadership__stripes.webp, res\/seconder__leadership__stripes.png\\\" style=\\\"height: 60px; width: 148px;\\\" ><\/plastic-image> &#xA0;<br><\/b><\/p>/g, '<plastic-image lazy-load fade sizing=\\\"contain\\\" srcset=\\\"res\/sixer__leadership__stripes.webp, res\/sixer__leadership__stripes.png\\\" style=\\\"height: 60px; width: 148px;\\\" ><\/plastic-image><br>Sixer Leadership Stripes<br><br><plastic-image lazy-load fade sizing=\\\"contain\\\" srcset=\\\"res\/seconder__leadership__stripes.webp, res\/seconder__leadership__stripes.png\\\" style=\\\"height: 60px; width: 148px;\\\" ><\/plastic-image><br>Seconder Leadership Stripes<br><br>');
-    fs.writeFile(outputFolder + "/data.json", text, function (err, data) {
+
+    text = "import { BadgeData } from '../src/actions/badgedata'\n\n" + "export const badgeData: BadgeData = " + text
+
+    fs.writeFile(outputFolder + "/data.ts", text, function (err, data) {
         if (err) {
             return console.log(err);
         }
