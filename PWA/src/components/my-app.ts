@@ -8,13 +8,12 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
 
-import { LitElement, html, css, property, PropertyValues, customElement, query } from 'lit-element';
+import { LitElement, html, css, property, customElement, query } from 'lit-element';
 import { setPassiveTouchGestures } from '@polymer/polymer/lib/utils/settings';
 import { connect } from 'pwa-helpers/connect-mixin';
 import { installMediaQueryWatcher } from 'pwa-helpers/media-query';
 import { installOfflineWatcher } from 'pwa-helpers/network';
 import { installRouter } from 'pwa-helpers/router';
-import { updateMetadata } from 'pwa-helpers/metadata';
 
 // This element is connected to the Redux store.
 import { store, RootState } from '../store';
@@ -268,7 +267,7 @@ export class MyApp extends connect(store)(LitElement) {
     this.getData()
   }
 
-  protected updated(changedProps: PropertyValues) {
+  /*protected updated(changedProps: PropertyValues) {
     if (changedProps.has('_page')) {
       const pageTitle = this.appTitle + ' - ' + this._page;
       updateMetadata({
@@ -277,7 +276,7 @@ export class MyApp extends connect(store)(LitElement) {
         // This object also takes an image property, that points to an img src.
       });
     }
-  }
+  }*/
 
   private _menuButtonClicked() {
     store.dispatch(updateDrawerState(!this._drawerOpened));

@@ -36,6 +36,7 @@ type ThunkResult = ThunkAction<void, RootState, undefined, AppAction>;
 
 export const navigate: ActionCreator<ThunkResult> = (path: string) => (dispatch) => {
   // Extract the page name from path.
+  console.log(path)
   const parts = path.split('/')
   let page = 'welcome'
   let section = ''

@@ -13,6 +13,7 @@ import { unsafeHTML } from 'lit-html/directives/unsafe-html';
 
 // These are the shared styles needed by this element.
 import { SharedStyles } from './shared-styles';
+import 'plastic-image/plastic-image'
 
 @customElement('the-badge')
 export class TheBadge extends LitElement {

@@ -1,5 +1,15 @@
 {
     "hosting": {
-        "public": "dist"
+        "public": "./dist",
+        "ignore": [
+            "firebase.json",
+            "web.config",
+            "**/.*",
+            "**/node_modules/**"
+        ],
+        "rewrites": [{
+            "source": "**",
+            "destination": "/index.html"
+        }]
     }
 }
