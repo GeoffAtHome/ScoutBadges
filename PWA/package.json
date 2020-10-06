@@ -1,11 +1,11 @@
 {
-  "name": "pwa-starter-kit",
-  "version": "0.9.0",
+  "name": "scout-badge-requirements",
+  "version": "0.1.0",
   "contributors": [
     "The Polymer Authors"
   ],
   "license": "BSD-3-Clause",
-  "repository": "Polymer/pwa-starter-kit",
+  "repository": "GeoffAtHome/ScoutBadges/PWA",
   "scripts": {
     "start": "concurrently --kill-others --names tsc,es-dev-server \"npm run tsc:watch\" \"es-dev-server --app-index index.html --node-resolve --open --watch\"",
     "build": "rimraf dist && tsc && rollup -c rollup.config.js",
