@@ -285,7 +285,7 @@ export class MyApp extends connect(store)(LitElement) {
 
   private async getData() {
 
-    const datamodule = <any>await import('../../res/datax');
+    const datamodule = <any>await import('../../res/data');
     this.badgeData = datamodule.badgeData
   }
 
