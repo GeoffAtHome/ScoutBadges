@@ -393,6 +393,7 @@ export class MyApp extends connect(store)(LitElement) {
       case 'welcome':
         title = 'Scout Badge Requirements';
         break;
+      case 'badge':
       case 'section':
         {
           switch (badgeSet.toLowerCase()) {
