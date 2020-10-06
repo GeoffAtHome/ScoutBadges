@@ -74,8 +74,9 @@ export class SectionBadges extends PageViewElement {
     }
 
     updated(_changedProps: PropertyValues) {
-        this.scrollIntoView();
+        document.documentElement.scrollTop = 0;
     }
+
     private getTabIndex(tab: string) {
         const tabs = ["lawAndPromise", "core", "challenge", "activity", "staged"]
         const index = tabs.findIndex((item) => item === tab)

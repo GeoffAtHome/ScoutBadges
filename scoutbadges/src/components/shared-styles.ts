@@ -44,12 +44,12 @@ export const SharedStyles = css`
   }
 
   .page {
-            display: none;
-            }
+    display: none;
+  }
 
-            .page[active] {
-            display: block;
-            }
+  .page[active] {
+    display: block;
+  }
 
   .circle {
     display: block;

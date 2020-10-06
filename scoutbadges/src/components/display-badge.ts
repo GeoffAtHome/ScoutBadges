@@ -38,6 +38,6 @@ export class DisplayBadge extends PageViewElement {
   }
 
   updated(_changedProps: PropertyValues) {
-    this.scrollIntoView();
+    document.documentElement.scrollTop = 0;
   }
 }

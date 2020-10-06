@@ -8,7 +8,7 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
 
-import { html, customElement, property, LitElement } from 'lit-element';
+import { html, customElement, property, LitElement, css } from 'lit-element';
 import { Badge, BadgeDataType, defaultBadgeArray, SectionDataType } from '../actions/badgedata';
 
 // These are the shared styles needed by this element.
@@ -29,14 +29,23 @@ export class BadgeCards extends LitElement {
 
   static get styles() {
     return [
-      SharedStyles
+      SharedStyles,
+      css`
+      .badges {
+        display: grid;
+        grid-gap: 1rem;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      }`
     ];
   }
 
   protected render() {
     return html`
+    <div class='badges'>
     ${this.badges.map((item) => html`
         <badge-card .section="${this.section}" .badgeSet="${this.badgeSet}" .card="${item}"></badge-card>`)
-      }`
+      }
+    </div>
+      `
   }
 }

@@ -39,9 +39,6 @@ export class BadgeCard extends LitElement {
             SharedStyles,
             css`
             :host {
-                display: flex;
-                flex-grow: 1;
-                flex-direction: column;
                 text-align: center;
                 margin: 10px;
                 padding: 10px;

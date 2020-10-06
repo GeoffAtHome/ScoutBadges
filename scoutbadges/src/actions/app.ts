@@ -22,7 +22,6 @@ export const UPDATE_SECTION = 'UPDATE_SECTION'
 export const UPDATE_BADGESET = 'UPDATE_BADGESET'
 export const UPDATE_BADGE = 'UPDATE_BADGE'
 
-
 export interface AppActionUpdatePage extends Action<'UPDATE_PAGE'> { page: string };
 export interface AppActionUpdateOffline extends Action<'UPDATE_OFFLINE'> { offline: boolean };
 export interface AppActionUpdateDrawerState extends Action<'UPDATE_DRAWER_STATE'> { opened: boolean };
@@ -83,6 +82,7 @@ export const navigate: ActionCreator<ThunkResult> = (path: string) => (dispatch)
   // Close the drawer - in case the *path* change came from a link in the drawer.
   dispatch(updateDrawerState(false));
 };
+
 
 function getPageFromPart(part: string) {
   switch (part) {

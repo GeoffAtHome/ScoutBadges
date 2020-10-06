@@ -8,7 +8,7 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
 
-import { customElement, html, LitElement, property } from 'lit-element';
+import { css, customElement, html, LitElement, property, PropertyValues } from 'lit-element';
 import { unsafeHTML } from 'lit-html/directives/unsafe-html';
 
 // These are the shared styles needed by this element.
@@ -22,12 +22,21 @@ export class TheBadge extends LitElement {
 
     static get styles() {
         return [
-            SharedStyles
+            SharedStyles,
+            css`
+            :host {
+                display: block;
+                padding: 10px;
+              }`
         ];
     }
 
     protected render() {
         return html`${unsafeHTML(this.card)}
         `
+    }
+
+    updated(_changedProps: PropertyValues) {
+        document.documentElement.scrollTop = 0;
     }
 }

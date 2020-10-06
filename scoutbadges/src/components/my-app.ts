@@ -83,8 +83,8 @@ export class MyApp extends connect(store)(LitElement) {
           --app-light-text-color: white;
           --app-section-even-color: #f7f7f7;
           --app-section-odd-color: white;
-          --mdc-drawer-width: 150px;
-          --mdc-theme-primary:	 #6200ee'
+          --mdc-drawer-width: 170px;
+          --mdc-theme-primary:	  #7413dc'
         }
 
         .parent {
@@ -113,20 +113,24 @@ export class MyApp extends connect(store)(LitElement) {
         .toolbar-list > a {
           display: grid;
           grid-template-rows: auto;
-          line-height: 40px;
           text-decoration: none;
+          font-size: 22px;
           font-weight: bold;
           padding: 8px;
         }
 
+
         .toolbar-list > a[selected] {
-          background-color: var(--mdc-theme-primary);
+          background-color: #7413dc23;
         }
 
+        .toolbar-list > a:hover {
+          background-color: #7413dc0c;
+        }
         .menu-btn, .btn {
           background: none;
           border: none;
-          fill: var(--app-header-text-color);
+          fill: white;
           cursor: pointer;
           height: 44px;
           width: 44px;
@@ -135,9 +139,9 @@ export class MyApp extends connect(store)(LitElement) {
         /* Workaround for IE11 displaying <main> as inline */
         main {
           display: block;
-          overflow: auto;
-          margin-top: 60px;
-          margin-bottom: 60px;
+          margin-top: 0px;
+          margin-bottom: 0px;
+          padding: 0px;
         }
 
         .page {
@@ -150,15 +154,51 @@ export class MyApp extends connect(store)(LitElement) {
 
         .img-menu {
           display: block;
-          max-width: 106px;
-          max-height: 30px;
+          max-width: 200px;
+          max-height: 20px;
           width: auto;
           height: auto;
         }
 
+        .img-menu-beavers {
+          display: block;
+          max-width: 200px;
+          max-height: 25px;
+          width: auto;
+          height: auto;
+        }
+
+        .img-menu-cubs {
+          display: block;
+          max-width: 200px;
+          max-height: 20px;
+          width: auto;
+          height: auto;
+          padding-top: 5px;
+          padding-bottom: 5px;
+        }
+        .img-menu-scouts {
+          display: block;
+          max-width: 200px;
+          max-height: 15px;
+          width: auto;
+          height: auto;
+          padding-top: 5px;
+          padding-bottom: 5px;
+        }
+        .img-menu-explorers {
+          display: block;
+          max-width: 300px;
+          max-height: 15px;
+          width: auto;
+          height: auto;
+          padding-top: 5px;
+          padding-bottom: 5px;
+        }
+
         .img-welcome {
           display: inline;
-          max-width: 40px;
+          max-width: 200px;
           max-height: 30px;
           width: auto;
           height: auto;
@@ -175,10 +215,10 @@ export class MyApp extends connect(store)(LitElement) {
       <div>
         <nav class="toolbar-list">
           <a ?selected="${this._page === 'welcome'}" href="/welcome">Welcome</a>
-          <a ?selected="${this._section === 'Beavers'}" href="/Beavers/${this._badgeSet}"><img class='img-menu' src='../../images/beavers.png'></a>
-          <a ?selected="${this._section === 'Cubs'}" href="/Cubs/${this._badgeSet}"><img class='img-menu' src='../../images/cubs.png'></a>
-          <a ?selected="${this._section === 'Scouts'}" href="/Scouts/${this._badgeSet}"><img class='img-menu' src='../../images/scouts.png'></a>
-          <a ?selected="${this._section === 'Explorers'}" href="/Explorers/${this._badgeSet}"><img class='img-menu' src='../../images/explorers.png'></a>
+          <a ?selected="${this._section === 'Beavers'}" href="/Beavers/${this._badgeSet}"><img class='img-menu-beavers' src='../../images/beavers.png'></a>
+          <a ?selected="${this._section === 'Cubs'}" href="/Cubs/${this._badgeSet}"><img class='img-menu-cubs' src='../../images/cubs.png'></a>
+          <a ?selected="${this._section === 'Scouts'}" href="/Scouts/${this._badgeSet}"><img class='img-menu-scouts' src='../../images/scouts.png'></a>
+          <a ?selected="${this._section === 'Explorers'}" href="/Explorers/${this._badgeSet}"><img class='img-menu-explorers' src='../../images/explorers.png'></a>
           <a ?selected="${this._page === 'allbadges'}" href="/allbadges">All Badges</a>
         </nav>
       </div>
@@ -258,7 +298,7 @@ export class MyApp extends connect(store)(LitElement) {
     this._section = state.app!.section;
     this._badgeSet = state.app!.badgeSet;
     this._badge = state.app!.badge;
-
+    this.appTitle = this.getTitle(this._page, this._badgeSet)
   }
 
   handleStart(e: TouchEvent) {
@@ -346,5 +386,42 @@ export class MyApp extends connect(store)(LitElement) {
     }
     return defaultBadge
   }
+
+  private getTitle(page: string, badgeSet: string) {
+    let title = ''
+
+    switch (page.toLowerCase()) {
+      case 'welcome':
+        title = 'Scout Badge Requirements';
+        break;
+      case 'section':
+        {
+          switch (badgeSet.toLowerCase()) {
+            case 'lawandpromise':
+              title = 'Promise, Law and Motto';
+              break;
+            case 'core':
+              title = 'Core';
+              break;
+            case 'activity':
+              title = 'Activity';
+              break;
+            case 'challenge':
+              title = 'Challenge';
+              break;
+            case 'staged':
+              title = 'Staged';
+              break;
+          }
+          break;
+        }
+
+      case 'allbadges':
+        title = 'All badges';
+        break;
+    }
+    return title;
+  }
+
 
 }

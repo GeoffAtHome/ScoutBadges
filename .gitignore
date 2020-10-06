@@ -1,4 +1,5 @@
 out-tsc
+dist
 server
 test
 node_modules
