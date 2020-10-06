@@ -1,3 +1,2 @@
-cmd /C polymer build
-cmd /C workbox generateSW workbox-config.js
+cmd /C npm run build
 cmd /C firebase deploy
