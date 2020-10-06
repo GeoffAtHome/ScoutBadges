@@ -226,7 +226,7 @@ export class MyApp extends connect(store)(LitElement) {
       <div slot="appContent">
         <mwc-top-app-bar centerTitle>
           <div slot="title">${this.appTitle}</div>
-          <mwc-button title="Menu" slot="navigationIcon" @click="${this._menuButtonClicked}">${menuIcon}</mwc-button> 
+          <mwc-button title="Menu"  class='btn' slot="navigationIcon" @click="${this._menuButtonClicked}">${menuIcon}</mwc-button> 
           <mwc-button class='btn' title="Share" slot="actionItems" @click="${this._ShareButtonClicked}">${shareIcon}</mwc-button>
           <mwc-button class='btn' title="Back" slot="actionItems" @click="${this._BackButtonClicked}">${arrowBackIcon}</mwc-button>
         </mwc-top-app-bar>
@@ -245,7 +245,7 @@ export class MyApp extends connect(store)(LitElement) {
         You are now ${this._offline ? 'offline' : 'online'}.
       </snack-bar>
       <pwa-install></pwa-install>
-      <pwa-update offlineToastDuration="0" swpath="pwabuilder-sw"></pwa-update>
+      <pwa-update offlineToastDuration="0" swpath="pwabuilder-sw.js"></pwa-update>
     `;
   }
 
