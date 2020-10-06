@@ -7,7 +7,6 @@ export interface Badge {
 }
 
 export interface LawAndPromise {
-    id: string,
     title: string,
     promise: string,
     law: string,
@@ -21,7 +20,7 @@ export interface BadgeLink {
 }
 
 export interface SectionData {
-    lawAndPromise: Array<LawAndPromise>,
+    lawAndPromise: LawAndPromise,
     activity: Array<Badge>,
     challenge: Array<Badge>,
     core: Array<Badge>,
@@ -50,13 +49,12 @@ export const defaultBadge = {
 }
 export const defaultBadgeArray: Array<Badge> = [defaultBadge]
 
-export const defaultLawAndPromise: Array<LawAndPromise> = [{
-    id: "",
+export const defaultLawAndPromise: LawAndPromise = {
     title: "",
     promise: "",
     law: "",
     motto: ""
-}]
+}
 
 const defaultSection: SectionData =
 {

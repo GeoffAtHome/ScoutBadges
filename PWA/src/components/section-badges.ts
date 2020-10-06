@@ -83,7 +83,7 @@ export class SectionBadges extends PageViewElement {
         return index
     }
 
-    private getLawAndPromise(badgeData: BadgeData): Array<LawAndPromise> {
+    private getLawAndPromise(badgeData: BadgeData): LawAndPromise {
         const section: BadgeDataType = this.section
         if (section !== '' && section !== 'Badges') {
             const data: SectionData = badgeData[section]

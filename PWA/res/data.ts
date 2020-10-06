@@ -4,13 +4,12 @@ import { BadgeData } from '../src/actions/badgedata'
 export const badgeData: BadgeData =
 {
     "Beavers": {
-        "lawAndPromise": [{
-            "id": "lawAndPromise",
+        "lawAndPromise": {
             "title": "Beaver Scout Promise, Law and Motto",
             "promise": "<h3>The Beaver Scout Promise</h3><p>There are a number of variations of the Beaver Scout Promise to reflect the range of faiths, beliefs and attitudes, and nationalities, in the UK within Scouting. <br></p><p>A Beaver Scout Promise poster is available to order from the <a href=\"https://scoutsbrand.org.uk/\" target=\"_blank\">Scout brand centre</a>, or can be downloaded <a href=\"https://members.scouts.org.uk/documents/Beavers/Beaver%20Scout%20Promise%20poster.pdf\" target=\"_blank\">here</a>.There are also Promise Cards available to purchase from <a href=\"https://shop.scouts.org.uk/\" target=\"_blank\">Scout Store</a>. <br></p><h4><b>For Christians, Jews and Sikhs</b><br></h4><p>I promise to do my best<br>To be kind and helpful<br>And to love God.<b><br></b></p><h4><b>For Hindus and Buddhists</b></h4><p>I promise to do my best<br>to be kind and helpful<br>and to love my Dharma.</p><h4><b>For humanists, atheists and those with no defined faith</b></h4><p>I promise to do my best<br>to be kind and helpful<br>and to love our world.</p><h4>For Muslims</h4><p>I promise to do my best<br>to be kind and helpful<br>and to love Allah.</p><p>Further information about the Promise in Scouting can be found <a href=\"https://members.scouts.org.uk/supportresources/2454/the-promise?moduleID=10&amp;cat=25,283\">here</a>. <br></p><h3>",
             "law": "<h3>The Beaver Scout Law </h3><p>There is no formal Beaver Scout Law. The concepts expressed in the Scout Law are to be presented to Beaver Scouts through games, storytelling and other informal activities.<br></p><h3>",
             "motto": "<h3>The Beaver Scout Motto</h3><p>Be prepared<br></p><h3>"
-        }],
+        },
         "activity": [{
             "id": "activity_plus_badge",
             "title": "Activity Plus Badge",
@@ -311,13 +310,12 @@ export const badgeData: BadgeData =
         }]
     },
     "Cubs": {
-        "lawAndPromise": [{
-            "id": "lawAndPromise",
+        "lawAndPromise": {
             "title": "Cub Scout Promise, Law and Motto",
             "promise": "<h3>The Cub Scout Promise</h3>There are a number of variations of the Cub Scout Promise to reflect the range of faiths, beliefs and attitudes, and nationalities, in the UK within Scouting. <br><br>A Cub Scout Promise poster is available to order from the <a href=\"https://scoutsbrand.org.uk/\" target=\"_blank\">Scout brand centre</a>, or can be downloaded <a href=\"https://members.scouts.org.uk/documents/Cubs/Cub%20Scout%20Promise%20poster.pdf\" target=\"_blank\">here</a>. There are also Promise Cards available to purchase from <a href=\"https://shop.scouts.org.uk/\" target=\"_blank\">Scout Store</a>. <br><br><h4>For Hindus and Buddhists</h4>I promise that I will do my best<br>to do my duty to my Dharma<br>and to the Queen,<br>to help other people<br>and to keep the Cub Scout Law.<br><br><h4>For Muslims</h4>I promise that I will do my best<br>to do my duty to Allah<br>and to the Queen,<br>to help other people<br>and to keep the Cub Scout Law.<br><br><h4>For humanists, atheists and those with no defined faith</h4>I promise that I will do my best<br>to uphold our Scout values,<br>to do my duty to the Queen,<br>to help other people<br>and to keep the Cub Scout Law.<br><br><h4>For Christians, Jews and Sikhs</h4>I promise that I will do my best to do my duty to God<br>and to the Queen,<br>to help other people<br>and to keep the Cub Scout Law.<br><br><b>For subjects of independent Commonwealth countries, foreign nationals and individuals who are stateless</b>, the following wording can replace &#x2018;duty to the Queen&#x2019;<br><br>&#x2026;to do my duty to the country in which I am now living.<br><br>Further information about The Promise in Scouting can be found <a href=\"https://members.scouts.org.uk/supportresources/2454/the-promise?moduleID=10&amp;cat=25,283\">here</a>. <h3>",
             "law": "<h3>The Cub Scout Law:</h3>Cub Scouts always do their best <br>Think of others before themselves <br>And do a good turn every day.<br><br><br><h3>",
             "motto": "<h3>The Cub Scout Motto:</h3>Be Prepared<br><br><h3>"
-        }],
+        },
         "activity": [{
             "id": "activity_plus_badge",
             "title": "Activity Plus Badge",
@@ -714,13 +712,12 @@ export const badgeData: BadgeData =
         }]
     },
     "Scouts": {
-        "lawAndPromise": [{
-            "id": "lawAndPromise",
+        "lawAndPromise": {
             "title": "Scout Promise, Law and Motto",
             "promise": "<h3><b>The Scout Promise</b></h3>There are a number of variations of the Scout Promise to reflect the range of faiths, beliefs and attitudes, and nationalities, in the UK within Scouting. <br><br>A Scout Promise poster is available to order from the <a href=\"https://scoutsbrand.org.uk/\" target=\"_blank\">Scout brand centre</a>, or can be downloaded <a href=\"https://members.scouts.org.uk/documents/Scouts/Scout%20Promise%20poster%20-%20Scouts.pdf\" target=\"_blank\">here</a>. There are also Promise Cards available to purchase from <a href=\"https://shop.scouts.org.uk/\" target=\"_blank\">Scout Store</a>. <br><br><h4>For Muslims</h4>In the name of Allah,<br>the Most Beneficial<br>and the Most Merciful,<br>I promise that I will do my best<br>to do my duty to Allah<br>and to the Queen,<br>to help other people<br>and to keep the Scout Law.<br><br><h4>For Christians, Jews and Sikhs</h4>On my honour,<br>I promise that I will do my best<br>to do my duty to God<br>and to the Queen,<br>to help other people<br>and to keep the Scout Law.<br><br><h4>For Hindus and Buddhists</h4>On my honour,<br>I promise that I will do my best<br>to do my duty to my Dharma<br>and to the Queen,<br>to help other people<br>and to keep the Scout Law.<br><br><h4>For humanists, atheists and those with no defined faith</h4>On my honour,<br>I promise that I will do my best<br>to uphold our Scout values,<br>to do my duty to the Queen,<br>to help other people<br>and to keep the Scout Law.<br><br><h4>For subjects of independent Commonwealth countries, foreign nationals and individuals who are stateless the following wording can replace &#x2018;duty to the Queen&#x2019;<br></h4>&#x2026;to do my duty to the country in which I am now living.<br><br>Further information about The Promise in Scouting can be found <a href=\"https://members.scouts.org.uk/supportresources/2454/the-promise?moduleID=10&amp;cat=25,283\">here</a>.<br><br><h3>",
             "law": "<h3><b>The Scout Law</b></h3>1.&#xA0;A Scout is to be trusted.<br>2.&#xA0;A Scout is loyal.<br>3.&#xA0;A Scout is friendly and considerate.<br>4.&#xA0;A Scout belongs to the worldwide family of Scouts.<br>5.&#xA0;A Scout has courage in all difficulties.<br>6.&#xA0;A Scout makes good use of time and is careful of possessions and property.<br>7.&#xA0;A Scout has self-respect and respect for others.<br><br><h3>",
             "motto": "<h3><b>The Scout Motto</b></h3>Be Prepared<br><br><h3>"
-        }],
+        },
         "activity": [{
             "id": "activity_centre_service",
             "title": "Activity Centre Service",
@@ -1273,13 +1270,12 @@ export const badgeData: BadgeData =
         }]
     },
     "Explorers": {
-        "lawAndPromise": [{
-            "id": "lawAndPromise",
+        "lawAndPromise": {
             "title": "Scout Promise, Law and Motto",
             "promise": "<h3>The Scout Promise</h3>There are a number of variations of the Scout Promise to reflect the range of faiths, beliefs and attitudes, and nationalities, in the UK within Scouting. <br><br>A Scout Promise poster is available to order from the <a href=\"https://scoutsbrand.org.uk/\" target=\"_blank\">Scout b</a><a target=\"_blank\">rand centre</a>, or can be downloaded <a href=\"https://members.scouts.org.uk/documents/Explorers/Scout.%20Explorer.%20Adult.%20Promise%20poster_BW.pdf\" target=\"_blank\">here</a>.  There are also Promise Cards available to purchase from <a href=\"https://shop.scouts.org.uk/\" target=\"_blank\">Scout Store</a>. <br><br><h4>For Christians, Jews and Sikhs</h4>On my honour,<br>I promise that I will do my best<br>to do my duty to God<br>and to the Queen,<br>to help other people<br>and to keep the Scout Law.<br><br><h4>For Muslims</h4>In the name of Allah,<br>the Most Beneficial<br>and the Most Merciful,<br>I promise that I will do my best<br>to do my duty to Allah<br>and to the Queen,<br>to help other people<br>and to keep the Scout Law.<br><br><h4>For Hindus and Buddhists</h4>On my honour,<br>I promise that I will do my best<br>to do my duty to my Dharma<br>and to the Queen,<br>to help other people<br>and to keep the Scout Law.<br><br><h4>For humanists, atheists and those with no defined faith</h4>On my honour,<br>I promise that I will do my best<br>to uphold our Scout values,<br>to do my duty to the Queen,<br>to help other people<br>and to keep the Scout Law.<br><br><h4>For subjects of independent Commonwealth countries, foreign nationals and individuals who are stateless the following wording can replace &#x2018;duty to the Queen&#x2019;</h4>&#x2026;to do my duty to the country in which I am now living.<br><br>Further information about The Promise can be found <a href=\"https://members.scouts.org.uk/supportresources/2454/the-promise?moduleID=10&amp;cat=25,283\">here</a>.<br><br><h3>",
             "law": "<h3>The Scout Law</h3><p>1.&#xA0;A Scout is to be trusted.</p><p>2.&#xA0;A Scout is loyal.</p><p>3.&#xA0;A Scout is friendly and considerate.</p><p>4.&#xA0;A Scout belongs to the worldwide family of Scouts.</p><p>5.&#xA0;A Scout has courage in all difficulties.</p><p>6.&#xA0;A Scout makes good use of time and is careful of possessions and property.</p><p>7.&#xA0;A Scout has self-respect and respect for others.</p><p><br></p><h3>",
             "motto": "<h3>The Scout Motto</h3><p>Be Prepared</p><p><br></p><h3>"
-        }],
+        },
         "activity": [{
             "id": "activity_centre_service",
             "title": "Activity Centre Service",

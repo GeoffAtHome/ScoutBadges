@@ -19,7 +19,7 @@ import './the-badge';
 export class PromiseAndLaw extends LitElement {
 
   @property({ type: Object })
-  private lawAndPromise: Array<LawAndPromise> = defaultLawAndPromise
+  private lawAndPromise: LawAndPromise = defaultLawAndPromise
 
   static get styles() {
     return [
@@ -54,13 +54,13 @@ export class PromiseAndLaw extends LitElement {
     return html`
       <div class="box">
         <div class='card'>
-        <the-badge .card="${this.lawAndPromise[0].promise}"></the-badge>
+        <the-badge .card="${this.lawAndPromise.promise}"></the-badge>
         </div>
         <div class='card'>
-        <the-badge .card="${this.lawAndPromise[0].law}"></the-badge>
+        <the-badge .card="${this.lawAndPromise.law}"></the-badge>
         </div>
         <div class='card'>
-        <the-badge .card="${this.lawAndPromise[0].motto}"></the-badge>
+        <the-badge .card="${this.lawAndPromise.motto}"></the-badge>
         </div>
       </div>
     `;
