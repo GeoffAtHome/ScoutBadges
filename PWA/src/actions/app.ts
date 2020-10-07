@@ -80,7 +80,9 @@ export const navigate: ActionCreator<ThunkResult> = (path: string) => (dispatch)
   dispatch(updateBadge(badge));
 
   // Close the drawer - in case the *path* change came from a link in the drawer.
-  dispatch(updateDrawerState(false));
+  if (window.matchMedia("(max-width: 700px)").matches) {
+    dispatch(updateDrawerState(false));
+  }
 };
 
 
