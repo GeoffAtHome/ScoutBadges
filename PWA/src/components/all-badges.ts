@@ -26,16 +26,15 @@ export class AllBadges extends PageViewElement {
       SharedStyles,
       css`
             plastic-image {
-                padding: 5px;
-                width: 100px;
-                height: 100px;
+                width: 120px;
+                height: 120px;
+                margin: 5px;
             }
+
             .box {
-                display: flex;
-                flex-grow: 1;
-                justify-content: space-evenly;
-                flex-wrap: wrap;
-                flex-direction: row;
+              display: flex;
+              flex-wrap: wrap;
+              justify-content: center;
             }
             `
     ];
@@ -44,8 +43,10 @@ export class AllBadges extends PageViewElement {
   protected render() {
     return html`
       <h2>This page downloads all the badges to allow working offline</h2>
+      <div class='box'>
         ${this.allBadges.map((item) => html`
         <a href="${item.link}"><plastic-image fade sizing="contain" srcset="res/${item.name}.webp, res/${item.name}.${item.type}">X</plastic-image></a>`)}
+      </div>
     `;
   }
 }
