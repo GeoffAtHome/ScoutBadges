@@ -8,7 +8,8 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
 
-import { css, customElement, html, LitElement, property, PropertyValues } from 'lit-element';
+import { css, customElement, html, LitElement, property } from 'lit-element';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { unsafeHTML } from 'lit-html/directives/unsafe-html';
 
 // These are the shared styles needed by this element.
@@ -37,7 +38,7 @@ export class TheBadge extends LitElement {
         `
     }
 
-    updated(_changedProps: PropertyValues) {
+    updated() {
         document.documentElement.scrollTop = 0;
     }
 }

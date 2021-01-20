@@ -35,6 +35,70 @@ import { menuIcon, arrowBackIcon, shareIcon } from './my-icons';
 import './snack-bar';
 import { Badge, BadgeData, BadgeDataType, defaultBadge, defaultBadgeData, SectionData, SectionDataType } from '../actions/badgedata';
 
+
+function _BackButtonClicked() {
+  window.history.back();
+}
+
+function getTitle(page: string, badgeSet: string) {
+  let title = ''
+
+  switch (page.toLowerCase()) {
+
+    default:
+    case 'welcome':
+      title = 'Scout Badge Requirements';
+      break;
+    case 'badge':
+    case 'section':
+      {
+        switch (badgeSet.toLowerCase()) {
+          case 'lawandpromise':
+            title = 'Promise, Law and Motto';
+            break;
+
+          default:
+          case 'core':
+            title = 'Core';
+            break;
+
+          case 'activity':
+            title = 'Activity';
+            break;
+
+          case 'challenge':
+            title = 'Challenge';
+            break;
+
+          case 'staged':
+            title = 'Staged';
+            break;
+
+        }
+        break;
+      }
+
+    case 'allbadges':
+      title = 'All badges';
+      break;
+  }
+  return title;
+}
+
+function getTheBadge(badgeData: BadgeData, section: BadgeDataType, badgeSet: SectionDataType, badgeId: string): Badge {
+  if (section !== '' && section !== 'Badges') {
+    const data: SectionData = badgeData[section]
+    if (badgeSet !== '' && badgeSet !== 'lawAndPromise') {
+      const badges: Array<Badge> = data[badgeSet]
+      const badge = badges.find(item => item.id === badgeId)
+      if (badge !== undefined) {
+        return badge
+      }
+    }
+  }
+  return defaultBadge
+}
+
 @customElement('my-app')
 export class MyApp extends connect(store)(LitElement) {
   @query('#track')
@@ -68,6 +132,7 @@ export class MyApp extends connect(store)(LitElement) {
   private badgeData: BadgeData = defaultBadgeData
 
   private startX: number = 0;
+
   private startY: number = 0;
 
   static get styles() {
@@ -205,14 +270,14 @@ export class MyApp extends connect(store)(LitElement) {
     // Anything that's related to rendering should be done in here.
     return html`
     <mwc-drawer hasHeader type="dismissible" .open="${this._drawerOpened}">
-      <span slot="title"><img class='img-welcome' src='../../images/welcome.png'>Menu</span>
+      <span slot="title"><img class='img-welcome' src='../../images/welcome.png' alt='Menu'>Menu</span>
       <div>
         <nav class="toolbar-list">
           <a ?selected="${this._page === 'welcome'}" href="/welcome">Welcome</a>
-          <a ?selected="${this._section === 'Beavers'}" href="/Beavers/${this._badgeSet}"><img class='img-menu-beavers' src='../../images/beavers.png'></a>
-          <a ?selected="${this._section === 'Cubs'}" href="/Cubs/${this._badgeSet}"><img class='img-menu-cubs' src='../../images/cubs.png'></a>
-          <a ?selected="${this._section === 'Scouts'}" href="/Scouts/${this._badgeSet}"><img class='img-menu-scouts' src='../../images/scouts.png'></a>
-          <a ?selected="${this._section === 'Explorers'}" href="/Explorers/${this._badgeSet}"><img class='img-menu-explorers' src='../../images/explorers.png'></a>
+          <a ?selected="${this._section === 'Beavers'}" href="/Beavers/${this._badgeSet}"><img class='img-menu-beavers' src='../../images/beavers.png' alt='Beavers'></a>
+          <a ?selected="${this._section === 'Cubs'}" href="/Cubs/${this._badgeSet}"><img class='img-menu-cubs' src='../../images/cubs.png' alt='Cubs'></a>
+          <a ?selected="${this._section === 'Scouts'}" href="/Scouts/${this._badgeSet}"><img class='img-menu-scouts' src='../../images/scouts.png' alt='Scouts'></a>
+          <a ?selected="${this._section === 'Explorers'}" href="/Explorers/${this._badgeSet}"><img class='img-menu-explorers' src='../../images/explorers.png' alt='Explorers'></a>
           <a ?selected="${this._page === 'allbadges'}" href="/allbadges">All Badges</a>
         </nav>
       </div>
@@ -222,13 +287,13 @@ export class MyApp extends connect(store)(LitElement) {
           <div slot="title">${this.appTitle}</div>
           <mwc-button title="Menu"  class='btn' slot="navigationIcon" @click="${this._menuButtonClicked}">${menuIcon}</mwc-button> 
           <mwc-button class='btn' title="Share" slot="actionItems" @click="${this._ShareButtonClicked}">${shareIcon}</mwc-button>
-          <mwc-button class='btn' title="Back" slot="actionItems" @click="${this._BackButtonClicked}">${arrowBackIcon}</mwc-button>
+          <mwc-button class='btn' title="Back" slot="actionItems" @click="${_BackButtonClicked}">${arrowBackIcon}</mwc-button>
         </mwc-top-app-bar>
         <div>
           <main id="track" role="main">
             <welcome-page class="page" ?active="${this._page === 'welcome'}">Welcome</welcome-page>
             <section-badges class="page" ?active="${this._page === 'section'}" .badgeData="${this.badgeData}" .section="${this._section}" .badgeSet="${this._badgeSet}"></section-badges>
-            <display-badge class="page" ?active="${this._page === 'badge'}" .badge="${this.getTheBadge(this.badgeData, this._section, this._badgeSet, this._badge)}"></display-badge>
+            <display-badge class="page" ?active="${this._page === 'badge'}" .badge="${getTheBadge(this.badgeData, this._section, this._badgeSet, this._badge)}"></display-badge>
             <all-badges class="page" ?active="${this._page === 'allbadges'}" .allBadges="${this.badgeData.Badges}"></all-badges>
             <my-view404 class="page" ?active="${this._page === 'view404'}"></my-view404>
           </main>
@@ -262,17 +327,6 @@ export class MyApp extends connect(store)(LitElement) {
     this.getData()
   }
 
-  /*protected updated(changedProps: PropertyValues) {
-    if (changedProps.has('_page')) {
-      const pageTitle = this.appTitle + ' - ' + this._page;
-      updateMetadata({
-        title: pageTitle,
-        description: pageTitle
-        // This object also takes an image property, that points to an img src.
-      });
-    }
-  }*/
-
   private _menuButtonClicked() {
     store.dispatch(updateDrawerState(!this._drawerOpened));
   }
@@ -292,7 +346,7 @@ export class MyApp extends connect(store)(LitElement) {
     this._section = state.app!.section;
     this._badgeSet = state.app!.badgeSet;
     this._badge = state.app!.badge;
-    this.appTitle = this.getTitle(this._page, this._badgeSet)
+    this.appTitle = getTitle(this._page, this._badgeSet)
   }
 
   handleStart(e: TouchEvent) {
@@ -312,11 +366,11 @@ export class MyApp extends connect(store)(LitElement) {
     }
   }
 
-  _ShareButtonClicked(_event: Event) {
+  _ShareButtonClicked() {
     // Work out where we our to compose the correct content to share
     let title = "";
     let text = "";
-    let link = location.href;
+    const link = window.location.href;
 
     switch (this._page) {
       case 'Welcome':
@@ -330,19 +384,21 @@ export class MyApp extends connect(store)(LitElement) {
       case 'Cubs':
       case 'Scouts':
       case 'Explorers':
-        if (this._badgeSet == 'lawAndPromise') {
-          title = this._section + " " + this.title;
-          text = "You can use the following link for the " + title;
+        if (this._badgeSet === 'lawAndPromise') {
+          title = `${this._section} ${this.title}`;
+          text = `You can use the following link for the ${title}`;
         } else {
-          title = this._section + " " + this.title + " badge requirements";
-          text = "You can use the following link to find the requirements for your " + title;
+          title = `${this._section} ${this.title} badge requirements`;
+          text = `You can use the following link to find the requirements for your ${title}`;
         }
         break;
 
       case 'Badge':
-        const badge = this.getTheBadge(this.badgeData, this._section, this._badgeSet, this._badge);
-        title = this._section + " " + this._badgeSet + " " + badge.title;
-        text = "You can use the following link to find the requirements for your Scout Badges"
+        {
+          const badge = getTheBadge(this.badgeData, this._section, this._badgeSet, this._badge);
+          title = `${this._section} ${this._badgeSet} ${badge.title}`;
+          text = "You can use the following link to find the requirements for your Scout Badges"
+        }
         break;
 
       case 'AllBadges':
@@ -353,70 +409,15 @@ export class MyApp extends connect(store)(LitElement) {
 
     if ('share' in navigator) {
       navigator.share({
-        title: title,
-        text: text,
+        title,
+        text,
         url: link,
       })
     } else {
-      title = title.replace(/ /g, "%20") + "&body=" + text.replace(/ /g, "%20") + ": \n\r\n\r" + link;
-      location.href = 'mailto:?subject=' + title;
+      title = `${title.replace(/ /g, "%20")}&body=${text.replace(/ /g, "%20")}: \n\r\n\r${link}`;
+      window.location.href = `mailto:?subject=${title}`;
     }
   }
-
-  _BackButtonClicked(_event: Event) {
-    window.history.back();
-  }
-
-  private getTheBadge(badgeData: BadgeData, section: BadgeDataType, badgeSet: SectionDataType, badgeId: string): Badge {
-    if (section !== '' && section !== 'Badges') {
-      const data: SectionData = badgeData[section]
-      if (badgeSet !== '' && badgeSet !== 'lawAndPromise') {
-        const badges: Array<Badge> = data[badgeSet]
-        const badge = badges.find(item => item.id === badgeId)
-        if (badge != undefined) {
-          return badge
-        }
-      }
-    }
-    return defaultBadge
-  }
-
-  private getTitle(page: string, badgeSet: string) {
-    let title = ''
-
-    switch (page.toLowerCase()) {
-      case 'welcome':
-        title = 'Scout Badge Requirements';
-        break;
-      case 'badge':
-      case 'section':
-        {
-          switch (badgeSet.toLowerCase()) {
-            case 'lawandpromise':
-              title = 'Promise, Law and Motto';
-              break;
-            case 'core':
-              title = 'Core';
-              break;
-            case 'activity':
-              title = 'Activity';
-              break;
-            case 'challenge':
-              title = 'Challenge';
-              break;
-            case 'staged':
-              title = 'Staged';
-              break;
-          }
-          break;
-        }
-
-      case 'allbadges':
-        title = 'All badges';
-        break;
-    }
-    return title;
-  }
-
-
 }
+
+

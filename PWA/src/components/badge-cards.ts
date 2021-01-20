@@ -18,7 +18,7 @@ import './badge-card';
 @customElement('badge-cards')
 export class BadgeCards extends LitElement {
 
-  @property({ type: Object })
+  @property({ type: Array })
   private badges: Array<Badge> = defaultBadgeArray
 
   @property({ type: String })

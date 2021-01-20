@@ -8,10 +8,12 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
 
+/* eslint-disable import/extensions */
 import { Action, ActionCreator } from 'redux';
 import { ThunkAction } from 'redux-thunk';
 import { RootState } from '../store';
 import { BadgeDataType, SectionDataType } from './badgedata';
+
 export const UPDATE_PAGE = 'UPDATE_PAGE';
 export const UPDATE_OFFLINE = 'UPDATE_OFFLINE';
 export const UPDATE_DRAWER_STATE = 'UPDATE_DRAWER_STATE';
@@ -33,6 +35,104 @@ export interface AppActionUpdateBadge extends Action<'UPDATE_BADGE'> { badge: st
 export type AppAction = AppActionUpdatePage | AppActionUpdateOffline | AppActionUpdateDrawerState | AppActionOpenSnackbar | AppActionCloseSnackbar | AppActionUpdateSection | AppActionUpdateBadgeSet | AppActionUpdateBadge
 
 type ThunkResult = ThunkAction<void, RootState, undefined, AppAction>;
+
+function getPageFromPart(part: string) {
+  switch (part) {
+    case '':
+    case 'welcome':
+      return 'welcome'
+
+    case 'Beavers':
+    case 'Cubs':
+    case 'Scouts':
+    case 'Explorers':
+      return 'section'
+
+    case 'allbadges':
+      return 'allbadges'
+
+    default:
+      break;
+
+  }
+  return ''
+}
+
+function getSectionFromPart(part: string) {
+  switch (part) {
+    case 'Beavers':
+    case 'Cubs':
+    case 'Scouts':
+    case 'Explorers':
+      return part
+
+    default:
+      break;
+  }
+  return ''
+}
+
+const updatePage: ActionCreator<AppActionUpdatePage> = (page: string) => {
+  return {
+    type: UPDATE_PAGE,
+    page
+  };
+};
+
+const loadPage: ActionCreator<ThunkResult> = (page: string) => (dispatch) => {
+  switch (page) {
+    case 'welcome':
+      import('../components/welcome-page').then(() => {
+        // Put code in here that you want to run every time when
+        // navigating to view1 after my-view1 is loaded.
+      });
+      break;
+    case 'section':
+      import('../components/section-badges');
+      break;
+    case 'badge':
+      import('../components/display-badge');
+      break;
+    case 'allbadges':
+      import('../components/all-badges');
+      break;
+    default:
+      // eslint-disable-next-line no-param-reassign
+      page = 'view404';
+      import('../components/my-view404');
+  }
+
+  dispatch(updatePage(page));
+};
+
+export const updateDrawerState: ActionCreator<AppActionUpdateDrawerState> = (opened: boolean) => {
+  return {
+    type: UPDATE_DRAWER_STATE,
+    opened
+  };
+};
+
+
+const updateSection: ActionCreator<AppActionUpdateSection> = (section: BadgeDataType) => {
+  return {
+    type: UPDATE_SECTION,
+    section
+  };
+};
+
+export const updateBadgeSet: ActionCreator<AppActionUpdateBadgeSet> = (badgeSet: SectionDataType) => {
+  return {
+    type: UPDATE_BADGESET,
+    badgeSet
+  };
+};
+
+const updateBadge: ActionCreator<AppActionUpdateBadge> = (badge: string) => {
+  return {
+    type: UPDATE_BADGE,
+    badge
+  };
+};
 
 export const navigate: ActionCreator<ThunkResult> = (path: string) => (dispatch) => {
   // Extract the page name from path.
@@ -67,7 +167,11 @@ export const navigate: ActionCreator<ThunkResult> = (path: string) => (dispatch)
           badge = part;
           page = 'badge'
           break
+
+        default:
+          break
       }
+      // eslint-disable-next-line no-plusplus
       index++;
     }
   }
@@ -85,68 +189,6 @@ export const navigate: ActionCreator<ThunkResult> = (path: string) => (dispatch)
   }
 };
 
-
-function getPageFromPart(part: string) {
-  switch (part) {
-    case '':
-    case 'welcome':
-      return 'welcome'
-
-    case 'Beavers':
-    case 'Cubs':
-    case 'Scouts':
-    case 'Explorers':
-      return 'section'
-
-    case 'allbadges':
-      return 'allbadges'
-
-  }
-  return ''
-}
-
-function getSectionFromPart(part: string) {
-  switch (part) {
-    case 'Beavers':
-    case 'Cubs':
-    case 'Scouts':
-    case 'Explorers':
-      return part
-  }
-  return ''
-}
-
-const loadPage: ActionCreator<ThunkResult> = (page: string) => (dispatch) => {
-  switch (page) {
-    case 'welcome':
-      import('../components/welcome-page').then((_module) => {
-        // Put code in here that you want to run every time when
-        // navigating to view1 after my-view1 is loaded.
-      });
-      break;
-    case 'section':
-      import('../components/section-badges');
-      break;
-    case 'badge':
-      import('../components/display-badge');
-      break;
-    case 'allbadges':
-      import('../components/all-badges');
-      break;
-    default:
-      page = 'view404';
-      import('../components/my-view404');
-  }
-
-  dispatch(updatePage(page));
-};
-
-const updatePage: ActionCreator<AppActionUpdatePage> = (page: string) => {
-  return {
-    type: UPDATE_PAGE,
-    page
-  };
-};
 
 let snackbarTimer: number;
 
@@ -170,31 +212,3 @@ export const updateOffline: ActionCreator<ThunkResult> = (offline: boolean) => (
   });
 };
 
-export const updateDrawerState: ActionCreator<AppActionUpdateDrawerState> = (opened: boolean) => {
-  return {
-    type: UPDATE_DRAWER_STATE,
-    opened
-  };
-};
-
-
-const updateSection: ActionCreator<AppActionUpdateSection> = (section: BadgeDataType) => {
-  return {
-    type: UPDATE_SECTION,
-    section
-  };
-};
-
-export const updateBadgeSet: ActionCreator<AppActionUpdateBadgeSet> = (badgeSet: SectionDataType) => {
-  return {
-    type: UPDATE_BADGESET,
-    badgeSet
-  };
-};
-
-const updateBadge: ActionCreator<AppActionUpdateBadge> = (badge: string) => {
-  return {
-    type: UPDATE_BADGE,
-    badge
-  };
-};

@@ -8,26 +8,20 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
 
-declare global {
-  interface Window {
-    process?: Object;
-    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
-  }
-}
-
-import {
-  createStore,
-  compose,
-  applyMiddleware,
-  combineReducers,
-  Reducer,
-  StoreEnhancer
-} from 'redux';
+import { createStore, compose, applyMiddleware, combineReducers, Reducer, StoreEnhancer } from 'redux';
 import thunk, { ThunkMiddleware } from 'redux-thunk';
 import { lazyReducerEnhancer } from 'pwa-helpers/lazy-reducer-enhancer';
 
 import app, { AppState } from './reducers/app';
 import { AppAction } from './actions/app';
+
+declare global {
+  interface Window {
+    process?: Object;
+    // eslint-disable-next-line no-undef
+    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+  }
+}
 
 // Overall state extends static states and partials lazy states.
 export interface RootState {
