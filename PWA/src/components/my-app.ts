@@ -83,7 +83,7 @@ export class MyApp extends connect(store)(LitElement) {
           --app-section-even-color: #f7f7f7;
           --app-section-odd-color: white;
           --mdc-drawer-width: 170px;
-          --mdc-theme-primary:	  #7413dc'
+          --mdc-theme-primary:	  #7413dc;
         }
 
         .parent {
@@ -104,9 +104,6 @@ export class MyApp extends connect(store)(LitElement) {
           drawer button, and the text looks not centered. Add a padding to
           match that button */
           padding-right: 44px;
-        }
-
-        .toolbar-list {
         }
 
         .toolbar-list > a {
@@ -199,8 +196,6 @@ export class MyApp extends connect(store)(LitElement) {
           display: inline;
           max-width: 200px;
           max-height: 30px;
-          width: auto;
-          height: auto;
         }       
       `
     ];
